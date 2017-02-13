@@ -1,5 +1,5 @@
 <template>
-  <mt-header title="">
+  <mt-header :title="name">
     <div slot="left" >
       <mt-button icon="back" @click.native="back"></mt-button>
     </div>
@@ -11,7 +11,7 @@
   export default {
      data(){
         return {
-           name:'Foo'
+           name:'Top'
         }
      },
      methods:{
