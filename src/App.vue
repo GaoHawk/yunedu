@@ -11,7 +11,10 @@
     </section>
     <router-view></router-view> -->
 
-    <!-- <Tabbar></Tabbar> -->
+    <Tabbar></Tabbar>
+    <ul>
+      <li is="Notice" v-for="(todo,index) in todos" v-bind:title="todo" v-bind:index="index"></li>
+    </ul>
     <Notice></Notice>
   </div>
 </template>
@@ -25,7 +28,12 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       navs:[{name:'Foo',path:'/foo'},{name:'Bar',path:'/bar'},{name:'Toast',path:'/toast'}],
-      showHome:sessionStorage.showHome == undefined?true:eval(sessionStorage.showHome)
+      showHome:sessionStorage.showHome == undefined?true:eval(sessionStorage.showHome),
+      todos: [
+        'Do the dishes',
+        'Take out the trash',
+        'Mow the lawn'
+      ]
     }
   },
   components:{Tabbar,Notice},
