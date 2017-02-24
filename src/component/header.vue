@@ -7,6 +7,7 @@
   </mt-header>
 </template>
 <script>
+  import Bus from '../common/bus.js'
 
   export default {
      data(){
@@ -21,6 +22,9 @@
            this.$router.go(-1);
            this.$parent.$parent.showHome = !this.$parent.$parent.showHome;
            sessionStorage.showHome = this.$parent.$parent.showHome;
+        },
+        setTitle:function(){
+
         }
      }
 
