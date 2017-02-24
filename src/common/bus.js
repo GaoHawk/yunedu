@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-23 17:09:40
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-23 18:38:44
+* @Last Modified time: 2017-02-24 10:04:55
 */
 
 import Vue from 'vue'
@@ -11,8 +11,9 @@ var bus = new Vue()
 console.log(Head);
 bus.$on('getTarget', target => {
   console.log(target);
-  bus.$set('title',target);
-
+  console.log(Head);
+  // bus.$set(this.$data,'title',target);
+  console.log(bus)
     // this.name = target;
 });
 export  default bus

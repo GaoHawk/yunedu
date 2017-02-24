@@ -12,14 +12,16 @@ export default {
 
   methods:{
     router_h:function(event){
-         Bus.$emit('getTarget','作业')
-         console.log(Bus)
-         this.$parent.$router.push({path:'/foo'})
+         this.$store.commit('NEW_TITLE','作业');
+         // this.$parent.$router.push({path:'/foo'})
+         this.$store.commit('ROUT_PATH','/foo');
          this.$parent.showHome = !this.$parent.showHome;
 
     },
     router_n:function(){
-        this.$parent.$router.push({path:'/bar'})
+        this.$store.commit('NEW_TITLE','通知');
+        this.$store.commit('ROUT_PATH','/bar')
+        // this.$parent.$router.push({path:'/bar'})
         this.$parent.showHome = !this.$parent.showHome;
     }
   }
