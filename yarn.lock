@@ -3917,6 +3917,10 @@ vue-template-es2015-compiler@^1.2.2:
   version "1.5.0"
   resolved "http://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.5.0.tgz#e4f672ab1718a3abf9171a080daefac31be117e1"
 
+vue-upload-component@next:
+  version "2.1.0-beta.4"
+  resolved "http://registry.npm.taobao.org/vue-upload-component/download/vue-upload-component-2.1.0-beta.4.tgz#d1f6f50e805e1377c702382895503083704e2e45"
+
 vue@^2.1.0:
   version "2.1.10"
   resolved "http://registry.npm.taobao.org/vue/download/vue-2.1.10.tgz#c9235ca48c7925137be5807832ac4e3ac180427b"

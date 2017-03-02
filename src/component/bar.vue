@@ -2,10 +2,12 @@
     <div class="template">
      <child></child>
      Bar
+     <FileUpload type="button" title="Add upload files"></FileUpload>
      </div>
 </template>
 <script>
 import Header from './header.vue'
+import FileUpload from 'vue-upload-component'
 export default {
    data(){
       return {
@@ -13,7 +15,8 @@ export default {
       }
    },
    components:{
-       'child':Header
+       'child':Header,
+       FileUpload:FileUpload
    }
 }
 </script>
