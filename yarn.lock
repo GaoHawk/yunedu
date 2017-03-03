@@ -1504,6 +1504,10 @@ domain-browser@^1.1.1:
   version "1.1.7"
   resolved "http://registry.npm.taobao.org/domain-browser/download/domain-browser-1.1.7.tgz#867aa4b093faa05f1de08c06f4d7b21fdf8698bc"
 
+dropzone@^4.3.0:
+  version "4.3.0"
+  resolved "http://registry.npm.taobao.org/dropzone/download/dropzone-4.3.0.tgz#48b0b8f2ad092872e4b535b672a7c3f1a1d67c91"
+
 duplexer3@^0.1.4:
   version "0.1.4"
   resolved "http://registry.npm.taobao.org/duplexer3/download/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
@@ -3921,7 +3925,14 @@ vue-upload-component@next:
   version "2.1.0-beta.4"
   resolved "http://registry.npm.taobao.org/vue-upload-component/download/vue-upload-component-2.1.0-beta.4.tgz#d1f6f50e805e1377c702382895503083704e2e45"
 
-vue@^2.1.0:
+vue2-dropzone@2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/vue2-dropzone/download/vue2-dropzone-2.0.0.tgz#398e57012a2f3bd0979cdaf1496af7c9e2521c3b"
+  dependencies:
+    dropzone "^4.3.0"
+    vue "^2.0.0"
+
+vue@^2.0.0, vue@^2.1.0:
   version "2.1.10"
   resolved "http://registry.npm.taobao.org/vue/download/vue-2.1.10.tgz#c9235ca48c7925137be5807832ac4e3ac180427b"
 

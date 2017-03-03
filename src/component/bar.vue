@@ -2,7 +2,7 @@
     <div class="template">
      <child></child>
      Bar
-     <FileUpload type="button" title="Add upload files"></FileUpload>
+     <FileUpload  title="Add upload files"></FileUpload>
      </div>
 </template>
 <script>
