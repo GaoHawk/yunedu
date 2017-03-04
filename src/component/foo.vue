@@ -1,22 +1,57 @@
 <template>
 <div class="template">
   <child></child>
- <mt-field label="用户名" placeholder="请输入用户名"></mt-field>
- <mt-field label="邮箱" placeholder="请输入邮箱" type="email"></mt-field>
- <mt-field label="密码" placeholder="请输入密码" type="password"></mt-field>
- <mt-field label="手机号" placeholder="请输入手机号" type="tel"></mt-field>
- <mt-field label="网站" placeholder="请输入网址" type="url"></mt-field>
- <mt-field label="数字" placeholder="请输入数字" type="number"></mt-field>
- <mt-field label="生日" placeholder="请输入生日" type="date"></mt-field>
- <mt-field label="自我介绍" placeholder="自我介绍" type="textarea" rows="4"></mt-field></div>
+ <mt-checklist
+    title="班级选择"
+    align="right"
+    v-model='value'
+    :options="['选项A','选项B','选项C']"
+    >
+ </mt-checklist>
+ <div>
+   <mt-cell title="选中的项">{{ value }}</mt-cell>
+ </div>
+ <select v-model="selected">
+   <option>语文</option>
+   <option>数学</option>
+   <option>英文</option>
+ </select>
+ <mt-field  placeholder="输入作业内容"  type="textarea" rows="5"></mt-field>
+ <mt-field label="截止日期" placeholder="请输截止日期" type="date"></mt-field>
+ <div class="center">
+   <button>清空</button>
+   <button>提交</button>
+ </div>
+ </div>
 </template>
+<style>
+    button{
+       padding: 6px 12px;
+    }
+    .center{
+      margin-top: 10px;
+      text-align: center;
+    }
+   textarea{
+      resize:none;
+   }
+   select{
+    width: 100%;
+    height: 25px;
+   }
+   .page-checklist .page-part {
+     margin-top: 40px;
+   }
+</style>
 <script>
 import Header from './header.vue'
-import { Field } from 'mint-ui';
+import { Field,Checklist } from 'mint-ui';
 export default {
    data(){
       return {
-         name:'Foo'
+         name:'Foo',
+         value:[],
+         selected:'语文'
       }
    },
    components:{

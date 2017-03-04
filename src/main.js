@@ -8,8 +8,10 @@ import Toast from './component/toast.vue'
 import btn from './component/button.vue'
 import store from './vuex/store'
 import { sync } from 'vuex-router-sync'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
-
+Vue.use(VueAxios,axios)
 Vue.use(MintUi)
 Vue.use(VueRouter)
 var routes = [{ path: '/foo', component: Foo }, { path: '/bar', component: Bar },{ path: '/toast',component:Toast }

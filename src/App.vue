@@ -23,8 +23,8 @@
 <script>
 import Tabbar from './component/tabbar.vue'
 // import Notice from './component/notice.vue'
-import Bus from './common/bus.js'
-console.log(Bus)
+// import Bus from './common/bus.js'
+
 export default {
   name: 'app',
 
@@ -54,6 +54,9 @@ export default {
 </script>
 
 <style>
+*{
+   box-sizing: border-box;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

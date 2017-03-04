@@ -3867,6 +3867,10 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-axios@^1.2.2:
+  version "1.2.2"
+  resolved "http://registry.npm.taobao.org/vue-axios/download/vue-axios-1.2.2.tgz#d18bb48fa7bf469ffa86676960f52a89b7d38a9d"
+
 vue-hot-reload-api@^2.0.1:
   version "2.0.8"
   resolved "http://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.0.8.tgz#b3ba6a9a443d561b14f2785c8ea056618cb2faa3"
