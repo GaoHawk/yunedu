@@ -1,5 +1,5 @@
 <template>
-<div class="page-tabbar">
+<div class="page-tabbar" >
   <div class="page-wrap">
     <div class="page-title"></div>
     <div>
@@ -9,14 +9,16 @@
         <li class="active">{{ selected }}</li>
       </ol>
     </div>
-    <mt-tab-container class="page-tabbar-container" v-model="selected">
+    <mt-tab-container class="page-tabbar-container" v-model="selected" @touchmove.native="hidetab">
       <mt-tab-container-item id="全部">
         <div class="page-infinite-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
         <ul class="page-infinite-list"
           v-infinite-scroll="loadMore"
           infinite-scroll-disabled="loading"
           infinite-scroll-distance="10">
-          <li v-for="item in list" class="page-infinite-listitem">{{ item }}</li>
+          <li v-for="item in list" class="page-infinite-listitem">
+          <mt-cell v-if="item.title" :title="item.title"  :value="item.value?item.value:item.homeworks[0].first" @click.native="testclick" is-link>
+          </li>
         </ul>
         <p v-show="loading" class="page-infinite-loading">
           <mt-spinner type="fading-circle"></mt-spinner>
@@ -25,10 +27,14 @@
       </div>
       </mt-tab-container-item>
       <mt-tab-container-item id="作业">
-        <mt-cell v-for="n in 5" :title="'作业 ' + n" />
+        <mt-cell v-for="m in homework" :title="m.title" :value="m.homeworks[0].first" @click.native="testclick" is-link/>
       </mt-tab-container-item>
       <mt-tab-container-item id="通知">
-        <mt-cell v-for="n in 7" :title="'通知 ' + n" />
+      <mt-cell v-for="n in notice" :title="n.title"  :value="n.value" @click.native="testclick(n.index)" is-link>
+<!--          <p style="height:110px;text-indent:2em;">周三临时放假,大家不用到学校,周三临时放假,大家不用到学校,</p>
+         <span style="color:#gray;position:absolute;right:5px;line-hight:80px;top:114px;">2月22日 星期二</span> -->
+
+      </mt-cell>
       </mt-tab-container-item>
 
     </mt-tab-container>
@@ -54,10 +60,29 @@
 <script>
 export default {
   name: 'page-tabbar',
+  computed:{
+     list:function(){
+       return this.notice.concat(this.homework);
+     }
+  },
   data() {
     return {
       selected: '全部',
-      list: [],
+      notice:[
+         { index:1, title:"高三通知", value:"临时放假"},
+         { index:2,title:"高二通知",value:"下周期中考"},
+         { index:3,title:"高一通知",value:"周四下午实践"}
+      ],
+      homework:[
+         {title:"语文作业",homeworks:[
+            {first:"抄《天马》两遍"},
+            {second:"背诵课文"}
+         ]},
+         {title:"数学作业",homeworks:[
+            {first:"几何体课后题"}
+         ]}
+      ],
+
       loading: false,
       allLoaded: false,
       wrapperHeight: 0
@@ -67,7 +92,7 @@ export default {
       loadMore() {
         this.loading = true;
         setTimeout(() => {
-          let last = this.list[this.list.length - 1];
+          let last = this.list.length;
           console.log(last)
           if(last<40){
 
@@ -75,7 +100,8 @@ export default {
             return;
           }
           for (let i = 1; i <= 10; i++) {
-            this.list.push(last + i);
+            var objj = { title:"高三通知", value:"临时放假"};
+            this.list.push(objj);
           }
           this.loading = false;
         }, 2500);
@@ -83,17 +109,39 @@ export default {
       showTab(){
           var mintTab = document.querySelector('.mint-tabbar.is-fixed');
           mintTab.style.setProperty('top','auto');
+      },
+      hidetab(){
+          var mintTab = document.querySelector('.mint-tabbar.is-fixed');
+          mintTab.style.setProperty('top','100%');
+      },
+      testclick(index){
+        console.log(index)
+        var data = this.notice[index]
+        console.log(data)
+        this.$parent.showHome = !this.$parent.showHome;
+        this.$store.commit('SET_DATA',data)
+         this.$store.commit('NEW_TITLE','通知');
+         this.$store.commit('ROUT_PATH','/notice')
+
       }
   },
   mounted(){
       this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
       for (let i = 1; i <= 20; i++) {
-        this.list.push(i);
+        var obj = { title:"高三通知", value:"临时放假"};
+        this.list.push(obj);
       }
   }
 };
 </script>
 <style>
+   /*cell 自定义样式*/
+   .mint-cell-title{
+      min-width: 70px;
+   }
+   .mint-cell-value{
+       width:80%;
+   }
    /*底部栏动画*/
    .mint-tabbar.is-fixed{
       top:100%;

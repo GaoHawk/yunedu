@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-24 17:13:57
+* @Last Modified time: 2017-03-24 17:02:49
 */
 
 import Vue from 'vue'
@@ -18,7 +18,8 @@ export default new Vuex.Store({
 
   state: {
     title: '',
-    path:''
+    path:'',
+    currentData:''
   },
   actions: {
     setNewTitle ({commit}, msg) {
@@ -29,6 +30,9 @@ export default new Vuex.Store({
     },
     route_back({commit}){
        commit('GO_BACK')
+    },
+    setCurrentData({commit},obj){
+       commit('SET_DATA',obj)
     }
   },
   mutations: {
@@ -44,6 +48,9 @@ export default new Vuex.Store({
     },
     GET_CURRENTROUTER(state,path){
        state.path = path;
+    },
+    SET_DATA(state,obj){
+       state.currentData = obj;
     }
   },
 

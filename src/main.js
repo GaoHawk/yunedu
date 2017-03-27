@@ -10,11 +10,15 @@ import store from './vuex/store'
 import { sync } from 'vuex-router-sync'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import Notice from './component/notice.vue'
+import homework from './component/homework.vue'
 
 Vue.use(VueAxios,axios)
 Vue.use(MintUi)
 Vue.use(VueRouter)
-var routes = [{ path: '/foo', component: Foo }, { path: '/bar', component: Bar },{ path: '/toast',component:Toast }
+var routes = [{ path: '/foo', component: Foo }, { path: '/bar', component: Bar },{ path: '/toast',component:Toast },
+      { path: '/notice', component:Notice },
+      { path: '/homework',component:homework }
 ];
 
 

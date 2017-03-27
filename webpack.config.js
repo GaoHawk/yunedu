@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+const vuxLoader = require('vux-loader')
 
 
 module.exports = {

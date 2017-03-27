@@ -22,7 +22,7 @@
     "vue2-dropzone": "2.0.0",
     "vuex": "^2.1.2",
     "vuex-router-sync": "^4.1.2",
-    "vux": "^2.1.0-rc.31",
+    "vux": "^2.1.1-rc.13",
     "vux-loader": "^1.0.35"
   },
   "devDependencies": {
