@@ -15,21 +15,30 @@ export default {
          this.$store.commit('NEW_TITLE','作业');
          // this.$parent.$router.push({path:'/foo'})
          this.$store.commit('ROUT_PATH','/foo');
-         this.$parent.showHome = !this.$parent.showHome;
+         this.$store.commit('SET_PREPATH','/');
+         this.$store.commit('SET_HOME',false);
+         sessionStorage.showHome = false;
+      
 
     },
     router_n:function(){
         this.$store.commit('NEW_TITLE','通知');
-        this.$store.commit('ROUT_PATH','/bar')
+        this.$store.commit('ROUT_PATH','/bar');
+        this.$store.commit('SET_PREPATH','/');
+        this.$store.commit('SET_HOME',false);
+        sessionStorage.showHome = false;
         // this.$parent.$router.push({path:'/bar'})
-        this.$parent.showHome = !this.$parent.showHome;
+
     }
   }
 };
 </script>
 
 <style lang="css">
-
+  .page-button{
+    text-align: center;
+    margin-top: 20px;
+  }
   @component-namespace page {
     @component button {
       padding: 0 15px 15px;

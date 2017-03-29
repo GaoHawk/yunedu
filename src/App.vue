@@ -1,14 +1,5 @@
 <template>
   <div id="app">
-  <Button v-show="showHome"></Button>
-<!--     <section class="page-demo" v-show="showHome">
-      <div v-for="group in navs">
-        <mt-cell
-           v-html="group.name" @click.native="goRoute(group)">
-
-        </mt-cell>
-      </div>
-    </section> -->
     <router-view :title="title"></router-view>
 
     <Tabbar v-show="showHome"></Tabbar>
@@ -22,17 +13,28 @@
 
 <script>
 import Tabbar from './component/tabbar.vue'
+import { mapState } from 'vuex'
 // import Notice from './component/notice.vue'
 // import Bus from './common/bus.js'
 
 export default {
+  beforeCreate(){
+     console.log(typeof sessionStorage.showHome)
+     var bl = eval(sessionStorage.showHome)
+     console.log(bl);
+     this.$store.commit('SET_HOME',bl===undefined?true:bl)
+     console.log(this.$store)
+  },
   name: 'app',
-
+  computed:{
+    ...mapState({
+       showHome:state => state.showHome
+    })
+  },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
       navs:[{name:'Foo',path:'/foo'},{name:'Bar',path:'/bar'},{name:'Toast',path:'/toast'}],
-      showHome:true,
       todos: [
         'Do the dishes',
         'Take out the trash',

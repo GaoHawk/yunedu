@@ -4,11 +4,38 @@
     <div class="page-title"></div>
     <div>
       <ol class="breadcrumb">
-        <li><a href="#">教师首页</a></li>
-        <li><a href="#">2017</a></li>
-        <li class="active">{{ selected }}</li>
+        <li class="normal" :class="{ active: isActive }" @click="jumpToHome">教师首页</li>
+        <li class="normal" :class="{ active: !selected }" v-show="year" @click="jumpToIndex">{{value}}</li>
+        <li class="normal active" v-show="selected">{{ selected }}</li>
       </ol>
     </div>
+     <div v-show="!selected && !isActive" class="yearStyle">
+         <mt-button size="normal" type="default" @click="tabTo('全部')">全部</mt-button> 
+         <mt-button size="normal" type="default" @click="tabTo('作业')">作业</mt-button> 
+         <mt-button size="normal" type="default" @click="tabTo('通知')">通知</mt-button> 
+     </div>  
+      <Btn v-show="isActive&& !selected"></Btn>
+     <mt-radio
+     v-show="isActive&& !selected"
+     title="选择学年信息"
+     v-model="value"
+     :options="['2017','2016','2015']"
+     @change.native="clickRadio(value)"
+     @click.native="clickR()"
+     class="custom-radio"
+     >
+     </mt-radio> 
+     <!--<div class="radio_demo" v-show="isActive && !selected">
+       <div class="radio_row">
+        <input type="radio" id="one" value="One" v-model="picked" style="min-height: 48px;">
+        <label for="one" style="width:100%;">One</label>
+       </div>
+       <div class="radio_row">
+          <input type="radio" id="two" value="Two" v-model="picked" style="min-height: 48px;">
+          <label for="two" style="width:100%;">Two</label>
+       </div>
+        <span>Picked: {{ picked }}</span>
+     </div>-->
     <mt-tab-container class="page-tabbar-container" v-model="selected" @touchmove.native="hidetab">
       <mt-tab-container-item id="全部">
         <div class="page-infinite-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
@@ -58,6 +85,7 @@
 
 </template>
 <script>
+import Btn from './button.vue'
 export default {
   name: 'page-tabbar',
   computed:{
@@ -65,9 +93,15 @@ export default {
        return this.notice.concat(this.homework);
      }
   },
+  components:{ Btn },
   data() {
     return {
+      picked:'',
       selected: '全部',
+      isActive:false,
+      isActiveB:false,
+      year:true,
+      value:'2017',
       notice:[
          { index:1, title:"高三通知", value:"临时放假"},
          { index:2,title:"高二通知",value:"下周期中考"},
@@ -107,6 +141,7 @@ export default {
         }, 2500);
       },
       showTab(){
+          if(this.isActive){ return; }
           var mintTab = document.querySelector('.mint-tabbar.is-fixed');
           mintTab.style.setProperty('top','auto');
       },
@@ -123,6 +158,34 @@ export default {
          this.$store.commit('NEW_TITLE','通知');
          this.$store.commit('ROUT_PATH','/notice')
 
+      },
+      jumpToHome(){
+         this.year = false;
+         this.selected = '';
+         this.isActive = true;
+         var mintTab = document.querySelector('.mint-tabbar.is-fixed');
+          mintTab.style.setProperty('top','100%');
+      },
+      jumpToIndex(){
+        var mintTab = document.querySelector('.mint-tabbar.is-fixed');
+          mintTab.style.setProperty('top','auto');
+        this.selected = '';
+        this.isActiveB = true;
+      },
+      tabTo(msg){
+        this.selected = msg;
+      },
+      clickR(ev){
+         console.log(this)
+      },
+      clickRadio(value){
+         console.log(value)
+         var mintTab = document.querySelector('.mint-tabbar.is-fixed');
+          mintTab.style.setProperty('top','auto');
+         this.year = true;
+         this.isActive= false;
+         this.selected = '';
+         this.isActiveB = true;
       }
   },
   mounted(){
@@ -135,8 +198,23 @@ export default {
 };
 </script>
 <style>
+    div.custom-radio div.mint-cell-title{
+       min-width:100%;
+    }
+
+   .mint-radiolist-label {
+      padding:0!important;
+   }
+   .yearStyle{
+      text-align: center;
+      margin-top: 12px; 
+   }
+   .normal{
+      color:#337ab0;
+      margin: 0;
+   }
    /*cell 自定义样式*/
-   .mint-cell-title{
+   li.page-infinite-listitem  div.mint-cell-title{
       min-width: 70px;
    }
    .mint-cell-value{

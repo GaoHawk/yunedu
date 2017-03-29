@@ -17,17 +17,22 @@
      },
      computed:{
         ...mapState({
-          title: state => state.title
+          title: state => state.title,
+          path:state => state.path,
+          prevPath:state => state.prevPath
         })
      },
      methods:{
         back:function(){
            // console.log(this);
            console.log('back')
+           this.$store.commit('SET_PREPATH',this.path);
+           this.$store.commit('ROUT_PATH',this.prevPath);
+           console.log(this.$store)
            // this.$router.go(-1);
-           this.$store.commit('GO_BACK');
-           this.$parent.$parent.showHome = !this.$parent.$parent.showHome;
-           sessionStorage.showHome = this.$parent.$parent.showHome;
+          //  this.$store.commit('GO_BACK');
+          //  this.$store.commit('SET_HOME',true);
+          //  sessionStorage.showHome = true;
         },
         setTitle:function(){
 
