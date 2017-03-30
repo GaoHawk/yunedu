@@ -19,20 +19,27 @@
         ...mapState({
           title: state => state.title,
           path:state => state.path,
-          prevPath:state => state.prevPath
+          prePath:state => state.prevPath
         })
      },
      methods:{
         back:function(){
            // console.log(this);
            console.log('back')
-           this.$store.commit('SET_PREPATH',this.path);
-           this.$store.commit('ROUT_PATH',this.prevPath);
-           console.log(this.$store)
            // this.$router.go(-1);
-          //  this.$store.commit('GO_BACK');
-          //  this.$store.commit('SET_HOME',true);
-          //  sessionStorage.showHome = true;
+           this.$store.commit('GO_BACK');
+           console.log(this.$store)
+           console.log(this.path);
+          //  手动控制router路径 控制页面显示
+         //起始页面直接返回跳转，上传页面跳转回布置作业页面 
+           if(this.path == '/'|| this.path =='/bar'){
+             this.$store.commit('SET_HOME',true);
+             sessionStorage.showHome = true;
+             console.log(this.path)
+           }else{
+             this.$store.commit('NEW_TITLE','作业');
+           }
+          
         },
         setTitle:function(){
 

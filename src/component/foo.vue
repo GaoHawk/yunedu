@@ -8,7 +8,7 @@
     class="form-checklist"
     >
  </mt-checklist>
- <div>
+ <div class="custom-select">
    <mt-cell title="选中的项">{{ value }}</mt-cell>
  </div>
  <select v-model="selected">
@@ -16,9 +16,12 @@
    <option>数学</option>
    <option>英文</option>
  </select>
- <mt-field  placeholder="输入作业内容"  type="textarea" rows="5"></mt-field>
+ <mt-field  placeholder="输入作业内容"  type="textarea" rows="4"></mt-field>
 
- <mt-field label="上传附件" placeholder="请选择图片和音频文件" @click.native="goToUpload"></mt-field>
+ <mt-field label="上传附件" placeholder="请选择图片和音频文件" @click.native="goToUpload"
+ :value="uploadFiles" style="font-size:12px">
+ <!--<img :src="imgSrc" height="45px" width="100px">-->
+ </mt-field>
  <mt-field label="截止日期" placeholder="请输截止日期" type="date"></mt-field>
  <div class="center">
    <button>清空</button>
@@ -27,6 +30,9 @@
  </div>
 </template>
 <style>
+    div.custom-select div.mint-cell-title{
+       min-width:74px;
+    }
     div.form-checklist div.mint-cell-title{
       width:100%;
       flex:none;
@@ -55,7 +61,26 @@
 <script>
 import Header from './header.vue'
 import { Field,Checklist } from 'mint-ui';
+import { mapState } from 'vuex'
 export default {
+   computed:{
+       ...mapState({
+          file:state => state.files
+       }),
+       uploadFiles:function(){
+         var str = '';
+         for(let i = 0;i<this.file.length;i++){
+           console.log(this.file[i]);
+           str += this.file[i].file +","
+         }
+         str = str.substr(0,str.length-2);
+         return str;
+       },
+       imgSrc:function(){
+         console.log(this.file[0])
+         return this.file[0]?this.file[0].url:null;
+       }
+   },
    data(){
       return {
          name:'Foo',

@@ -37,6 +37,13 @@ export default {
            console.log(this.$refs);
            console.log(file);
            console.log(json);
+           console.log(json.filename);
+           console.log(json.smallurl);
+           var file = {
+               file:json.filename,
+               url:json.smallurl
+           }
+           this.$store.commit('SET_FILES',file)
        },
        uploadFile:function(){
           var files = this.$refs.myUnique;
