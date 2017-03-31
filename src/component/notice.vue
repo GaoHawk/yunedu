@@ -22,11 +22,9 @@
   }
   .custom-label{
       min-width: 70px;
-      flex:1;
-      -webkit-box-flex:1;
+  
   }
   .custom-wrap{
-        background-origin
         position: relative;
         background-image: -webkit-linear-gradient(top, #d9d9d9, #d9d9d9 50%, transparent 50%);
         background-image: linear-gradient(180deg, #d9d9d9, #d9d9d9 50%, transparent 50%);

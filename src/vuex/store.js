@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-03-30 11:13:02
+ * @Last Modified time: 2017-03-31 17:33:21
 */
 
 import Vue from 'vue'
@@ -21,8 +21,11 @@ export default new Vuex.Store({
     prevPath:'',
     path:'',
     currentData:'',
+    homework_data:'',
     showHome:true,
-    files:[]
+    files:[],
+    stoName:'',
+    index_state:'全部'
   },
   actions: {
     setNewTitle ({commit}, msg) {
@@ -40,11 +43,20 @@ export default new Vuex.Store({
     setCurrentData({commit},obj){
        commit('SET_DATA',obj)
     },
+    setHomeworkData({commit},obj){
+       commit('SET_HOMEWORK_DATA',obj)
+    },
     setHomeState({commit},bl){
       commit('SET_HOME',bl)
     },
     setFiles({commit},fileName){
       commit('SET_FILES',fileName)
+    },
+    setSTO_Name({commit},name){
+      commit('SET_STO_NAME',name);
+    },
+    setIndex_State({commit},val){
+      commit('SET_INDEX_STA',val)
     }
   },
   mutations: {
@@ -75,6 +87,15 @@ export default new Vuex.Store({
     },
     SET_FILES(state,file){
       state.files.push(file);
+    },
+    SET_STO_NAME(state,name){
+       state.stoName = name
+    },
+    SET_INDEX_STA(state,val){
+       state.index_state = val;
+    },
+    SET_HOMEWORK_DATA(state,obj){
+       state.homework_data = obj;
     }
   },
 

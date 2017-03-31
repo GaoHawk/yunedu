@@ -53,11 +53,11 @@
         </p>
       </div>
       </mt-tab-container-item>
-      <mt-tab-container-item id="作业">
-        <mt-cell v-for="m in homework" :title="m.title" :value="m.homeworks[0].first" @click.native="testclick" is-link/>
+      <mt-tab-container-item id="作业" class="custom-homework">
+        <mt-cell v-for="m in homework" :title="m.title" :value="m.homeworks[0].first" @click.native="testclick2(m.index)" is-link/>
       </mt-tab-container-item>
-      <mt-tab-container-item id="通知">
-      <mt-cell v-for="n in notice" :title="n.title"  :value="n.value" @click.native="testclick(n.index)" is-link>
+      <mt-tab-container-item id="通知" class="custom-notice">
+      <mt-cell v-for="n in notice" :title="n.title"  :value="n.value" @click.native="testclick1(n.index)" is-link>
 <!--          <p style="height:110px;text-indent:2em;">周三临时放假,大家不用到学校,周三临时放假,大家不用到学校,</p>
          <span style="color:#gray;position:absolute;right:5px;line-hight:80px;top:114px;">2月22日 星期二</span> -->
 
@@ -68,15 +68,15 @@
   </div>
   <button class="diaphaneity" @click="showTab"></button>
   <mt-tabbar v-model="selected" fixed>
-    <mt-tab-item id="全部">
+    <mt-tab-item id="全部" @click.native="testClick('全部')">
       <img slot="icon" src="../assets/person.png">
       全部
     </mt-tab-item>
-    <mt-tab-item id="作业">
+    <mt-tab-item id="作业" @click.native="testClick('作业')">
       <img slot="icon" src="../assets/find.png">
       作业
     </mt-tab-item>
-    <mt-tab-item id="通知">
+    <mt-tab-item id="通知" @click.native="testClick('通知')">
       <img slot="icon" src="../assets/search.png">
       通知
     </mt-tab-item>
@@ -86,18 +86,22 @@
 </template>
 <script>
 import Btn from './button.vue'
+import { mapState } from 'vuex'
+
 export default {
   name: 'page-tabbar',
   computed:{
      list:function(){
        return this.notice.concat(this.homework);
-     }
+     },
+     ...mapState({
+        selected:state => state.index_state
+     })
   },
   components:{ Btn },
   data() {
     return {
       picked:'',
-      selected: '全部',
       isActive:false,
       isActiveB:false,
       year:true,
@@ -108,11 +112,17 @@ export default {
          { index:3,title:"高一通知",value:"周四下午实践"}
       ],
       homework:[
-         {title:"语文作业",homeworks:[
+         {
+            index:1,
+            title:"语文作业",
+            homeworks:[
             {first:"抄《天马》两遍"},
             {second:"背诵课文"}
          ]},
-         {title:"数学作业",homeworks:[
+         {
+            index:2,
+            title:"数学作业",
+            homeworks:[
             {first:"几何体课后题"}
          ]}
       ],
@@ -149,15 +159,25 @@ export default {
           var mintTab = document.querySelector('.mint-tabbar.is-fixed');
           mintTab.style.setProperty('top','100%');
       },
-      testclick(index){
-        console.log(index)
-        var data = this.notice[index]
+      testclick1(index){
+
+        var data = this.notice[(index-1)]
         console.log(data)
-        this.$parent.showHome = !this.$parent.showHome;
+        this.$store.commit('SET_HOME',false);
+        sessionStorage.showHome = false;
         this.$store.commit('SET_DATA',data)
          this.$store.commit('NEW_TITLE','通知');
-         this.$store.commit('ROUT_PATH','/notice')
-
+         this.$store.commit('ROUT_PATH','/notice');
+         this.$store.commit('SET_PREPATH','/');
+      },
+      testclick2(index){
+        var data = this.homework[(index-1)];
+        this.$store.commit('SET_HOME',false);
+        sessionStorage.showHome = false;
+        this.$store.commit('SET_HOMEWORK_DATA',data)
+         this.$store.commit('NEW_TITLE','作业');
+         this.$store.commit('ROUT_PATH','/homework');
+         this.$store.commit('SET_PREPATH','/');
       },
       jumpToHome(){
          this.year = false;
@@ -186,6 +206,9 @@ export default {
          this.isActive= false;
          this.selected = '';
          this.isActiveB = true;
+      },
+      testClick(value){
+        this.$store.commit('SET_INDEX_STA',value);
       }
   },
   mounted(){
@@ -216,6 +239,9 @@ export default {
    /*cell 自定义样式*/
    li.page-infinite-listitem  div.mint-cell-title{
       min-width: 70px;
+   }
+   .custom-homework div.mint-cell-title,.custom-notice div.mint-cell-title{
+     min-width:70px;
    }
    .mint-cell-value{
        width:80%;

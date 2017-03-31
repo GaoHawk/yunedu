@@ -19,16 +19,20 @@
         ...mapState({
           title: state => state.title,
           path:state => state.path,
-          prePath:state => state.prevPath
+          prePath:state => state.prevPath,
+          // 上传文件使用的间隔函数
+          st:state => state.stoName
         })
      },
      methods:{
         back:function(){
-           // console.log(this);
+
+           if(this.st.length>0){
+             clearTimeout(this.st);
+           }
            console.log('back')
-           // this.$router.go(-1);
+
            this.$store.commit('GO_BACK');
-           console.log(this.$store)
            console.log(this.path);
           //  手动控制router路径 控制页面显示
          //起始页面直接返回跳转，上传页面跳转回布置作业页面 

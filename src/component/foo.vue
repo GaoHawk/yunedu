@@ -73,7 +73,9 @@ export default {
            console.log(this.file[i]);
            str += this.file[i].file +","
          }
-         str = str.substr(0,str.length-2);
+        //  if(this.file.length>1){
+            str = str.substr(0,str.length-1);
+        //  }
          return str;
        },
        imgSrc:function(){
