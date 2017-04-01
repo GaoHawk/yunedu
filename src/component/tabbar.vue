@@ -185,15 +185,17 @@ export default {
          this.isActive = true;
          var mintTab = document.querySelector('.mint-tabbar.is-fixed');
           mintTab.style.setProperty('top','100%');
+         this.$store.commit('SET_INDEX_STA',''); 
       },
       jumpToIndex(){
         var mintTab = document.querySelector('.mint-tabbar.is-fixed');
           mintTab.style.setProperty('top','auto');
+        this.$store.commit('SET_INDEX_STA','');  
         this.selected = '';
         this.isActiveB = true;
       },
       tabTo(msg){
-        this.selected = msg;
+        this.$store.commit('SET_INDEX_STA',msg); 
       },
       clickR(ev){
          console.log(this)
@@ -268,10 +270,7 @@ export default {
      /*top:-35px;*/
      /*bottom: 35px;*/
   }
-/*  .hold{
-     height: 35px;
-     width: 100%;
-  }*/
+
   .page-infinite-list{
       margin:0;
   }
