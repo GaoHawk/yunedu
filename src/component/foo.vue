@@ -1,6 +1,6 @@
 <template>
 <div class="template">
-  <child></child>
+  <child ref="profile"></child>
  <mt-checklist
     title="班级选择"
     v-model='value'
@@ -16,17 +16,17 @@
    <option>数学</option>
    <option>英文</option>
  </select>
- <mt-field  placeholder="输入作业内容"  type="textarea" rows="4"></mt-field>
+ <mt-field  placeholder="输入作业内容"  v-model="content" type="textarea" rows="4"></mt-field>
 
  <mt-field label="上传附件" placeholder="请选择图片和音频文件" @click.native="goToUpload"
  :value="uploadFiles" style="font-size:12px">
  <!--<img :src="imgSrc" height="45px" width="100px">-->
  </mt-field>
- <mt-field label="截止日期" placeholder="请输截止日期" type="date"></mt-field>
- <div class="center">
-   <button>清空</button>
-   <button>提交</button>
- </div>
+ <mt-field label="截止日期" placeholder="请输截止日期" v-model="date" type="date"></mt-field>
+  <div class="center">
+    <mt-button type="default" size="small" @click.native="clearout">清空</mt-button>
+    <mt-button type="default" size="small" @click.native="submitForm">提交</mt-button>
+  </div>
  </div>
 </template>
 <style>
@@ -65,7 +65,13 @@ import { mapState } from 'vuex'
 export default {
    computed:{
        ...mapState({
-          file:state => state.files
+          file:state => state.files,
+          homewk:state => state.homeworks,
+          title: state => state.title,
+          path:state => state.path,
+          prePath:state => state.prevPath,
+          // 上传文件使用的间隔函数
+          st:state => state.stoName
        }),
        uploadFiles:function(){
          var str = '';
@@ -87,7 +93,9 @@ export default {
       return {
          name:'Foo',
          value:[],
-         selected:'语文'
+         selected:'语文',
+         content:'',
+         date:''
       }
    },
    components:{
@@ -100,6 +108,35 @@ export default {
         this.$store.commit('SET_PREPATH','/foo');
         this.$store.commit('SET_HOME',false);
         sessionStorage.showHome = false;
+     },
+     clearout:function(){
+       console.log(this);
+       this.content = '';
+       this.date = '';
+       this.selected = '语文';
+       this.value=[];
+       this.file = [];
+     },
+     submitForm:function(){
+       console.log(this.homewk);
+       var index = 1;
+       if(this.homewk.length >0){
+         index = this.homewk.length + 1;
+       }
+       var child1 = this.$refs.profile;
+       console.log(child1);
+       child1.back();
+       var homework = {
+            index:index,
+            title:this.selected + '作业',
+            homeworks:[
+              {first:this.content}
+           ],
+           date:this.date,
+           imgFile:this.file,
+           class:this.value
+       }
+       this.$store.commit('SUBMIT_HOMEWOKR',homework);
      }
    }
 }

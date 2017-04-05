@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-03-31 17:33:21
+ * @Last Modified time: 2017-04-05 17:00:05
 */
 
 import Vue from 'vue'
@@ -22,6 +22,7 @@ export default new Vuex.Store({
     path:'',
     currentData:'',
     homework_data:'',
+    homeworks:[],
     showHome:true,
     files:[],
     stoName:'',
@@ -57,6 +58,9 @@ export default new Vuex.Store({
     },
     setIndex_State({commit},val){
       commit('SET_INDEX_STA',val)
+    },
+    submitHomeworks({commit},val){
+      commit('SUBMIT_HOMEWOKR',val)
     }
   },
   mutations: {
@@ -96,6 +100,10 @@ export default new Vuex.Store({
     },
     SET_HOMEWORK_DATA(state,obj){
        state.homework_data = obj;
+    },
+    SUBMIT_HOMEWOKR(state,obj){
+       state.homeworks.push(obj);
+       console.log(state);
     }
   },
 

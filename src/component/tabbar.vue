@@ -95,7 +95,8 @@ export default {
        return this.notice.concat(this.homework);
      },
      ...mapState({
-        selected:state => state.index_state
+        selected:state => state.index_state,
+        homework:state => state.homeworks
      })
   },
   components:{ Btn },
@@ -111,22 +112,6 @@ export default {
          { index:2,title:"高二通知",value:"下周期中考"},
          { index:3,title:"高一通知",value:"周四下午实践"}
       ],
-      homework:[
-         {
-            index:1,
-            title:"语文作业",
-            homeworks:[
-            {first:"抄《天马》两遍"},
-            {second:"背诵课文"}
-         ]},
-         {
-            index:2,
-            title:"数学作业",
-            homeworks:[
-            {first:"几何体课后题"}
-         ]}
-      ],
-
       loading: false,
       allLoaded: false,
       wrapperHeight: 0
