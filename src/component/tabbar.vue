@@ -96,7 +96,8 @@ export default {
      },
      ...mapState({
         selected:state => state.index_state,
-        homework:state => state.homeworks
+        homework:state => state.homeworks,
+        notice:state => state.notices
      })
   },
   components:{ Btn },
@@ -107,11 +108,11 @@ export default {
       isActiveB:false,
       year:true,
       value:'2017',
-      notice:[
-         { index:1, title:"高三通知", value:"临时放假"},
-         { index:2,title:"高二通知",value:"下周期中考"},
-         { index:3,title:"高一通知",value:"周四下午实践"}
-      ],
+      // notice:[
+      //    { index:1, title:"高三通知", value:"临时放假"},
+      //    { index:2,title:"高二通知",value:"下周期中考"},
+      //    { index:3,title:"高一通知",value:"周四下午实践"}
+      // ],
       loading: false,
       allLoaded: false,
       wrapperHeight: 0
@@ -157,6 +158,7 @@ export default {
       },
       testclick2(index){
         var data = this.homework[(index-1)];
+        console.log(data);
         this.$store.commit('SET_HOME',false);
         sessionStorage.showHome = false;
         this.$store.commit('SET_HOMEWORK_DATA',data)
@@ -320,3 +322,8 @@ export default {
     padding-bottom: 100px;
   }
 </style>
+
+
+
+// WEBPACK FOOTER //
+// tabbar.vue?c674a2da

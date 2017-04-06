@@ -23,7 +23,7 @@ export default {
     },
     router_n:function(){
         this.$store.commit('NEW_TITLE','通知');
-        this.$store.commit('ROUT_PATH','/bar');
+        this.$store.commit('ROUT_PATH','/c_notice');
         this.$store.commit('SET_PREPATH','/');
         this.$store.commit('SET_HOME',false);
         sessionStorage.showHome = false;
@@ -53,3 +53,8 @@ export default {
     }
   }
 </style>
+
+
+
+// WEBPACK FOOTER //
+// button.vue?16f40e16

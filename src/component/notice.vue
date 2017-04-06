@@ -5,26 +5,26 @@
       <div class="custom-wrap">
         <label class="custom-label">{{dataJson.title}} </label>
         <p class="custom-content">{{dataJson.value}} </p>
-        <span class="custom-badge"> 2月 22日 星期四</span>
+        <span class="custom-badge" >{{dataJson | getLocalDate}}</span>
       </div>
     </div>
   </div>
 </template>
 <style>
-  .custom-badge{
+  .custom-notice-content .custom-badge{
      position: absolute;
      right:5px;
      top:114px;
   }
-  .custom-content{
+  .custom-notice-content .custom-content{
      height: 100px;
      text-indent:2em;
   }
-  .custom-label{
+  .custom-notice-content .custom-label{
       min-width: 70px;
   
   }
-  .custom-wrap{
+  .custom-notice-content .custom-wrap{
         position: relative;
         background-image: -webkit-linear-gradient(top, #d9d9d9, #d9d9d9 50%, transparent 50%);
         background-image: linear-gradient(180deg, #d9d9d9, #d9d9d9 50%, transparent 50%);
@@ -84,6 +84,24 @@ export default {
             // var app  = this.$parent.$data.todos;
             console.log(app);
        }
+   },
+   filters:{
+     getLocalDate:function(value){
+        console.log(value);
+        var weekArr = ['日','一','二','三','四','五','六'];
+        var date1 = value.published;
+        var week = value.week
+        var arr  = date1.split('-');
+        var year = arr[0];
+        var month = arr[1];
+        var dd = arr[2];
+        return year + '年 '+ month+'月'+ dd +'日 '+ '星期' + weekArr[week];
+     }
    }
 }
 </script>
+
+
+
+// WEBPACK FOOTER //
+// notice.vue?70a301a9
