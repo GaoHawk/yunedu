@@ -12,13 +12,15 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Notice from './component/notice.vue'
 import homework from './component/homework.vue'
+import c_notice from './component/createNotice.vue'
 
 Vue.use(VueAxios,axios)
 Vue.use(MintUi)
 Vue.use(VueRouter)
 var routes = [{ path: '/foo', component: Foo }, { path: '/bar', component: Bar },{ path: '/toast',component:Toast },
       { path: '/notice', component:Notice },
-      { path: '/homework',component:homework }
+      { path: '/homework',component:homework },
+      { path: '/c_notice',component:c_notice }
 ];
 
 

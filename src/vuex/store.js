@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-04-05 17:00:05
+ * @Last Modified time: 2017-04-06 18:18:25
 */
 
 import Vue from 'vue'
@@ -23,6 +23,7 @@ export default new Vuex.Store({
     currentData:'',
     homework_data:'',
     homeworks:[],
+    notices:[],
     showHome:true,
     files:[],
     stoName:'',
@@ -61,6 +62,9 @@ export default new Vuex.Store({
     },
     submitHomeworks({commit},val){
       commit('SUBMIT_HOMEWOKR',val)
+    },
+    submitNotices({commit},val){
+      commit('SUBMIT_NOTICES',val)
     }
   },
   mutations: {
@@ -104,9 +108,18 @@ export default new Vuex.Store({
     SUBMIT_HOMEWOKR(state,obj){
        state.homeworks.push(obj);
        console.log(state);
+    },
+    SUBMIT_NOTICES(state,obj){
+       state.notices.push(obj);
+       console.log(state);
     }
   },
 
   strict: debug
 
 })
+
+
+
+// WEBPACK FOOTER //
+// ./src/vuex/store.js
