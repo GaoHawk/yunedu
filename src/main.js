@@ -14,6 +14,7 @@ import Notice from './component/notice.vue'
 import homework from './component/homework.vue'
 import c_notice from './component/createNotice.vue'
 
+Vue.prototype.$http = axios;
 Vue.use(VueAxios,axios)
 Vue.use(MintUi)
 Vue.use(VueRouter)
