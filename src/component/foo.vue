@@ -128,10 +128,8 @@ export default {
        child1.back();
        var homework = {
             index:index,
-            title:this.selected + '作业',
-            homeworks:[
-              {first:this.content}
-           ],
+            course:this.selected ,
+            content:this.content,
            date:this.date,
            imgFile:this.file,
            class:this.value

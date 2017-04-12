@@ -60,11 +60,19 @@
                 infinite-scroll-distance="10">
               <li v-for="item in list"
                   class="page-infinite-listitem">
-                <mt-cell v-if="item.title"
-                         :title="item.title"
-                         :value="item.value?item.value:item.homeworks[0].first"
+         
+                <mt-cell v-if="item.course"
+                         :title="item.course+`作业`"
+                         :value="item.content"
                          @click.native="testclick_q(item)"
                          is-link>
+                </mt-cell>
+                <mt-cell v-if="item.title"
+                         :title="item.title"
+                         :value="item.content"
+                         @click.native="testclick_q(item)"
+                         is-link>
+                </mt-cell>
               </li>
             </ul>
             <p v-show="loading"
@@ -77,8 +85,8 @@
         <mt-tab-container-item id="作业"
                                class="custom-homework">
           <mt-cell v-for="m in homework"
-                   :title="m.title"
-                   :value="m.homeworks[0].first"
+                   :title="m.course+`作业`"
+                   :value="m.content"
                    @click.native="testclick_h(m)"
                    is-link/>
         </mt-tab-container-item>
@@ -125,10 +133,52 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'page-tabbar',
+  beforeCreate(){
+    var numH  =  numH?numH:1;
+    var userId='236942';
+    var session='8EFADDB3AFDAE92EF1AA398165E4722D1491640024560';
+    this.$http.get('http://localhost:8081/homeworks_web',{
+      headers:{"X-Session":session},
+      params: {
+        user_id: userId,
+        order: "DESC",
+        limit: 4,
+        starting_after: numH
+      }
+    }).then(response => {
+      console.log(response.data.data);
+      for (let i = 0; i < response.data.data.length; i++) {
+        this.$store.commit('SUBMIT_HOMEWOKR',response.data.data[i]);
+        // this.lists.push();
+      }
+    }, response => {
+      // this.$store.commit('OPEN_DIALOG1');
+      // this.$store.commit('SET_RESPONSE', '提交失败')
+      console.log(response)
+    })
+
+    this.$http.get('http://localhost:8081/notices',{
+      headers:{"X-Session":session},
+      params: {
+        user_id: userId,
+        order: "DESC",
+        limit: 8,
+        starting_after: numH
+      }
+    }).then(response => {
+      console.log(response.data.data);
+      for (let i = 0; i < response.data.data.length; i++) {
+        this.$store.commit('SUBMIT_NOTICES', response.data.data[i]);
+      }
+    }, response => {
+      // this.$store.commit('OPEN_DIALOG1');
+      // this.$store.commit('SET_RESPONSE', '提交失败')
+      console.log(response)
+    })
+  },
   computed: {
     list: function () {
       var arr = this.notice.concat(this.homework);
-
       return arr;
     },
     ...mapState({
@@ -163,20 +213,43 @@ export default {
         return;
       }
       this.loading = true;
-      var sst = setTimeout(() => {
-
-        console.log(last)
-        if (last < 40) {
-
-        } else {
-          clearTimeout(sst);
+      var numH  =  numH?numH:1;
+      var userId='236942';
+      var session='8EFADDB3AFDAE92EF1AA398165E4722D1491640024560';
+      this.$http.get('http://localhost:8081/homeworks_web',{
+        headers:{"X-Session":session},
+        params: {
+          user_id: userId,
+          order: "DESC",
+          limit: 4,
+          starting_after: numH
         }
-        for (let i = 1; i <= 10; i++) {
-          var objj = { title: "高三通知", value: "临时放假" };
-          this.list.push(objj);
+      }).then(response => {
+        console.log(response.data.data);
+        for (let i = 0; i < response.data.data.length; i++) {
+          this.$store.commit('SUBMIT_HOMEWOKR',response.data.data[i]);
+          // this.lists.push();
         }
         this.loading = false;
-      }, 2500);
+      }, response => {
+        // this.$store.commit('OPEN_DIALOG1');
+        // this.$store.commit('SET_RESPONSE', '提交失败')
+        console.log(response)
+      })
+      // var sst = setTimeout(() => {
+
+      //   console.log(last)
+      //   if (last < 40) {
+
+      //   } else {
+      //     clearTimeout(sst);
+      //   }
+      //   for (let i = 1; i <= 10; i++) {
+      //     var objj = { title: "高三通知", value: "临时放假" };
+      //     this.list.push(objj);
+      //   }
+      //   this.loading = false;
+      // }, 2500);
     },
     showTab() {
       if (this.isActive) { return; }
@@ -245,180 +318,159 @@ export default {
   },
   mounted() {
     this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
-    for (let i = 1; i <= 5; i++) {
-      var obj = { title: "高三通知", value: "临时放假" };
-      this.list.push(obj);
-    }
-    var numH  =  numH?numH:1;
-    var userId='236942';
-    var session='B3C311122520825E423FBBABC310AE0C1491533390280';
-    this.$http.get('http://localhost:8081/homeworks_web',{
-      headers:{"X-Session":session},
-      params: {
-        user_id: userId,
-        order: "DESC",
-        limit: 2,
-        starting_after: numH
-      }
-    }).then(response => {
-      console.log(response)
+    // for (let i = 1; i <= 5; i++) {
+    //   var obj = { title: "高三通知", value: "临时放假" };
+    //   this.list.push(obj);
+    // }
 
-      // this.$store.commit('SET_USER',response.data)
-      // this.$store.commit('SET_RESPONSE', '邮件发送成功')
-      // this.$store.commit('OPEN_DIALOG1');
-    }, response => {
-      // this.$store.commit('OPEN_DIALOG1');
-      // this.$store.commit('SET_RESPONSE', '提交失败')
-      console.log(response)
-    })
   }
 };
 </script>
 <style>
-div.custom-radio div.mint-cell-title {
-  min-width: 100%;
-}
+  div.custom-radio div.mint-cell-title {
+    min-width: 100%;
+  }
 
-.mint-radiolist-label {
-  padding: 0!important;
-}
+  .mint-radiolist-label {
+    padding: 0!important;
+  }
 
-.yearStyle {
-  text-align: center;
-  margin-top: 12px;
-}
+  .yearStyle {
+    text-align: center;
+    margin-top: 12px;
+  }
 
-.normal {
-  color: #337ab0;
-  margin: 0;
-}
-
-
-
-
-/*cell 自定义样式*/
-
-li.page-infinite-listitem div.mint-cell-title {
-  min-width: 70px;
-}
-
-.custom-homework div.mint-cell-title,
-.custom-notice div.mint-cell-title {
-  min-width: 70px;
-}
-
-.mint-cell-value {
-  width: 80%;
-}
+  .normal {
+    color: #337ab0;
+    margin: 0;
+  }
 
 
 
 
-/*底部栏动画*/
+  /*cell 自定义样式*/
 
-.mint-tabbar.is-fixed {
-  top: 100%;
-}
+  li.page-infinite-listitem div.mint-cell-title {
+    min-width: 70px;
+  }
 
-.diaphaneity {
-  width: 100%;
-  filter: alpha(opacity=0);
-  -moz-opacity: 0;
-  -khtml-opacity: 0;
-  opacity: 0;
-  height: 30px;
-  position: fixed;
-  z-index: 1;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
+  .custom-homework div.mint-cell-title,
+  .custom-notice div.mint-cell-title {
+    min-width: 70px;
+  }
+
+  .mint-cell-value {
+    width: 80%;
+  }
 
 
 
 
-/*无线滚动样式*/
+  /*底部栏动画*/
 
-.mint-tab-container {
-  /*top:-35px;*/
-  /*bottom: 35px;*/
-}
+  .mint-tabbar.is-fixed {
+    top: 100%;
+  }
 
-.page-infinite-list {
-  margin: 0;
-}
+  .diaphaneity {
+    width: 100%;
+    filter: alpha(opacity=0);
+    -moz-opacity: 0;
+    -khtml-opacity: 0;
+    opacity: 0;
+    height: 30px;
+    position: fixed;
+    z-index: 1;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
 
-.page-infinite-loading div {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 5px;
-}
 
-.page-infinite-wrapper {
-  margin-top: -1px;
-  /*margin-bottom: 55*/
-  overflow: scroll;
-}
 
-.page-infinite-loading {
-  text-align: center;
-  height: 40px;
-  line-height: 25px;
-  margin: 0;
-}
 
-.page-infinite-listitem {
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-}
+  /*无线滚动样式*/
 
-.page-infinite-desc,
-.page-infinite-listitem {
-  text-align: center;
-  border-bottom: 1px solid #eee;
-  margin: 0;
-}
+  .mint-tab-container {
+    /*top:-35px;*/
+    /*bottom: 35px;*/
+  }
 
-.breadcrumb>.active {
-  color: #777;
-}
+  .page-infinite-list {
+    margin: 0;
+  }
 
-.breadcrumb>li+li:before {
-  padding: 0 5px;
-  box-sizing: border-box;
-  color: #ccc;
-  content: "/\00a0";
-}
+  .page-infinite-loading div {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
 
-.breadcrumb>li>a {
-  color: #337ab7;
-  text-decoration: none;
-}
+  .page-infinite-wrapper {
+    margin-top: -1px;
+    /*margin-bottom: 55*/
+    overflow: scroll;
+  }
 
-.breadcrumb>li {
-  display: inline-block;
-}
+  .page-infinite-loading {
+    text-align: center;
+    height: 40px;
+    line-height: 25px;
+    margin: 0;
+  }
 
-.breadcrumb {
-  margin-top: 0;
-  padding: 8px 15px;
-  margin-bottom: 0;
-  list-style: none;
-  background-color: #f5f5f5;
-  border-radius: 4px;
-}
+  .page-infinite-listitem {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+  }
 
-.page-tabbar {
-  overflow: hidden;
-  /*height: 100vh;*/
-}
+  .page-infinite-desc,
+  .page-infinite-listitem {
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    margin: 0;
+  }
 
-.page-wrap {
-  overflow: auto;
-  height: 100%;
-  padding-bottom: 100px;
-}
+  .breadcrumb>.active {
+    color: #777;
+  }
+
+  .breadcrumb>li+li:before {
+    padding: 0 5px;
+    box-sizing: border-box;
+    color: #ccc;
+    content: "/\00a0";
+  }
+
+  .breadcrumb>li>a {
+    color: #337ab7;
+    text-decoration: none;
+  }
+
+  .breadcrumb>li {
+    display: inline-block;
+  }
+
+  .breadcrumb {
+    margin-top: 0;
+    padding: 8px 15px;
+    margin-bottom: 0;
+    list-style: none;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+  }
+
+  .page-tabbar {
+    overflow: hidden;
+    /*height: 100vh;*/
+  }
+
+  .page-wrap {
+    overflow: auto;
+    height: 100%;
+    padding-bottom: 100px;
+  }
 </style>
 
 

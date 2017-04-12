@@ -134,7 +134,7 @@ export default {
       var notices = {
         index: index,
         title: this.notice_title,
-        value:this.content,
+        content:this.content,
         published:date,
         week:week
       }
