@@ -31,6 +31,7 @@ export default {
        showHome:state => state.showHome
     })
   },
+  
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',

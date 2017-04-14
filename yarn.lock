@@ -42,6 +42,10 @@ align-text@^0.1.1, align-text@^0.1.3:
     longest "^1.0.1"
     repeat-string "^1.5.2"
 
+alloyfinger@^0.1.2, alloyfinger@^0.1.6:
+  version "0.1.6"
+  resolved "http://registry.npm.taobao.org/alloyfinger/download/alloyfinger-0.1.6.tgz#c54027cd6b0ca71134d764f1afb137686daad8be"
+
 alphanum-sort@^1.0.1, alphanum-sort@^1.0.2:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/alphanum-sort/download/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
@@ -3879,11 +3883,13 @@ vue-axios@^1.2.2:
   version "1.2.2"
   resolved "http://registry.npm.taobao.org/vue-axios/download/vue-axios-1.2.2.tgz#d18bb48fa7bf469ffa86676960f52a89b7d38a9d"
 
-vue-hot-reload-api@^2.0.1:
-  version "2.0.8"
-  resolved "http://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.0.8.tgz#b3ba6a9a443d561b14f2785c8ea056618cb2faa3"
+vue-finger@^0.1.0:
+  version "0.1.0"
+  resolved "http://registry.npm.taobao.org/vue-finger/download/vue-finger-0.1.0.tgz#9a84e54803413d616ebfd1043570466af2886b5d"
+  dependencies:
+    alloyfinger "^0.1.2"
 
-vue-hot-reload-api@^2.0.11:
+vue-hot-reload-api@^2.0.1, vue-hot-reload-api@^2.0.11:
   version "2.0.11"
   resolved "http://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.0.11.tgz#bf26374fb73366ce03f799e65ef5dfd0e28a1568"
 

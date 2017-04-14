@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-04-06 18:18:25
+ * @Last Modified time: 2017-04-14 11:25:02
 */
 
 import Vue from 'vue'
@@ -27,7 +27,11 @@ export default new Vuex.Store({
     showHome:true,
     files:[],
     stoName:'',
-    index_state:'全部'
+    index_state:'全部',
+    loadingCount:1,
+    noticeCount:1,
+    homeworkEnd:false,
+    noticeEnd:false
   },
   actions: {
     setNewTitle ({commit}, msg) {
@@ -65,6 +69,18 @@ export default new Vuex.Store({
     },
     submitNotices({commit},val){
       commit('SUBMIT_NOTICES',val)
+    },
+    setLoadingCount({commit},num){
+      commit('SET_LOAD_COUNT',num);
+    },
+    setNoticeCount({commit},num){
+      commit('SET_NOTICE_COUNT',num);
+    },
+    setHomeworkEnd({commit},val){
+      commit('SET_HOMEWORK_END',val)
+    },
+    setNoticeEnd({commit},val){
+      commit('SET_NOTICE_END',val);
     }
   },
   mutations: {
@@ -112,6 +128,18 @@ export default new Vuex.Store({
     SUBMIT_NOTICES(state,obj){
        state.notices.push(obj);
        console.log(state);
+    },
+    SET_LOAD_COUNT(state,num){
+      state.loadingCount = num;
+    },
+    SET_NOTICE_COUNT(state,num){
+      state.noticeCount = num;
+    },
+    SET_HOMEWORK_END(state,val){
+      state.homeworkEnd = val;
+    },
+    SET_NOTICE_END(state,val){
+      state.noticeEnd = val;
     }
   },
 

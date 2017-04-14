@@ -84,23 +84,68 @@
         </mt-tab-container-item>
         <mt-tab-container-item id="作业"
                                class="custom-homework">
-          <mt-cell v-for="m in homework"
-                   :title="m.course+`作业`"
-                   :value="m.content"
-                   @click.native="testclick_h(m)"
-                   is-link/>
+          <!-- <mt-cell v-for="m in homework"
+                    :title="m.course+`作业`"
+                    :value="m.content"
+                    @click.native="testclick_h(m)"
+                    is-link/> -->
+            <div class="page-infinite-wrapper"
+               ref="wrapper1"
+               :style="{ height: wrapper1Height + 'px' }">
+            <ul class="page-infinite-list"
+                v-infinite-scroll="loadMore"
+                infinite-scroll-disabled="loadingHome"
+                infinite-scroll-distance="10">
+              <li v-for="m in homework"
+                  class="page-infinite-listitem">
+         
+                <mt-cell :title="m.course+`作业`"
+                         :value="m.content"
+                         @click.native="testclick_h(m)"
+                         v-finger:doubletap="doubleTap"
+                         is-link>
+                </mt-cell>
+              </li>
+            </ul>
+            <p v-show="loading"
+               class="page-infinite-loading">
+              <mt-spinner type="fading-circle"></mt-spinner>
+              加载中...
+            </p>
+          </div>
         </mt-tab-container-item>
         <mt-tab-container-item id="通知"
                                class="custom-notice">
-          <mt-cell v-for="n in notice"
+         <!--
+            <mt-cell v-for="n in notice"
                    :title="n.title"
                    :value="n.value"
                    @click.native="testclick_n(n)"
-                   is-link>
-            <!--          <p style="height:110px;text-indent:2em;">周三临时放假,大家不用到学校,周三临时放假,大家不用到学校,</p>
-               <span style="color:#gray;position:absolute;right:5px;line-hight:80px;top:114px;">2月22日 星期二</span> -->
-  
-          </mt-cell>
+                   is-link /> -->
+            <div class="page-infinite-wrapper"
+               ref="wrapper1"
+               :style="{ height: wrapperHeight + 'px' }">
+            <ul class="page-infinite-list"
+                v-infinite-scroll="loadMore"
+                infinite-scroll-disabled="loading"
+                infinite-scroll-distance="10">
+              <li v-for="m in homework"
+                  class="page-infinite-listitem">
+         
+                <mt-cell :title="m.course+`作业`"
+                         :value="m.content"
+                         @click.native="testclick_h(m)"
+                         v-finger:doubletap="doubleTap"
+                         is-link>
+                </mt-cell>
+              </li>
+            </ul>
+            <p v-show="loading"
+               class="page-infinite-loading">
+              <mt-spinner type="fading-circle"></mt-spinner>
+              加载中...
+            </p>
+          </div>
         </mt-tab-container-item>
   
       </mt-tab-container>
@@ -134,57 +179,61 @@ import { mapState } from 'vuex'
 export default {
   name: 'page-tabbar',
   beforeCreate(){
-    var numH  =  numH?numH:1;
-    var userId='236942';
-    var session='8EFADDB3AFDAE92EF1AA398165E4722D1491640024560';
-    this.$http.get('http://localhost:8081/homeworks_web',{
-      headers:{"X-Session":session},
-      params: {
-        user_id: userId,
-        order: "DESC",
-        limit: 4,
-        starting_after: numH
-      }
-    }).then(response => {
-      console.log(response.data.data);
-      for (let i = 0; i < response.data.data.length; i++) {
-        this.$store.commit('SUBMIT_HOMEWOKR',response.data.data[i]);
-        // this.lists.push();
-      }
-    }, response => {
-      // this.$store.commit('OPEN_DIALOG1');
-      // this.$store.commit('SET_RESPONSE', '提交失败')
-      console.log(response)
-    })
+    // var numH  =  numH?numH:1;
+    // var userId='236942';
+    // var session='B2E6E8C10E55E852F8E2798E5EB492AD1492132489469';
+    // this.$http.get('http://localhost:8081/homeworks_web',{
+    //   headers:{"X-Session":session},
+    //   params: {
+    //     user_id: userId,
+    //     order: "DESC",
+    //     limit: 4,
+    //     starting_after: numH
+    //   }
+    // }).then(response => {
+    //   console.log(response.data.data);
+    //   for (let i = 0; i < response.data.data.length; i++) {
+    //     this.$store.commit('SUBMIT_HOMEWOKR',response.data.data[i]);
+    //     // this.lists.push();
+    //   }
+    // }, response => {
+    //   // this.$store.commit('OPEN_DIALOG1');
+    //   // this.$store.commit('SET_RESPONSE', '提交失败')
+    //   console.log(response)
+    // })
 
-    this.$http.get('http://localhost:8081/notices',{
-      headers:{"X-Session":session},
-      params: {
-        user_id: userId,
-        order: "DESC",
-        limit: 8,
-        starting_after: numH
-      }
-    }).then(response => {
-      console.log(response.data.data);
-      for (let i = 0; i < response.data.data.length; i++) {
-        this.$store.commit('SUBMIT_NOTICES', response.data.data[i]);
-      }
-    }, response => {
-      // this.$store.commit('OPEN_DIALOG1');
-      // this.$store.commit('SET_RESPONSE', '提交失败')
-      console.log(response)
-    })
+    // this.$http.get('http://localhost:8081/notices',{
+    //   headers:{"X-Session":session},
+    //   params: {
+    //     user_id: userId,
+    //     order: "DESC",
+    //     limit: 8,
+    //     starting_after: numH
+    //   }
+    // }).then(response => {
+    //   console.log(response.data.data);
+    //   for (let i = 0; i < response.data.data.length; i++) {
+    //     this.$store.commit('SUBMIT_NOTICES', response.data.data[i]);
+    //   }
+    // }, response => {
+    //   // this.$store.commit('OPEN_DIALOG1');
+    //   // this.$store.commit('SET_RESPONSE', '提交失败')
+    //   console.log(response)
+    // })
   },
   computed: {
     list: function () {
-      var arr = this.notice.concat(this.homework);
+      var arr = this.homework.concat(this.notice);
       return arr;
     },
     ...mapState({
       selected: state => state.index_state,
       homework: state => state.homeworks,
-      notice: state => state.notices
+      notice: state => state.notices,
+      loadCount: state => state.loadingCount,
+      noticeCount: state => state.noticeCount,
+      homwworkEnd: state => state.homeworkEnd,
+      noticeEnd: state => state.noticeEnd
     })
   },
   components: { Btn },
@@ -201,41 +250,132 @@ export default {
       //    { index:3,title:"高一通知",value:"周四下午实践"}
       // ],
       loading: false,
+      loadingHome:false,
       allLoaded: false,
-      wrapperHeight: 0
+      wrapperHeight: 0,
+      wrapper1Height:0,
     };
   },
   methods: {
     loadMore() {
-      let last = this.list.length;
-      if (last > 40) {
-        console.log('false');
-        return;
-      }
-      this.loading = true;
-      var numH  =  numH?numH:1;
+      console.log(this.loading);
       var userId='236942';
-      var session='8EFADDB3AFDAE92EF1AA398165E4722D1491640024560';
-      this.$http.get('http://localhost:8081/homeworks_web',{
-        headers:{"X-Session":session},
-        params: {
-          user_id: userId,
-          order: "DESC",
-          limit: 4,
-          starting_after: numH
+      var session='F0EC708237F6DB6932B2D4C2BF696A021492159907096';
+      switch(this.selected)
+      {
+        case `全部`:
+        if (this.homwworkEnd) {
+          
+        console.log('false');
+        console.log(this.noticeEnd);
+        if(!this.noticeEnd){
+          var noticeNum = this.noticeCount?this.noticeCount:1;
+          
+          this.$http.get('http://localhost:8081/notices',{
+            headers:{"X-Session":session},
+            params: {
+              user_id: userId,
+              order: "DESC",
+              limit: 4,
+              starting_after: noticeNum
+            }
+          }).then(response => {
+            console.log(response.data.data);
+            for (let i = 0; i < response.data.data.length; i++) {
+              this.$store.commit('SUBMIT_NOTICES', response.data.data[i]);
+            }
+          let noticeLen = response.data.data.length
+          console.log(noticeLen)
+          if(noticeLen <4){
+            this.$store.commit('SET_NOTICE_END',true);
+          }
+          this.$store.commit('SET_LOAD_COUNT',numH+1);
+          this.loading = false;
+          }, response => {
+            // this.$store.commit('OPEN_DIALOG1');
+            // this.$store.commit('SET_RESPONSE', '提交失败')
+            console.log(response)
+          })
+        }else{
+          return;
         }
-      }).then(response => {
-        console.log(response.data.data);
-        for (let i = 0; i < response.data.data.length; i++) {
-          this.$store.commit('SUBMIT_HOMEWOKR',response.data.data[i]);
-          // this.lists.push();
-        }
-        this.loading = false;
-      }, response => {
-        // this.$store.commit('OPEN_DIALOG1');
-        // this.$store.commit('SET_RESPONSE', '提交失败')
-        console.log(response)
-      })
+      }else{
+          this.loading = true;
+          var numH  =  this.loadCount?this.loadCount:1;
+          this.$http.get('http://localhost:8081/homeworks_web',{
+            headers:{"X-Session":session},
+            params: {
+              user_id: userId,
+              order: "DESC",
+              limit: 4,
+              starting_after: numH
+            }
+          }).then(response => {
+            console.log(response.data.data);
+            for (let i = 0; i < response.data.data.length; i++) {
+              this.$store.commit('SUBMIT_HOMEWOKR',response.data.data[i]);
+              // this.lists.push();
+            }
+            let dataLen = response.data.data.length
+
+            if(dataLen <4){
+              this.$store.commit('SET_HOMEWORK_END',true);
+            }
+            this.$store.commit('SET_LOAD_COUNT',numH+1);
+            this.loading = false;
+          }, response => {
+            // this.$store.commit('OPEN_DIALOG1');
+            // this.$store.commit('SET_RESPONSE', '提交失败')
+            console.log(response)
+          })
+      }
+        break;
+        case `作业`:
+         if(this.homwworkEnd){
+           console.log('作业查询完毕');
+     
+           return;
+         }else{
+ 
+           var numH  =  this.loadCount?this.loadCount:1;
+          this.$http.get('http://localhost:8081/homeworks_web',{
+            headers:{"X-Session":session},
+            params: {
+              user_id: userId,
+              order: "DESC",
+              limit: 4,
+              starting_after: numH
+            }
+          }).then(response => {
+            console.log(response.data.data);
+            for (let i = 0; i < response.data.data.length; i++) {
+              this.$store.commit('SUBMIT_HOMEWOKR',response.data.data[i]);
+              // this.lists.push();
+            }
+            let dataLen = response.data.data.length
+
+            if(dataLen <4){
+              this.$store.commit('SET_HOMEWORK_END',true);
+            }
+            this.$store.commit('SET_LOAD_COUNT',numH+1);
+            
+          }, response => {
+            // this.$store.commit('OPEN_DIALOG1');
+            // this.$store.commit('SET_RESPONSE', '提交失败')
+            console.log(response)
+          })
+         }
+
+      
+        break;
+        case `通知`:
+        console.log('不是主界面的滚动')
+         return;
+        break;
+      }
+    
+
+ 
       // var sst = setTimeout(() => {
 
       //   console.log(last)
@@ -250,6 +390,15 @@ export default {
       //   }
       //   this.loading = false;
       // }, 2500);
+    },
+    doubleTap(){
+      this.$store.commit('SET_HOME', false);
+      sessionStorage.showHome = false;
+      // this.$store.commit('SET_HOMEWORK_DATA', data)
+      this.$store.commit('NEW_TITLE', '作业');
+      this.$store.commit('ROUT_PATH', '/homework');
+      this.$store.commit('SET_PREPATH', '/');
+      console.log(1);
     },
     showTab() {
       if (this.isActive) { return; }
@@ -271,12 +420,12 @@ export default {
     },
     testclick_h(data) {
       console.log(data);
-      this.$store.commit('SET_HOME', false);
-      sessionStorage.showHome = false;
+      // this.$store.commit('SET_HOME', false);
+      // sessionStorage.showHome = false;
       this.$store.commit('SET_HOMEWORK_DATA', data)
-      this.$store.commit('NEW_TITLE', '作业');
-      this.$store.commit('ROUT_PATH', '/homework');
-      this.$store.commit('SET_PREPATH', '/');
+      // this.$store.commit('NEW_TITLE', '作业');
+      // this.$store.commit('ROUT_PATH', '/homework');
+      // this.$store.commit('SET_PREPATH', '/');
     },
     testclick_q(obj) {
       console.log(obj);
@@ -314,10 +463,13 @@ export default {
     },
     testClick(value) {
       this.$store.commit('SET_INDEX_STA', value);
+      
     }
   },
   mounted() {
     this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
+    // this.wrapper1Height = document.documentElement.clientHeight - this.$refs.wrapper1.getBoundingClientRect().top-60;
+    // this.wrapper2Height = document.documentElement.clientHeight - this.$refs.wrapper2.getBoundingClientRect().top-60;
     // for (let i = 1; i <= 5; i++) {
     //   var obj = { title: "高三通知", value: "临时放假" };
     //   this.list.push(obj);

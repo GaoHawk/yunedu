@@ -135,7 +135,7 @@ export default {
         index: index,
         title: this.notice_title,
         content:this.content,
-        published:date,
+        publish_at:date,
         week:week
       }
       this.$store.commit('SUBMIT_NOTICES', notices);

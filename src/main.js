@@ -13,10 +13,12 @@ import VueAxios from 'vue-axios'
 import Notice from './component/notice.vue'
 import homework from './component/homework.vue'
 import c_notice from './component/createNotice.vue'
+import vFinger from 'vue-finger'
 
 Vue.prototype.$http = axios;
 Vue.use(VueAxios,axios)
 Vue.use(MintUi)
+Vue.use(vFinger)
 Vue.use(VueRouter)
 var routes = [{ path: '/foo', component: Foo }, { path: '/bar', component: Bar },{ path: '/toast',component:Toast },
       { path: '/notice', component:Notice },
