@@ -89,30 +89,7 @@
                     :value="m.content"
                     @click.native="testclick_h(m)"
                     is-link/> -->
-            <div class="page-infinite-wrapper"
-               ref="wrapper1"
-               :style="{ height: wrapper1Height + 'px' }">
-            <ul class="page-infinite-list"
-                v-infinite-scroll="loadMore"
-                infinite-scroll-disabled="loadingHome"
-                infinite-scroll-distance="10">
-              <li v-for="m in homework"
-                  class="page-infinite-listitem">
-         
-                <mt-cell :title="m.course+`作业`"
-                         :value="m.content"
-                         @click.native="testclick_h(m)"
-                         v-finger:doubletap="doubleTap"
-                         is-link>
-                </mt-cell>
-              </li>
-            </ul>
-            <p v-show="loading"
-               class="page-infinite-loading">
-              <mt-spinner type="fading-circle"></mt-spinner>
-              加载中...
-            </p>
-          </div>
+        <AllList></AllList>
         </mt-tab-container-item>
         <mt-tab-container-item id="通知"
                                class="custom-notice">
@@ -122,30 +99,7 @@
                    :value="n.value"
                    @click.native="testclick_n(n)"
                    is-link /> -->
-            <div class="page-infinite-wrapper"
-               ref="wrapper1"
-               :style="{ height: wrapperHeight + 'px' }">
-            <ul class="page-infinite-list"
-                v-infinite-scroll="loadMore"
-                infinite-scroll-disabled="loading"
-                infinite-scroll-distance="10">
-              <li v-for="m in homework"
-                  class="page-infinite-listitem">
-         
-                <mt-cell :title="m.course+`作业`"
-                         :value="m.content"
-                         @click.native="testclick_h(m)"
-                         v-finger:doubletap="doubleTap"
-                         is-link>
-                </mt-cell>
-              </li>
-            </ul>
-            <p v-show="loading"
-               class="page-infinite-loading">
-              <mt-spinner type="fading-circle"></mt-spinner>
-              加载中...
-            </p>
-          </div>
+        <noticeList></noticeList>
         </mt-tab-container-item>
   
       </mt-tab-container>
@@ -175,51 +129,15 @@
 <script>
 import Btn from './button.vue'
 import { mapState } from 'vuex'
+import homelList from './homeList.vue'
+import testScroll from './testScroll.vue'
+import noticeList from './noticeList.vue'
+import AllList from './AllList.vue'
 
 export default {
   name: 'page-tabbar',
   beforeCreate(){
-    // var numH  =  numH?numH:1;
-    // var userId='236942';
-    // var session='B2E6E8C10E55E852F8E2798E5EB492AD1492132489469';
-    // this.$http.get('http://localhost:8081/homeworks_web',{
-    //   headers:{"X-Session":session},
-    //   params: {
-    //     user_id: userId,
-    //     order: "DESC",
-    //     limit: 4,
-    //     starting_after: numH
-    //   }
-    // }).then(response => {
-    //   console.log(response.data.data);
-    //   for (let i = 0; i < response.data.data.length; i++) {
-    //     this.$store.commit('SUBMIT_HOMEWOKR',response.data.data[i]);
-    //     // this.lists.push();
-    //   }
-    // }, response => {
-    //   // this.$store.commit('OPEN_DIALOG1');
-    //   // this.$store.commit('SET_RESPONSE', '提交失败')
-    //   console.log(response)
-    // })
 
-    // this.$http.get('http://localhost:8081/notices',{
-    //   headers:{"X-Session":session},
-    //   params: {
-    //     user_id: userId,
-    //     order: "DESC",
-    //     limit: 8,
-    //     starting_after: numH
-    //   }
-    // }).then(response => {
-    //   console.log(response.data.data);
-    //   for (let i = 0; i < response.data.data.length; i++) {
-    //     this.$store.commit('SUBMIT_NOTICES', response.data.data[i]);
-    //   }
-    // }, response => {
-    //   // this.$store.commit('OPEN_DIALOG1');
-    //   // this.$store.commit('SET_RESPONSE', '提交失败')
-    //   console.log(response)
-    // })
   },
   computed: {
     list: function () {
@@ -236,7 +154,7 @@ export default {
       noticeEnd: state => state.noticeEnd
     })
   },
-  components: { Btn },
+  components: { Btn, homelList, testScroll, noticeList, AllList },
   data() {
     return {
       picked: '',
@@ -260,7 +178,7 @@ export default {
     loadMore() {
       console.log(this.loading);
       var userId='236942';
-      var session='F0EC708237F6DB6932B2D4C2BF696A021492159907096';
+      var session='05D751676848D1FC2216B877BDCD96251492408973256';
       switch(this.selected)
       {
         case `全部`:
