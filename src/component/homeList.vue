@@ -139,7 +139,7 @@
     
                 var userId = '236942';
     
-                var session = '05D751676848D1FC2216B877BDCD96251492408973256';
+                var session = '6E77229B6FB6C3DB211E93B3381DF9EB1492676845247';
     
                 if (this.homwworkEnd) {
     
@@ -207,7 +207,7 @@
     
     
     
-                            this.$store.commit('SUBMIT_HOMEWOKR', response.data.data[i]);
+                            this.$store.commit('SET_HWK_DATA', response.data.data[i]);
     
     
     

@@ -51,7 +51,7 @@
                         v-model="selected"
                         @touchmove.native="hidetab">
         <mt-tab-container-item id="全部">
-          <div class="page-infinite-wrapper"
+          <!-- <div class="page-infinite-wrapper"
                ref="wrapper"
                :style="{ height: wrapperHeight + 'px' }">
             <ul class="page-infinite-list"
@@ -80,7 +80,8 @@
               <mt-spinner type="fading-circle"></mt-spinner>
               加载中...
             </p>
-          </div>
+          </div> -->
+          <AllList></AllList>
         </mt-tab-container-item>
         <mt-tab-container-item id="作业"
                                class="custom-homework">
@@ -89,7 +90,7 @@
                     :value="m.content"
                     @click.native="testclick_h(m)"
                     is-link/> -->
-        <AllList></AllList>
+        <homelList></homelList>
         </mt-tab-container-item>
         <mt-tab-container-item id="通知"
                                class="custom-notice">
@@ -176,138 +177,7 @@ export default {
   },
   methods: {
     loadMore() {
-      console.log(this.loading);
-      var userId='236942';
-      var session='05D751676848D1FC2216B877BDCD96251492408973256';
-      switch(this.selected)
-      {
-        case `全部`:
-        if (this.homwworkEnd) {
-          
-        console.log('false');
-        console.log(this.noticeEnd);
-        if(!this.noticeEnd){
-          var noticeNum = this.noticeCount?this.noticeCount:1;
-          
-          this.$http.get('http://localhost:8081/notices',{
-            headers:{"X-Session":session},
-            params: {
-              user_id: userId,
-              order: "DESC",
-              limit: 4,
-              starting_after: noticeNum
-            }
-          }).then(response => {
-            console.log(response.data.data);
-            for (let i = 0; i < response.data.data.length; i++) {
-              this.$store.commit('SUBMIT_NOTICES', response.data.data[i]);
-            }
-          let noticeLen = response.data.data.length
-          console.log(noticeLen)
-          if(noticeLen <4){
-            this.$store.commit('SET_NOTICE_END',true);
-          }
-          this.$store.commit('SET_LOAD_COUNT',numH+1);
-          this.loading = false;
-          }, response => {
-            // this.$store.commit('OPEN_DIALOG1');
-            // this.$store.commit('SET_RESPONSE', '提交失败')
-            console.log(response)
-          })
-        }else{
-          return;
-        }
-      }else{
-          this.loading = true;
-          var numH  =  this.loadCount?this.loadCount:1;
-          this.$http.get('http://localhost:8081/homeworks_web',{
-            headers:{"X-Session":session},
-            params: {
-              user_id: userId,
-              order: "DESC",
-              limit: 4,
-              starting_after: numH
-            }
-          }).then(response => {
-            console.log(response.data.data);
-            for (let i = 0; i < response.data.data.length; i++) {
-              this.$store.commit('SUBMIT_HOMEWOKR',response.data.data[i]);
-              // this.lists.push();
-            }
-            let dataLen = response.data.data.length
 
-            if(dataLen <4){
-              this.$store.commit('SET_HOMEWORK_END',true);
-            }
-            this.$store.commit('SET_LOAD_COUNT',numH+1);
-            this.loading = false;
-          }, response => {
-            // this.$store.commit('OPEN_DIALOG1');
-            // this.$store.commit('SET_RESPONSE', '提交失败')
-            console.log(response)
-          })
-      }
-        break;
-        case `作业`:
-         if(this.homwworkEnd){
-           console.log('作业查询完毕');
-     
-           return;
-         }else{
- 
-           var numH  =  this.loadCount?this.loadCount:1;
-          this.$http.get('http://localhost:8081/homeworks_web',{
-            headers:{"X-Session":session},
-            params: {
-              user_id: userId,
-              order: "DESC",
-              limit: 4,
-              starting_after: numH
-            }
-          }).then(response => {
-            console.log(response.data.data);
-            for (let i = 0; i < response.data.data.length; i++) {
-              this.$store.commit('SUBMIT_HOMEWOKR',response.data.data[i]);
-              // this.lists.push();
-            }
-            let dataLen = response.data.data.length
-
-            if(dataLen <4){
-              this.$store.commit('SET_HOMEWORK_END',true);
-            }
-            this.$store.commit('SET_LOAD_COUNT',numH+1);
-            
-          }, response => {
-            // this.$store.commit('OPEN_DIALOG1');
-            // this.$store.commit('SET_RESPONSE', '提交失败')
-            console.log(response)
-          })
-         }
-
-      
-        break;
-        case `通知`:
-        console.log('不是主界面的滚动')
-         return;
-        break;
-      }
-    
-
- 
-      // var sst = setTimeout(() => {
-
-      //   console.log(last)
-      //   if (last < 40) {
-
-      //   } else {
-      //     clearTimeout(sst);
-      //   }
-      //   for (let i = 1; i <= 10; i++) {
-      //     var objj = { title: "高三通知", value: "临时放假" };
-      //     this.list.push(objj);
-      //   }
-      //   this.loading = false;
-      // }, 2500);
     },
     doubleTap(){
       this.$store.commit('SET_HOME', false);
@@ -385,13 +255,6 @@ export default {
     }
   },
   mounted() {
-    this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
-    // this.wrapper1Height = document.documentElement.clientHeight - this.$refs.wrapper1.getBoundingClientRect().top-60;
-    // this.wrapper2Height = document.documentElement.clientHeight - this.$refs.wrapper2.getBoundingClientRect().top-60;
-    // for (let i = 1; i <= 5; i++) {
-    //   var obj = { title: "高三通知", value: "临时放假" };
-    //   this.list.push(obj);
-    // }
 
   }
 };

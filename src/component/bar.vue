@@ -2,7 +2,7 @@
     <div class="template">
      <child ref="ref1"></child>
      Bar
-     <dropzon maxFiles="1"  ref="myUnique" id="vueDropzone" url="http://localhost:8081/upload/file"  acceptedFileTypes='image/*,audio/*'  v-on:vdropzone-success="showSuccess" :autoProcessQueue="auto"></dropzon>
+     <dropzon maxFiles="1"  ref="myUnique" id="vueDropzone" url="http://localhost:8081/upload/file"  acceptedFileTypes='image/*'  v-on:vdropzone-success="showSuccess" :autoProcessQueue="auto"></dropzon>
      <button @click="uploadFile">上传</button>
      <button @click="clearout">重置</button>
      </div>

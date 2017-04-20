@@ -18,7 +18,7 @@
  </select>
  <mt-field  placeholder="输入作业内容"  v-model="content" type="textarea" rows="4"></mt-field>
 
- <mt-field label="上传附件" placeholder="请选择图片和音频文件" @click.native="goToUpload"
+ <mt-field label="上传附件" placeholder="请选择图片文件" @click.native="goToUpload"
  :value="uploadFiles" style="font-size:12px">
  <!--<img :src="imgSrc" height="45px" width="100px">-->
  </mt-field>
@@ -60,7 +60,7 @@
 </style>
 <script>
 import Header from './header.vue'
-import { Field,Checklist } from 'mint-ui';
+import { Field,Checklist, MessageBox } from 'mint-ui';
 import { mapState } from 'vuex'
 export default {
    computed:{
@@ -107,6 +107,7 @@ export default {
         this.$store.commit('ROUT_PATH','/bar');
         this.$store.commit('SET_PREPATH','/foo');
         this.$store.commit('SET_HOME',false);
+        this.$store.commit('CLEAR_FIELS');
         sessionStorage.showHome = false;
      },
      clearout:function(){
@@ -118,21 +119,45 @@ export default {
        this.file = [];
      },
      submitForm:function(){
-       console.log(this.homewk);
+      //  console.log(this.homewk);
        var index = 1;
        if(this.homewk.length >0){
          index = this.homewk.length + 1;
        }
+
+       // 输入合法验证
+       if(this.content.length == 0){
+         MessageBox('提示','请输入作业内容');
+
+         return;
+       }
+       if(this.value.length == 0){
+         MessageBox('提示','请选择要发布作业的班级')
+
+         return;
+       }
+       if(this.date.length == 0){
+         MessageBox('提示','请选择作业完成日期');
+         return;
+       }
+       
+      // 发布日期
+      var now = new Date();
+      var publish_at = now.toLocaleDateString();
+      var week = now.getDay();
+      
        var child1 = this.$refs.profile;
-       console.log(child1);
+
        child1.back();
        var homework = {
-            index:index,
-            course:this.selected ,
-            content:this.content,
-           date:this.date,
-           imgFile:this.file,
-           class:this.value
+           index:index,
+           course:this.selected ,
+           content:this.content,
+           deadline:this.date,
+           images:this.file,
+           class:this.value,
+           publish_at:publish_at,
+           week:week
        }
        this.$store.commit('SUBMIT_HOMEWOKR',homework);
      }

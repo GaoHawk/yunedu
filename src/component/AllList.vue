@@ -13,12 +13,14 @@
                          :title="item.course+`作业`"
                          :value="item.content"
                          @click.native="testclick_q(item,'作业')"
+                         v-finger:doubletap="doubleTap"
                          is-link>
                 </mt-cell>
                 <mt-cell v-if="item.title"
                          :title="item.title"
                          :value="item.content"
                          @click.native="testclick_q(item,'通知')"
+                         v-finger:doubletap="doubleTap"
                          is-link>
                 </mt-cell>
               </li>
@@ -51,25 +53,24 @@
     
     
     
-    
-    
-    
     </div>
 </template>
 <script>
     import {   mapState } from 'vuex'
     
     
-    
     export default {
-    
-    
     
         computed: {
     
             list: function () {
             var arr = this.homework.concat(this.notice);
-            return arr;
+            if(this.jumpToNotice == 1){
+                return arr;
+            }else{
+                return this.homework;
+            }
+            
             },
             ...mapState({
             selected: state => state.index_state,
@@ -82,7 +83,6 @@
             })
     
         },
-    
     
     
         data() {
@@ -101,8 +101,11 @@
     
     
     
-                wrapperHeight: 0
-    
+                wrapperHeight: 0,
+
+                jumpToNotice:0,
+
+                dataType:''
     
     
             };
@@ -119,48 +122,59 @@
     
             loadMore() {
     
-            if(this.list.length > 40){
-                console.log('end');
-                return;
-            }    
-      var userId='236942';
-      var session='05D751676848D1FC2216B877BDCD96251492408973256';
+            // if(this.list.length > 40){
+            //     console.log('end');
+            //     return;
+            // }    
+           var userId='236942';
+           var session='6E77229B6FB6C3DB211E93B3381DF9EB1492676845247';
     
       if (this.homwworkEnd) {
           
-        console.log('false');
         console.log(this.noticeEnd);
-        if(!this.noticeEnd){
-          var noticeNum = this.noticeCount?this.noticeCount:1;
-          
-          this.$http.get('http://localhost:8081/notices',{
-            headers:{"X-Session":session},
-            params: {
-              user_id: userId,
-              order: "DESC",
-              limit: 4,
-              starting_after: noticeNum
-            }
-          }).then(response => {
-            console.log(response.data.data);
-            for (let i = 0; i < response.data.data.length; i++) {
-              this.$store.commit('SUBMIT_NOTICES', response.data.data[i]);
-            }
-          let noticeLen = response.data.data.length
-          console.log(noticeLen)
-          if(noticeLen <4){
-            this.$store.commit('SET_NOTICE_END',true);
-          }
-          this.$store.commit('SET_LOAD_COUNT',numH+1);
-          this.loading = false;
-          }, response => {
-            // this.$store.commit('OPEN_DIALOG1');
-            // this.$store.commit('SET_RESPONSE', '提交失败')
-            console.log(response)
-          })
+        if(this.jumpToNotice == 0){
+           
+            this.loading = true;
+            setTimeout(() => {
+                this.jumpToNotice +=1; 
+                this.loading = false;
+            },2500);
+            return;
         }else{
-          return;
+            if(!this.noticeEnd){
+            this.loading =true;
+            var noticeNum = this.noticeCount?this.noticeCount:1;
+            
+            this.$http.get('http://localhost:8081/notices',{
+                headers:{"X-Session":session},
+                params: {
+                user_id: userId,
+                order: "DESC",
+                limit: 4,
+                starting_after: noticeNum
+                }
+            }).then(response => {
+                console.log(response.data.data);
+                for (let i = 0; i < response.data.data.length; i++) {
+                this.$store.commit('SET_NOTICE_DATA', response.data.data[i]);
+                }
+            let noticeLen = response.data.data.length
+            console.log(noticeLen)
+            if(noticeLen <4){
+                this.$store.commit('SET_NOTICE_END',true);
+            }
+            this.$store.commit('SET_NOTICE_COUNT',numH+1);
+            this.loading = false;
+            }, response => {
+                // this.$store.commit('OPEN_DIALOG1');
+                // this.$store.commit('SET_RESPONSE', '提交失败')
+                console.log(response)
+            })
+            }else{
+            return;
+            }
         }
+
       }else{
           this.loading = true;
           var numH  =  this.loadCount?this.loadCount:1;
@@ -175,7 +189,7 @@
           }).then(response => {
             console.log(response.data.data);
             for (let i = 0; i < response.data.data.length; i++) {
-              this.$store.commit('SUBMIT_HOMEWOKR',response.data.data[i]);
+              this.$store.commit('SET_HWK_DATA',response.data.data[i]);
               // this.lists.push();
             }
             let dataLen = response.data.data.length
@@ -202,15 +216,22 @@
     
                 sessionStorage.showHome = false;
     
-                // this.$store.commit('SET_HOMEWORK_DATA', data)
     
-                this.$store.commit('NEW_TITLE', '作业');
-    
-                this.$store.commit('ROUT_PATH', '/homework');
+                this.$store.commit('NEW_TITLE', this.dataType);
+
+                switch(this.dataType)
+                {
+                    case '作业':
+                    this.$store.commit('ROUT_PATH', '/homework');
+                    break;
+                    case '通知':
+                    this.$store.commit('ROUT_PATH', '/notice');
+                    break;
+                }
     
                 this.$store.commit('SET_PREPATH', '/');
     
-                console.log(1);
+
     
             },
     
@@ -234,19 +255,20 @@
                 // this.$store.commit('SET_PREPATH', '/');
             },
             testclick_q(obj,objType) {
-                console.log(obj);
                 console.log(objType);
-                console.log(this.testclick_n);
                 switch(objType)
                 {
                     case '作业':
+                    this.$store.commit('SET_HOMEWORK_DATA',obj);
+                    this.dataType = '作业';
                     break;
                     case '通知':
+                    this.$store.commit('SET_DATA', obj);
+                    this.dataType = '通知'
                     break;
                     default:
                     break;
                 }
-                // this.testclick_n(obj);
             },
 
     
@@ -259,7 +281,7 @@
     
     
     
-            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top - 40;
+            this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
     
     
     

@@ -64,7 +64,7 @@ select {
 </style>
 <script>
 import Header from './header.vue'
-import { Field, Checklist } from 'mint-ui';
+import { Field, Checklist, MessageBox } from 'mint-ui';
 import { mapState } from 'vuex'
 export default {
   computed: {
@@ -122,6 +122,20 @@ export default {
       var index = 1;
       if (this.notices.length > 0) {
         index = this.notices.length + 1;
+      }
+
+      // 提交验证数据合法
+      if(this.notice_title.length == 0){
+        MessageBox('提示','标题不能为空');
+        return;
+      }
+      if(this.content.length == 0){
+        MessageBox('提示','通知内容不能为空');
+        return;
+      }
+      if(this.value.length == 0){
+        MessageBox('提示','请选择要发布通知的班级');
+        return;
       }
       var now = new Date();
       var date = now.toLocaleDateString();

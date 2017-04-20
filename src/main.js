@@ -16,6 +16,8 @@ import c_notice from './component/createNotice.vue'
 import vFinger from 'vue-finger'
 
 Vue.prototype.$http = axios;
+
+
 Vue.use(VueAxios,axios)
 Vue.use(MintUi)
 Vue.use(vFinger)

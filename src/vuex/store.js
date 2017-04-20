@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-04-14 11:25:02
+ * @Last Modified time: 2017-04-20 17:38:04
 */
 
 import Vue from 'vue'
@@ -58,6 +58,9 @@ export default new Vuex.Store({
     setFiles({commit},fileName){
       commit('SET_FILES',fileName)
     },
+    clearFiles({commit}){
+      commit('CLEAR_FIELS');
+    },
     setSTO_Name({commit},name){
       commit('SET_STO_NAME',name);
     },
@@ -67,8 +70,14 @@ export default new Vuex.Store({
     submitHomeworks({commit},val){
       commit('SUBMIT_HOMEWOKR',val)
     },
+    setHWKData({commit},val){
+      commit('SET_HWK_DATA',val);
+    },
     submitNotices({commit},val){
       commit('SUBMIT_NOTICES',val)
+    },
+    setNoticeData({commit},val){
+      commit('SET_NOTICE_DATA',val);
     },
     setLoadingCount({commit},num){
       commit('SET_LOAD_COUNT',num);
@@ -112,6 +121,9 @@ export default new Vuex.Store({
     SET_FILES(state,file){
       state.files.push(file);
     },
+    CLEAR_FIELS(state){
+      state.files = [];
+    },
     SET_STO_NAME(state,name){
        state.stoName = name
     },
@@ -122,12 +134,16 @@ export default new Vuex.Store({
        state.homework_data = obj;
     },
     SUBMIT_HOMEWOKR(state,obj){
+       state.homeworks.unshift(obj);
+    },
+    SET_HWK_DATA(state,obj){
        state.homeworks.push(obj);
-       console.log(state);
     },
     SUBMIT_NOTICES(state,obj){
-       state.notices.push(obj);
-       console.log(state);
+       state.notices.unshift(obj);
+    },
+    SET_NOTICE_DATA(state,obj){
+      state.notices.push(obj);
     },
     SET_LOAD_COUNT(state,num){
       state.loadingCount = num;

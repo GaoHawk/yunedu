@@ -4,7 +4,7 @@
     <div class="custom-notice-content">
       <div class="custom-wrap">
         <label class="custom-label">{{dataJson.title}} </label>
-        <p class="custom-content">{{dataJson.value}} </p>
+        <p class="custom-content">{{dataJson.content}} </p>
         <span class="custom-badge" >{{dataJson | getLocalDate}}</span>
       </div>
     </div>
@@ -22,7 +22,9 @@
   }
   .custom-notice-content .custom-label{
       min-width: 70px;
-  
+      word-break:break-all; 
+　　  word-wrap:break-word;
+      max-width:87px;
   }
   .custom-notice-content .custom-wrap{
         position: relative;
