@@ -17,6 +17,7 @@ export default {
          this.$store.commit('ROUT_PATH','/foo');
          this.$store.commit('SET_PREPATH','/');
          this.$store.commit('SET_HOME',false);
+          this.$store.commit('CLEAR_FIELS');
          sessionStorage.showHome = false;
       
 

@@ -4,8 +4,17 @@
   <div class="custom-homework-content">
     <div class="custom-wrap">
     <label class="custom-label">{{dataJson.course}}作业 </label>
-    <p class="custom-content">{{dataJson.content}} </p>
-    <img :src="dataJson.images | filterImg" style="transform:scale(0.6,0.6);margin-bottom:32px;">
+    <p class="custom-content">
+    <pre>{{dataJson.content}}</pre>
+     </p>
+   <!-- 音频文件 -->
+    <div style="transform:scale(0.75,0.75);position:absolute;bottom:20%;left:21%;" v-if="dataJson.record_url">
+     <audio-player :sources="audioSources" :loop="false"></audio-player>
+    </div>
+    <img :src="dataJson.images | filterImg" v-if="dataJson.images.length==1" style="transform:scale(0.6,0.6);position:fixed;right:-10%;top:-2%;">
+    <div v-else class="stack rotated-left" style="transform:scale(0.5,0.5); position:fixed;right:-10%;top:0%;">
+       <img :src="dataJson.images | filterImg"  >
+    </div>
     <div style="position:absolute;top:80%;left:39%;">
     <label>截止日期</label><span style="position:relative;top:0;left:3px;">{{ dataJson.deadline | LocalDateStr }}</span>
     </div>
@@ -17,6 +26,67 @@
  </div>
 </template>
 <style>
+  /* 设置css stack 堆叠效果 */
+  .stack:last-of-type {
+    margin-right:0;
+  }
+  .stack{
+    z-index:10
+  }
+  .stack img{
+    max-width:100%;
+    height:auto;
+    vertical-align:bottom;
+    border:4px solid #eaeaea;
+    border-radius:3px;
+    box-sizing:border-box;
+    box-shadow:0 1px 4px rgba(0,0,0,0.4);
+  }
+  .stack.rotated-left:before{
+        -webkit-transform-origin: bottom left;
+    -moz-transform-origin: bottom left;
+    transform-origin: bottom left;
+    -webkit-transform: rotate(-3deg);
+    -moz-transform: rotate(-3deg);
+    transform: rotate(-3deg);
+  }
+  .stack.rotated-left:after{
+    -webkit-transform-origin: bottom left;
+    -moz-transform-origin: bottom left;
+    transform-origin: bottom left;
+    -webkit-transform: rotate(-6deg);
+    -moz-transform: rotate(-6deg);
+    transform: rotate(-6deg);
+  }
+  .stack:before{
+     top:4px;
+     z-index:-10;
+  }
+  .stack:after{
+    top:8px;
+    z-index:-20;
+  }
+  .stack:before,
+  .stack:after {
+    content:'';
+    border-radius:3px;
+    width:100%;
+    height:100%;
+    position:absolute;
+    border:4px solid #eaeaea;
+    left:0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    -webkit-transition: 0.3s all ease-out;
+    -moz-transition: 0.3s all ease-out;
+    transition: 0.3s all ease-out;
+  }
+
+
   .custom-homework-content .custom-badge{
      position: absolute;
      right:5px;
@@ -24,7 +94,8 @@
   }
   .custom-homework-content .custom-content{
      height: 82%;
-     text-indent:2em;
+     max-width:190px;
+     padding-left:0.8em;
   }
   .custom-homework-content .custom-label{
       min-width: 70px;
@@ -69,6 +140,7 @@
 <script>
 import Header from './header.vue'
 import { mapState } from 'vuex'
+import AudioPlayer from './audio-player.vue'
 export default {
     computed:{
        ...mapState({
@@ -77,11 +149,15 @@ export default {
    },
    data(){
       return {
-         name:'Foo'
+         name:'Foo',
+         audioSources:[
+          "/src/assets/voice/test.mp3",
+        ]
       }
    },
    components:{
-       'child':Header
+       'child':Header,
+       AudioPlayer
    },
    filters:{
      getLocalDate:function(value){

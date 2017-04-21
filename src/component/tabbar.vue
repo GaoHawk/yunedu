@@ -294,6 +294,8 @@ export default {
 
   .mint-cell-value {
     width: 80%;
+    white-space:nowrap;
+    text-overflow:ellipsis;overflow:hidden;
   }
 
 

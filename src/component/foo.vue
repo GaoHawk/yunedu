@@ -117,6 +117,7 @@ export default {
        this.selected = '语文';
        this.value=[];
        this.file = [];
+       this.$store.commit('CLEAR_FIELS');
      },
      submitForm:function(){
       //  console.log(this.homewk);
@@ -125,6 +126,8 @@ export default {
          index = this.homewk.length + 1;
        }
 
+       //  查看内容输入情况
+       console.log(this.content);
        // 输入合法验证
        if(this.content.length == 0){
          MessageBox('提示','请输入作业内容');
@@ -141,6 +144,7 @@ export default {
          return;
        }
        
+
       // 发布日期
       var now = new Date();
       var publish_at = now.toLocaleDateString();
@@ -160,6 +164,7 @@ export default {
            week:week
        }
        this.$store.commit('SUBMIT_HOMEWOKR',homework);
+      //  this.$store.commit('CLEAR_FIELS');
      }
    }
 }

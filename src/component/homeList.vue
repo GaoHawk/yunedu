@@ -139,7 +139,7 @@
     
                 var userId = '236942';
     
-                var session = '6E77229B6FB6C3DB211E93B3381DF9EB1492676845247';
+                var session = '231028FDBD04D4E2883D15A8C4A5CD3F1492762819755';
     
                 if (this.homwworkEnd) {
     

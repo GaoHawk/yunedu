@@ -1984,6 +1984,10 @@ hosted-git-info@^2.1.4:
   version "2.2.0"
   resolved "http://registry.npm.taobao.org/hosted-git-info/download/hosted-git-info-2.2.0.tgz#7a0d097863d886c0fabbdcd37bf1758d8becf8a5"
 
+howler@^2.0.2:
+  version "2.0.3"
+  resolved "http://registry.npm.taobao.org/howler/download/howler-2.0.3.tgz#a76ab5a37ae5cc1e4a5a0f3ce279ca2c72b5efc7"
+
 hpack.js@^2.1.6:
   version "2.1.6"
   resolved "http://registry.npm.taobao.org/hpack.js/download/hpack.js-2.1.6.tgz#87774c0949e513f42e84575b3c45681fade2a0b2"
@@ -2401,6 +2405,10 @@ lodash.camelcase@^3.0.1:
   resolved "http://registry.npm.taobao.org/lodash.camelcase/download/lodash.camelcase-3.0.1.tgz#932c8b87f8a4377897c67197533282f97aeac298"
   dependencies:
     lodash._createcompounder "^3.0.0"
+
+lodash.clamp@^4.0.3:
+  version "4.0.3"
+  resolved "http://registry.npm.taobao.org/lodash.clamp/download/lodash.clamp-4.0.3.tgz#5c24bedeeeef0753560dc2b4cb4671f90a6ddfaa"
 
 lodash.clonedeep@^4.5.0:
   version "4.5.0"
@@ -3892,6 +3900,13 @@ vue-finger@^0.1.0:
 vue-hot-reload-api@^2.0.1, vue-hot-reload-api@^2.0.11:
   version "2.0.11"
   resolved "http://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.0.11.tgz#bf26374fb73366ce03f799e65ef5dfd0e28a1568"
+
+vue-howler@^0.1.4:
+  version "0.1.4"
+  resolved "http://registry.npm.taobao.org/vue-howler/download/vue-howler-0.1.4.tgz#af049b4201a2dceac6d896ebd69d5589c45c59f0"
+  dependencies:
+    howler "^2.0.2"
+    lodash.clamp "^4.0.3"
 
 vue-lazyload@^0.8.0:
   version "0.8.3"

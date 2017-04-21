@@ -54,22 +54,20 @@ export default {
            store.commit('SET_FILES',file)
            console.log(this.$store);
            var vm = this;
-        //   演示完上传动画再返回跳转
-           var st = setTimeout(function(){
-               console.log(store);
-                store.commit('GO_BACK');
-                //  手动控制router路径 控制页面显示
-                //起始页面直接返回跳转，上传页面跳转回布置作业页面 
-                if(vm.path == '/'|| vm.path =='/bar'){
-                    store.commit('SET_HOME',true);
-                    sessionStorage.showHome = true;
-                    console.log(vm.path)
-                }else{
-                    store.commit('NEW_TITLE','作业');
-                }
-           },2500)
-           store.commit('SET_STO_NAME',st);
-           console.log(store);
+        // //   演示完上传动画再返回跳转
+        //    var st = setTimeout(function(){
+        //        console.log(store);
+        //         store.commit('GO_BACK');
+        //         //  手动控制router路径 控制页面显示
+        //         //起始页面直接返回跳转，上传页面跳转回布置作业页面 
+        //         if(vm.path == '/'|| vm.path =='/bar'){
+        //             store.commit('SET_HOME',true);
+        //             sessionStorage.showHome = true;
+        //         }else{
+        //             store.commit('NEW_TITLE','作业');
+        //         }
+        //    },2500)
+        //    store.commit('SET_STO_NAME',st);
 
        },
        uploadFile:function(){

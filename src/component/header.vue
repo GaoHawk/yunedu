@@ -27,9 +27,9 @@
      methods:{
         back:function(){
 
-           if(this.st.length>0){
-             clearTimeout(this.st);
-           }
+          //  if(this.st.length>0){
+          //    clearTimeout(this.st);
+          //  }
            console.log('back')
 
            this.$store.commit('GO_BACK');
@@ -39,6 +39,7 @@
            if(this.path == '/'|| this.path =='/bar'){
              this.$store.commit('SET_HOME',true);
              sessionStorage.showHome = true;
+            
              console.log(this.path)
            }else{
              this.$store.commit('NEW_TITLE','作业');
