@@ -127,7 +127,7 @@
             //     return;
             // }    
            var userId='236942';
-           var session='231028FDBD04D4E2883D15A8C4A5CD3F1492762819755';
+           var session='295073346B666AFBD7A8943C4A97BF801493027777479';
     
       if (this.homwworkEnd) {
           
@@ -212,9 +212,9 @@
     
             doubleTap() {
     
-                this.$store.commit('SET_HOME', false);
+                // this.$store.commit('SET_HOME', false);
     
-                sessionStorage.showHome = false;
+                // sessionStorage.showHome = false;
     
     
                 this.$store.commit('NEW_TITLE', this.dataType);
@@ -238,8 +238,8 @@
             
             testclick_n(data) {
                 console.log(data)
-                this.$store.commit('SET_HOME', false);
-                sessionStorage.showHome = false;
+                // this.$store.commit('SET_HOME', false);
+                // sessionStorage.showHome = false;
                 this.$store.commit('SET_DATA', data)
                 this.$store.commit('NEW_TITLE', '通知');
                 this.$store.commit('ROUT_PATH', '/notice');

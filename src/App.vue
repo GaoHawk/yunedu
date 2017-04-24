@@ -1,13 +1,13 @@
 <template>
   <div id="app">
+   <keep-alive>
     <router-view :title="title"></router-view>
-
-    <Tabbar v-show="showHome"></Tabbar>
+   </keep-alive>
+   <!-- <Tabbar v-show="showHome"></Tabbar> -->
 <!--     <ul>
       <li is="Notice" v-for="(todo,index) in todos" v-bind:title="todo" v-bind:index="index"></li>
     </ul> -->
     <!-- <Notice></Notice> -->
-
   </div>
 </template>
 
@@ -48,10 +48,16 @@ export default {
   methods:{
       goRoute:function(item){
           console.log(item);
-          this.showHome = !this.showHome;
-          sessionStorage.showHome = this.showHome;
+          // this.showHome = !this.showHome;
+          // sessionStorage.showHome = this.showHome;
           this.$router.push({ path: item.path });
       }
+  },
+  mounted(){
+      window.addEventListener("popstate", function(e) { 
+          // alert("我监听到了浏览器的返回按钮事件啦");//根据自己的需求实现自己的功能 
+          // console.log(window.location.href);
+      }, false);
   }
 }
 </script>

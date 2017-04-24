@@ -3,7 +3,7 @@
   <child></child>
   <div class="custom-homework-content">
     <div class="custom-wrap">
-    <label class="custom-label">{{dataJson.course}}作业 </label>
+    <label class="custom-label" >{{dataJson.course}}作业 </label>
     <p class="custom-content">
     <pre>{{dataJson.content}}</pre>
      </p>
@@ -11,14 +11,15 @@
     <div style="transform:scale(0.75,0.75);position:absolute;bottom:20%;left:21%;" v-if="dataJson.record_url">
      <audio-player :sources="audioSources" :loop="false"></audio-player>
     </div>
-    <img :src="dataJson.images | filterImg" v-if="dataJson.images.length==1" style="transform:scale(0.6,0.6);position:fixed;right:-10%;top:-2%;">
-    <div v-else class="stack rotated-left" style="transform:scale(0.5,0.5); position:fixed;right:-10%;top:0%;">
-       <img :src="dataJson.images | filterImg"  >
+    <img :src="preViewPic[0]" v-show="preViewPic.length==1" style="transform:scale(0.6,0.6);position:fixed;right:-10%;top:0;" class="picView" >
+    <div v-show="preViewPic.length>1" class="stack picView rotated-left" style="transform:scale(0.5,0.5); position:fixed;right:-10%;top:0%;" >
+       <img :src="preViewPic[0]">
+       
     </div>
-    <div style="position:absolute;top:80%;left:39%;">
+    <div style="position:absolute;top:80%;left:39%;" class="time-lable">
     <label>截止日期</label><span style="position:relative;top:0;left:3px;">{{ dataJson.deadline | LocalDateStr }}</span>
     </div>
-    <div style="position:absolute;top:90%;left:39%;">
+    <div style="position:absolute;top:90%;left:39%;" >
     <label>发布日期</label><span style="margin-left:2px;" >{{dataJson | getLocalDate}}</span>
     </div>
     </div>
@@ -144,7 +145,8 @@ import AudioPlayer from './audio-player.vue'
 export default {
     computed:{
        ...mapState({
-          dataJson: state => state.homework_data
+          dataJson: state => state.homework_data,
+          preViewPic: state => state.previewPic
        })
    },
    data(){
@@ -158,6 +160,25 @@ export default {
    components:{
        'child':Header,
        AudioPlayer
+   },
+   methods:{
+
+   },
+   mounted(){
+     var picView = document.querySelectorAll(".picView");
+     console.log(picView);
+     let store = this.$store;
+     console.log(store);
+     picView[0].addEventListener('click',function(){
+        console.log('view');
+        store.commit('ROUT_PATH', '/pic');
+        store.commit('SET_PREPATH', '/homework');
+     })
+     picView[1].addEventListener('click',function(){
+        console.log('view');
+        store.commit('ROUT_PATH', '/pic');
+        store.commit('SET_PREPATH', '/homework');
+     })
    },
    filters:{
      getLocalDate:function(value){

@@ -3930,6 +3930,10 @@ vue-loader@^10.0.0:
     vue-style-loader "^2.0.0"
     vue-template-es2015-compiler "^1.2.2"
 
+vue-picture-preview@^0.0.1:
+  version "0.0.1"
+  resolved "http://registry.npm.taobao.org/vue-picture-preview/download/vue-picture-preview-0.0.1.tgz#20c47ba4988287fa1b31ee0d9b931a362832e3c1"
+
 vue-resource@^1.2.0:
   version "1.2.0"
   resolved "http://registry.npm.taobao.org/vue-resource/download/vue-resource-1.2.0.tgz#dc368cca958655c79486dde07336db22954af40c"

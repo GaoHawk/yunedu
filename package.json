@@ -19,6 +19,7 @@
     "vue-axios": "^1.2.2",
     "vue-finger": "^0.1.0",
     "vue-howler": "^0.1.4",
+    "vue-picture-preview": "^0.0.1",
     "vue-resource": "^1.2.0",
     "vue-router": "^2.2.0",
     "vue-upload-component": "next",

@@ -79,6 +79,9 @@ export default {
        clearout:function(){
          this.$refs.myUnique.dropzone.removeAllFiles(true);
        }
+   },
+   activated(){
+      this.$refs.myUnique.dropzone.removeAllFiles(true);
    }
 }
 </script>

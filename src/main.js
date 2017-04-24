@@ -14,10 +14,14 @@ import Notice from './component/notice.vue'
 import homework from './component/homework.vue'
 import c_notice from './component/createNotice.vue'
 import vFinger from 'vue-finger'
+import vuePicturePreview from 'vue-picture-preview'
+import firstTab from './component/tabbar.vue'
+import pictureView from './component/picture.vue'
 
 Vue.prototype.$http = axios;
 
 
+Vue.use(vuePicturePreview)
 Vue.use(VueAxios,axios)
 Vue.use(MintUi)
 Vue.use(vFinger)
@@ -25,7 +29,9 @@ Vue.use(VueRouter)
 var routes = [{ path: '/foo', component: Foo }, { path: '/bar', component: Bar },{ path: '/toast',component:Toast },
       { path: '/notice', component:Notice },
       { path: '/homework',component:homework },
-      { path: '/c_notice',component:c_notice }
+      { path: '/c_notice',component:c_notice },
+      { path: '/',component:firstTab },
+      { path: '/pic', component:pictureView } 
 ];
 
 

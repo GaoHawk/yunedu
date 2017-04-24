@@ -37,8 +37,8 @@
           //  手动控制router路径 控制页面显示
          //起始页面直接返回跳转，上传页面跳转回布置作业页面 
            if(this.path == '/'|| this.path =='/bar'){
-             this.$store.commit('SET_HOME',true);
-             sessionStorage.showHome = true;
+            //  this.$store.commit('SET_HOME',true);
+            //  sessionStorage.showHome = true;
             
              console.log(this.path)
            }else{

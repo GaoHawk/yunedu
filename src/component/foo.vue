@@ -106,12 +106,11 @@ export default {
         this.$store.commit('NEW_TITLE','上传文件');
         this.$store.commit('ROUT_PATH','/bar');
         this.$store.commit('SET_PREPATH','/foo');
-        this.$store.commit('SET_HOME',false);
+        // this.$store.commit('SET_HOME',false);
         this.$store.commit('CLEAR_FIELS');
-        sessionStorage.showHome = false;
+        // sessionStorage.showHome = false;
      },
      clearout:function(){
-       console.log(this);
        this.content = '';
        this.date = '';
        this.selected = '语文';
@@ -166,6 +165,12 @@ export default {
        this.$store.commit('SUBMIT_HOMEWOKR',homework);
       //  this.$store.commit('CLEAR_FIELS');
      }
+   },
+   activated(){
+       console.log(this.prePath);
+       if(this.prePath == "/"){
+           this.clearout();
+       }
    }
 }
 </script>

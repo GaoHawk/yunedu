@@ -180,8 +180,8 @@ export default {
 
     },
     doubleTap(){
-      this.$store.commit('SET_HOME', false);
-      sessionStorage.showHome = false;
+      // this.$store.commit('SET_HOME', false);
+      // sessionStorage.showHome = false;
       // this.$store.commit('SET_HOMEWORK_DATA', data)
       this.$store.commit('NEW_TITLE', '作业');
       this.$store.commit('ROUT_PATH', '/homework');
@@ -199,8 +199,8 @@ export default {
     },
     testclick_n(data) {
       console.log(data)
-      this.$store.commit('SET_HOME', false);
-      sessionStorage.showHome = false;
+      // this.$store.commit('SET_HOME', false);
+      // sessionStorage.showHome = false;
       this.$store.commit('SET_DATA', data)
       this.$store.commit('NEW_TITLE', '通知');
       this.$store.commit('ROUT_PATH', '/notice');

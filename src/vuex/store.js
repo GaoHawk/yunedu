@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-04-20 17:38:04
+ * @Last Modified time: 2017-04-24 11:18:27
 */
 
 import Vue from 'vue'
@@ -31,7 +31,9 @@ export default new Vuex.Store({
     loadingCount:1,
     noticeCount:1,
     homeworkEnd:false,
-    noticeEnd:false
+    noticeEnd:false,
+    //预览图片数据
+    previewPic:[]
   },
   actions: {
     setNewTitle ({commit}, msg) {
@@ -90,6 +92,9 @@ export default new Vuex.Store({
     },
     setNoticeEnd({commit},val){
       commit('SET_NOTICE_END',val);
+    },
+    setPreviewPic({commit},arr){
+      commit('SET_PREVIEW_PIC',arr);
     }
   },
   mutations: {
@@ -156,6 +161,10 @@ export default new Vuex.Store({
     },
     SET_NOTICE_END(state,val){
       state.noticeEnd = val;
+    },
+    // 设置预览图片数据
+    SET_PREVIEW_PIC(state,arr){
+      state.previewPic = arr;
     }
   },
 
