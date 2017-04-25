@@ -31,7 +31,7 @@
     -->
 
     <p class="page-swipe-desc">单个幻灯片</p>
-    <mt-swipe :show-indicators="false" style="height:260px;" >
+    <mt-swipe :show-indicators="false" style="height:260px;" v-show="preViewPic.length==1">
       <mt-swipe-item class="slide1">
       <img :src="preViewPic[0]">
       </mt-swipe-item>

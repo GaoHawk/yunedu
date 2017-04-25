@@ -17,6 +17,8 @@ import vFinger from 'vue-finger'
 import vuePicturePreview from 'vue-picture-preview'
 import firstTab from './component/tabbar.vue'
 import pictureView from './component/picture.vue'
+import pageNav from './component/pageNav.vue'
+import yearIndex from './component/yearIndex.vue'
 
 Vue.prototype.$http = axios;
 
@@ -30,8 +32,20 @@ var routes = [{ path: '/foo', component: Foo }, { path: '/bar', component: Bar }
       { path: '/notice', component:Notice },
       { path: '/homework',component:homework },
       { path: '/c_notice',component:c_notice },
-      { path: '/',component:firstTab },
-      { path: '/pic', component:pictureView } 
+      { path: '/home',component:firstTab,
+        children:[
+          {
+            path:'/home/pageNav',
+            component: pageNav
+          },
+          {
+            path:'/home/yearIndex',
+            component: yearIndex
+          }
+        ] 
+      },
+      { path: '/pic', component:pictureView } ,
+      { path: '/', redirect:'/home/yearIndex'}
 ];
 
 

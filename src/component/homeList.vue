@@ -73,7 +73,7 @@
     
             ...mapState({
     
-    
+                selected: state => state.index_state,
     
                 homework: state => state.homeworks,
     
@@ -128,7 +128,14 @@
     
     
             loadMore() {
-    
+                
+                if(!(this.selected == '作业')){
+                    console.log(this.selected);
+                    console.log('未激活');
+                    return;
+                }else{
+                
+                }
                 if (this.homework.length > 40) {
     
                     console.log('end');
@@ -139,7 +146,7 @@
     
                 var userId = '236942';
     
-                var session = '295073346B666AFBD7A8943C4A97BF801493027777479';
+                var session = 'A1BE081560327933E2E92C94E1730DDB1493108278607';
     
                 if (this.homwworkEnd) {
     

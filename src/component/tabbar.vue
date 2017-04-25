@@ -9,24 +9,16 @@
               @click="jumpToHome">教师首页</li>
           <li class="normal"
               :class="{ active: !selected }"
-              v-show="year"
-              @click="jumpToIndex">{{value}}</li>
+              v-show=" !isActive"
+              @click="jumpToIndex">{{value?value:'2017'}}</li>
           <li class="normal active"
               v-show="selected">{{ selected }}</li>
         </ol>
       </div>
-      <div v-show="!selected && !isActive"
-           class="yearStyle">
-        <mt-button size="normal"
-                   type="default"
-                   @click="tabTo('全部')">全部</mt-button>
-        <mt-button size="normal"
-                   type="default"
-                   @click="tabTo('作业')">作业</mt-button>
-        <mt-button size="normal"
-                   type="default"
-                   @click="tabTo('通知')">通知</mt-button>
-      </div>
+      <keep-alive>
+      <router-view></router-view>
+      </keep-alive>
+       <!--
       <Btn v-show="isActive&& !selected"></Btn>
       <mt-radio v-show="isActive&& !selected"
                 title="选择学年信息"
@@ -36,71 +28,23 @@
                 @click.native="clickR()"
                 class="custom-radio">
       </mt-radio>
-      <!--<div class="radio_demo" v-show="isActive && !selected">
-             <div class="radio_row">
-              <input type="radio" id="one" value="One" v-model="picked" style="min-height: 48px;">
-              <label for="one" style="width:100%;">One</label>
-             </div>
-             <div class="radio_row">
-                <input type="radio" id="two" value="Two" v-model="picked" style="min-height: 48px;">
-                <label for="two" style="width:100%;">Two</label>
-             </div>
-              <span>Picked: {{ picked }}</span>
-           </div>-->
+      -->
       <mt-tab-container class="page-tabbar-container"
                         v-model="selected"
                         @touchmove.native="hidetab">
         <mt-tab-container-item id="全部">
-          <!-- <div class="page-infinite-wrapper"
-               ref="wrapper"
-               :style="{ height: wrapperHeight + 'px' }">
-            <ul class="page-infinite-list"
-                v-infinite-scroll="loadMore"
-                infinite-scroll-disabled="loading"
-                infinite-scroll-distance="10">
-              <li v-for="item in list"
-                  class="page-infinite-listitem">
-         
-                <mt-cell v-if="item.course"
-                         :title="item.course+`作业`"
-                         :value="item.content"
-                         @click.native="testclick_q(item)"
-                         is-link>
-                </mt-cell>
-                <mt-cell v-if="item.title"
-                         :title="item.title"
-                         :value="item.content"
-                         @click.native="testclick_q(item)"
-                         is-link>
-                </mt-cell>
-              </li>
-            </ul>
-            <p v-show="loading"
-               class="page-infinite-loading">
-              <mt-spinner type="fading-circle"></mt-spinner>
-              加载中...
-            </p>
-          </div> -->
-          <AllList></AllList>
+
+          <AllList ref="alllist"></AllList>
         </mt-tab-container-item>
         <mt-tab-container-item id="作业"
                                class="custom-homework">
-          <!-- <mt-cell v-for="m in homework"
-                    :title="m.course+`作业`"
-                    :value="m.content"
-                    @click.native="testclick_h(m)"
-                    is-link/> -->
-        <homelList></homelList>
+
+        <homelList ref="homelist"></homelList>
         </mt-tab-container-item>
         <mt-tab-container-item id="通知"
                                class="custom-notice">
-         <!--
-            <mt-cell v-for="n in notice"
-                   :title="n.title"
-                   :value="n.value"
-                   @click.native="testclick_n(n)"
-                   is-link /> -->
-        <noticeList></noticeList>
+
+        <noticeList ref="noticelist"></noticeList>
         </mt-tab-container-item>
   
       </mt-tab-container>
@@ -146,7 +90,10 @@ export default {
       return arr;
     },
     ...mapState({
+      isActive: state => state.yIsActive,
+      value: state => state.year,
       selected: state => state.index_state,
+      prevPath:state => state.prevPath,
       homework: state => state.homeworks,
       notice: state => state.notices,
       loadCount: state => state.loadingCount,
@@ -159,15 +106,7 @@ export default {
   data() {
     return {
       picked: '',
-      isActive: false,
-      isActiveB: false,
       year: true,
-      value: '2017',
-      // notice:[
-      //    { index:1, title:"高三通知", value:"临时放假"},
-      //    { index:2,title:"高二通知",value:"下周期中考"},
-      //    { index:3,title:"高一通知",value:"周四下午实践"}
-      // ],
       loading: false,
       loadingHome:false,
       allLoaded: false,
@@ -197,42 +136,24 @@ export default {
       var mintTab = document.querySelector('.mint-tabbar.is-fixed');
       mintTab.style.setProperty('top', '100%');
     },
-    testclick_n(data) {
-      console.log(data)
-      // this.$store.commit('SET_HOME', false);
-      // sessionStorage.showHome = false;
-      this.$store.commit('SET_DATA', data)
-      this.$store.commit('NEW_TITLE', '通知');
-      this.$store.commit('ROUT_PATH', '/notice');
-      this.$store.commit('SET_PREPATH', '/');
-    },
-    testclick_h(data) {
-      console.log(data);
-      // this.$store.commit('SET_HOME', false);
-      // sessionStorage.showHome = false;
-      this.$store.commit('SET_HOMEWORK_DATA', data)
-      // this.$store.commit('NEW_TITLE', '作业');
-      // this.$store.commit('ROUT_PATH', '/homework');
-      // this.$store.commit('SET_PREPATH', '/');
-    },
-    testclick_q(obj) {
-      console.log(obj);
-      console.log(this.testclick_n);
-    },
     jumpToHome() {
       this.year = false;
       this.selected = '';
-      this.isActive = true;
       var mintTab = document.querySelector('.mint-tabbar.is-fixed');
       mintTab.style.setProperty('top', '100%');
       this.$store.commit('SET_INDEX_STA', '');
+      this.$store.commit('ROUT_PATH','/home/yearIndex');
+      this.$store.commit('SET_PREPATH',this.prevPath);
+      this.$store.commit('SET_YEAR_ACTIVE',true);
     },
     jumpToIndex() {
       var mintTab = document.querySelector('.mint-tabbar.is-fixed');
       mintTab.style.setProperty('top', 'auto');
       this.$store.commit('SET_INDEX_STA', '');
       this.selected = '';
-      this.isActiveB = true;
+      this.$store.commit('ROUT_PATH','/home/pageNav');
+      this.$store.commit('SET_PREPATH',this.prevPath);
+      // this.isActiveB = true;
     },
     tabTo(msg) {
       this.$store.commit('SET_INDEX_STA', msg);
@@ -247,15 +168,33 @@ export default {
       this.year = true;
       this.isActive = false;
       this.selected = '';
-      this.isActiveB = true;
+      // this.isActiveB = true;
     },
     testClick(value) {
       this.$store.commit('SET_INDEX_STA', value);
+      this.$store.commit('ROUT_PATH','/home');
+      this.$store.commit('SET_PREPATH',this.prevPath);
+      switch(value)
+      {
+        case '全部':
+        this.$refs.alllist.loadMore();
+        break;
+        case '作业':
+        this.$refs.homelist.loadMore();
+        break;
+        case '通知':
+        this.$refs.noticelist.loadMore();
+        break;
+      }
+       
       
     }
   },
   mounted() {
 
+  },
+  activated(){
+      console.log(this.$refs.alllist);
   }
 };
 </script>

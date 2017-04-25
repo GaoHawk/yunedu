@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-04-24 11:18:27
+ * @Last Modified time: 2017-04-25 17:15:15
 */
 
 import Vue from 'vue'
@@ -27,13 +27,16 @@ export default new Vuex.Store({
     showHome:true,
     files:[],
     stoName:'',
-    index_state:'全部',
+    index_state:'',
     loadingCount:1,
     noticeCount:1,
     homeworkEnd:false,
     noticeEnd:false,
     //预览图片数据
-    previewPic:[]
+    previewPic:[],
+    // 查询年份
+    year:'',
+    yIsActive:true,
   },
   actions: {
     setNewTitle ({commit}, msg) {
@@ -95,6 +98,14 @@ export default new Vuex.Store({
     },
     setPreviewPic({commit},arr){
       commit('SET_PREVIEW_PIC',arr);
+    },
+    //查询 的年份
+    setYear({commit},num){
+      commit('SET_YEAR',num);
+    },
+    //判断 查询年份是否激活
+    setYearActive({commit},bl){
+      commit('SET_YEAR_ACTIVE',bl);
     }
   },
   mutations: {
@@ -165,6 +176,15 @@ export default new Vuex.Store({
     // 设置预览图片数据
     SET_PREVIEW_PIC(state,arr){
       state.previewPic = arr;
+    },
+    // 查询年份
+    SET_YEAR(state,num){
+      state.year = num;
+      console.log(state);
+    },
+    // 查看年份是否激活
+    SET_YEAR_ACTIVE(state,bl){
+      state.yIsActive=bl;
     }
   },
 

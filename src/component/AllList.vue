@@ -127,8 +127,13 @@
             //     return;
             // }    
            var userId='236942';
-           var session='295073346B666AFBD7A8943C4A97BF801493027777479';
+           var session='A1BE081560327933E2E92C94E1730DDB1493108278607';
     
+           if(this.selected == '全部'){
+
+           }else{
+              return;
+           }
       if (this.homwworkEnd) {
           
         console.log(this.noticeEnd);

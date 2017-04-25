@@ -118,7 +118,10 @@
     
     
             loadMore() {
-    
+                if(!(this.selected == '通知')){
+                    console.log('未激活');
+                    return;
+                }
                 if (this.notice.length > 40) {
     
                     console.log('end');
@@ -129,7 +132,7 @@
     
                 var userId = '236942';
     
-                var session = '295073346B666AFBD7A8943C4A97BF801493027777479';
+                var session = 'A1BE081560327933E2E92C94E1730DDB1493108278607';
     
                 if(!this.noticeEnd){
                     this.loading = true;
