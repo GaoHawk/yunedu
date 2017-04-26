@@ -136,7 +136,7 @@
     
                 var userId = '236942';
     
-                var session = 'B5B664F0E5C9D792CC0E8155CDEB70791493184445576';
+                var session = 'B5B664F0E5C9D792CC0E8155CDEB70791493197741733';
     
                 if(!this.noticeEnd){
                     this.loading = true;

@@ -2,8 +2,8 @@
     <div class="template">
      <child ref="ref1"></child>
     
-     <dropzon maxFiles="1"  ref="myUnique" id="vueDropzone" url="http://localhost:8081/upload/file"  acceptedFileTypes='image/*'  
-          v-on:vdropzone-success="showSuccess" 
+     <dropzon   ref="myUnique" id="vueDropzone" url="http://localhost:8081/upload/file"  acceptedFileTypes='image/*'  
+          v-on:vdropzone-success="showSuccess"
           :thumbnailHeight="100"
           :thumbnailWidth="50"
           :maxNumberOfFiles="10"
@@ -44,6 +44,7 @@ export default {
    },
    methods:{
        'showSuccess':function(file,json){
+           console.log(file);
            console.log(this.$refs);
            var file = {
                file:json.filename,
@@ -52,8 +53,6 @@ export default {
             var store= this.$store;
            store.commit('SET_FILES',file)
            console.log(this.$store);
-
-
        },
        uploadFile:function(){
           var files = this.$refs.myUnique;
@@ -74,6 +73,8 @@ export default {
       dropzone.addEventListener('DOMNodeInserted',function(e){
           var file = e.target;
           console.log(file);
+          var dropFile = vm.$refs.myUnique.dropzone;
+          console.log(dropFile);
           var bl = '';
           if(file.classList&&file.classList.contains('dz-preview')){
             bl = file.classList;
@@ -83,7 +84,7 @@ export default {
               console.log(dropzone);
               if(dropzone.childNodes.length>11){
                   console.log(dropzone.childNodes);
-                  dropzone.removeChild(dropzone.childNodes[11]);
+                  dropFile.removeFile(dropFile.files[10]);
               }
           }
           
