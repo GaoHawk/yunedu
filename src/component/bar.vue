@@ -1,10 +1,20 @@
 <template>
     <div class="template">
      <child ref="ref1"></child>
-     Bar
-     <dropzon maxFiles="1"  ref="myUnique" id="vueDropzone" url="http://localhost:8081/upload/file"  acceptedFileTypes='image/*'  v-on:vdropzone-success="showSuccess" :autoProcessQueue="auto"></dropzon>
-     <button @click="uploadFile">上传</button>
-     <button @click="clearout">重置</button>
+    
+     <dropzon maxFiles="1"  ref="myUnique" id="vueDropzone" url="http://localhost:8081/upload/file"  acceptedFileTypes='image/*'  
+          v-on:vdropzone-success="showSuccess" 
+          :thumbnailHeight="100"
+          :thumbnailWidth="50"
+          :maxNumberOfFiles="10"
+          :autoProcessQueue="auto"
+          @click.native="clickZone">
+     </dropzon>
+     <div style="text-align:center;">
+        <button @click="uploadFile">上传</button>
+        <button @click="clearout">重置</button>
+     </div>
+     <span style="color:red;font-size:12px;" v-show="openPic">正在打开本地文件...</span>
      </div>
 </template>
 <!-- 文件上传组件 -->
@@ -20,19 +30,12 @@ export default {
             prePath:state => state.prevPath
         })
    },
-   mounted(){
-        console.log(this.$refs);
-        let arr = []
-        arr.push(this.$refs['ref1'])
-        console.log(arr);
 
-        // var value = this.$children[1].get autoProcessQueue;
-        // console.log(value)
-   },
    data(){
       return {
          name:'Bar',
-         auto:false
+         auto:false,
+         openPic:false
       }
    },
    components:{
@@ -42,10 +45,6 @@ export default {
    methods:{
        'showSuccess':function(file,json){
            console.log(this.$refs);
-           console.log(file);
-           console.log(json);
-           console.log(json.filename);
-           console.log(json.smallurl);
            var file = {
                file:json.filename,
                url:json.smallurl
@@ -53,21 +52,7 @@ export default {
             var store= this.$store;
            store.commit('SET_FILES',file)
            console.log(this.$store);
-           var vm = this;
-        // //   演示完上传动画再返回跳转
-        //    var st = setTimeout(function(){
-        //        console.log(store);
-        //         store.commit('GO_BACK');
-        //         //  手动控制router路径 控制页面显示
-        //         //起始页面直接返回跳转，上传页面跳转回布置作业页面 
-        //         if(vm.path == '/'|| vm.path =='/bar'){
-        //             store.commit('SET_HOME',true);
-        //             sessionStorage.showHome = true;
-        //         }else{
-        //             store.commit('NEW_TITLE','作业');
-        //         }
-        //    },2500)
-        //    store.commit('SET_STO_NAME',st);
+
 
        },
        uploadFile:function(){
@@ -78,7 +63,32 @@ export default {
        },
        clearout:function(){
          this.$refs.myUnique.dropzone.removeAllFiles(true);
+       },
+       clickZone:function(){
+           this.openPic = true;
        }
+   },
+   mounted(){
+      var dropzone = document.querySelector('.dropzone');
+      var vm = this;
+      dropzone.addEventListener('DOMNodeInserted',function(e){
+          var file = e.target;
+          console.log(file);
+          var bl = '';
+          if(file.classList&&file.classList.contains('dz-preview')){
+            bl = file.classList;
+          }
+          if(bl.length>0){
+              var bb = bl.length;
+              console.log(dropzone);
+              if(dropzone.childNodes.length>11){
+                  console.log(dropzone.childNodes);
+                  dropzone.removeChild(dropzone.childNodes[11]);
+              }
+          }
+          
+          vm.openPic = false;
+      });
    },
    activated(){
       this.$refs.myUnique.dropzone.removeAllFiles(true);

@@ -18,17 +18,7 @@
       <keep-alive>
       <router-view></router-view>
       </keep-alive>
-       <!--
-      <Btn v-show="isActive&& !selected"></Btn>
-      <mt-radio v-show="isActive&& !selected"
-                title="选择学年信息"
-                v-model="value"
-                :options="['2017','2016','2015']"
-                @change.native="clickRadio(value)"
-                @click.native="clickR()"
-                class="custom-radio">
-      </mt-radio>
-      -->
+
       <mt-tab-container class="page-tabbar-container"
                         v-model="selected"
                         @touchmove.native="hidetab">
@@ -177,13 +167,26 @@ export default {
       switch(value)
       {
         case '全部':
-        this.$refs.alllist.loadMore();
+        if(this.homework.length>15){
+
+        }else{
+          this.$refs.alllist.loadMore();
+        }
         break;
         case '作业':
-        this.$refs.homelist.loadMore();
+        if(this.homework.length>15){
+
+        }else{
+          this.$refs.homelist.loadMore();
+        }
+        
         break;
         case '通知':
-        this.$refs.noticelist.loadMore();
+        if(this.notice.length>15){
+
+        }else{
+           this.$refs.noticelist.loadMore();
+        }
         break;
       }
        

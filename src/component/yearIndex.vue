@@ -49,11 +49,9 @@
        
         }
      },
-     destroyed(){
-        //  const path = this.$router.currentRoute.path;
-
-        //  this.$store.commit('GET_CURRENTROUTER',path)
-     }
+    activated(){
+       this.value = '';
+    }
   }
 </script>
 <style >

@@ -61,11 +61,15 @@
 <script>
     import {   mapState } from 'vuex'
     
-    
+    import Bus from '../common/bus.js'
     
     export default {
-    
-    
+        created(){
+            Bus.$on('goToNotice',target =>{
+
+                this.loadMore();
+            })
+        },
     
         computed: {
     
@@ -132,7 +136,7 @@
     
                 var userId = '236942';
     
-                var session = 'A1BE081560327933E2E92C94E1730DDB1493108278607';
+                var session = 'B5B664F0E5C9D792CC0E8155CDEB70791493184445576';
     
                 if(!this.noticeEnd){
                     this.loading = true;
