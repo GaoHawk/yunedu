@@ -19,6 +19,7 @@ import firstTab from './component/tabbar.vue'
 import pictureView from './component/picture.vue'
 import pageNav from './component/pageNav.vue'
 import yearIndex from './component/yearIndex.vue'
+import comments from './component/comments.vue'
 
 Vue.prototype.$http = axios;
 
@@ -32,6 +33,7 @@ var routes = [{ path: '/foo', component: Foo }, { path: '/bar', component: Bar }
       { path: '/notice', component:Notice },
       { path: '/homework',component:homework },
       { path: '/c_notice',component:c_notice },
+      { path: '/comments', component:comments },
       { path: '/home',component:firstTab,
         children:[
           {

@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-04-25 17:15:15
+ * @Last Modified time: 2017-04-27 17:33:45
 */
 
 import Vue from 'vue'
@@ -37,6 +37,8 @@ export default new Vuex.Store({
     // 查询年份
     year:'',
     yIsActive:true,
+    // 评论作业id
+    comments_hid:'',
   },
   actions: {
     setNewTitle ({commit}, msg) {
@@ -106,6 +108,10 @@ export default new Vuex.Store({
     //判断 查询年份是否激活
     setYearActive({commit},bl){
       commit('SET_YEAR_ACTIVE',bl);
+    },
+    // 设置作业评论id
+    setComments_Hid({commit},id){
+      commit('SET_COMMENTS_HID',id);
     }
   },
   mutations: {
@@ -185,6 +191,10 @@ export default new Vuex.Store({
     // 查看年份是否激活
     SET_YEAR_ACTIVE(state,bl){
       state.yIsActive=bl;
+    },
+    // 评论作业id
+    SET_COMMENTS_HID(state,id){
+      state.comments_hid = id;
     }
   },
 

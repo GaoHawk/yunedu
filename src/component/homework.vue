@@ -24,9 +24,33 @@
     </div>
     </div>
  </div>
+ <div class="has-comments" v-if="dataJson.comment.length>0">
+ <p class="comment">最新评论</p>
+    <mt-cell v-for="item in dataJson.comment" :title="item.user_name+':'" :value="item.content">
+    
+    </mt-cell>
+    <div style="text-align:center;color:red;margin-top:10px;" ><span style="padding:4px 8px;border:1px solid;border-radius:5px;" v-on:click="commentPage(dataJson.id)">查看全部评论</span></div>
+ </div>
+ <div v-else v-on:click="getComment(dataJson.id)" style="margin-top:25px;border:1px solid;">
+    <p style="color:#999;text-align:center;">没有评论发表
+    <br/>
+    <br/>
+    <span>点击区域发表新评论</span>
+    </p>
+ </div>
  </div>
 </template>
 <style>
+  /* 评论样式 */
+  .comment {
+    line-height:50px;
+    height:50px;
+    color:#898989;
+    font-size:14px;
+    padding-left:7.5%;
+    margin-left:1%;
+    background:url(../assets/comment.png) no-repeat left center;
+  }
   /* 设置css stack 堆叠效果 */
   .stack:last-of-type {
     margin-right:0;
@@ -162,7 +186,20 @@ export default {
        AudioPlayer
    },
    methods:{
+     commentPage:function(id){
+        this.$store.commit('SET_COMMENTS_HID',id);
+        this.$store.commit('ROUT_PATH', '/comments');
+        this.$store.commit('NEW_TITLE','评论');
+        this.$store.commit('SET_PREPATH', '/homework');
 
+     },
+     getComment:function(id){
+       console.log(id);
+        this.$store.commit('SET_COMMENTS_HID',id);
+        this.$store.commit('ROUT_PATH', '/comments');
+        this.$store.commit('NEW_TITLE','评论');
+        this.$store.commit('SET_PREPATH', '/homework');
+     }
    },
    mounted(){
      var picView = document.querySelectorAll(".picView");
@@ -172,11 +209,13 @@ export default {
      picView[0].addEventListener('click',function(){
         console.log('view');
         store.commit('ROUT_PATH', '/pic');
+        store.commit('NEW_TITLE','图片');
         store.commit('SET_PREPATH', '/homework');
      })
      picView[1].addEventListener('click',function(){
         console.log('view');
         store.commit('ROUT_PATH', '/pic');
+        store.commit('NEW_TITLE','图片');
         store.commit('SET_PREPATH', '/homework');
      })
    },

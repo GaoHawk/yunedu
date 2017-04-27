@@ -1,8 +1,7 @@
 <template>
-  <div class="page-swipe">
-    <h1 class="page-title">Swipe</h1>
-    <p class="page-swipe-desc">基础用法</p>
-    <mt-swipe :auto="4000" style="height:260px;" :defaultIndex="1" v-if="preViewPic.length>1">
+  <div class="page-swipe custom-picSwipe">
+   <child style="position:absolute;top:3px;width:97%;"></child>
+    <mt-swipe :auto="4000" style="height:320px;" :defaultIndex="1" v-if="preViewPic.length>1">
       <mt-swipe-item v-for="(item,index) in preViewPic" :class="'slide'+index">
          <img :src="item">
       </mt-swipe-item>
@@ -30,8 +29,7 @@
     </mt-swipe>
     -->
 
-    <p class="page-swipe-desc">单个幻灯片</p>
-    <mt-swipe :show-indicators="false" style="height:260px;" v-show="preViewPic.length==1">
+    <mt-swipe :show-indicators="false" style="height:320px;" v-show="preViewPic.length==1">
       <mt-swipe-item class="slide1">
       <img :src="preViewPic[0]">
       </mt-swipe-item>
@@ -40,12 +38,16 @@
 </template>
 <script>
     import { mapState } from 'vuex'
+    import Header from './header.vue'
     export default{
      computed:{
         ...mapState({
             preViewPic: state => state.previewPic
         })
      },   
+     components:{ 
+        'child': Header
+     },
      data(){
         return {
            name:'Top'
@@ -55,6 +57,11 @@
 </script>
 
 <style>
+  .custom-picSwipe{
+    margin-top:50%;
+    text-align:center;
+  }
+
   @component-namespace page {
     @component swipe {
       @descendent desc {
