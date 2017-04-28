@@ -150,7 +150,7 @@
     
                 var userId = '236942';
     
-                var session = 'F8F225E2CB4184F3BD9E60D1650D76D61493285806767';
+                var session = '43BE0B559292DCF58555C0477DD1A1B31493371473976';
     
                 if (this.homwworkEnd) {
     
@@ -177,7 +177,6 @@
     
     
                             "X-Session": session
-    
     
                         },
     

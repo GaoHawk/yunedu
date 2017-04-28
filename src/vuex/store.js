@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-04-27 17:33:45
+ * @Last Modified time: 2017-04-28 14:45:38
 */
 
 import Vue from 'vue'
@@ -39,6 +39,8 @@ export default new Vuex.Store({
     yIsActive:true,
     // 评论作业id
     comments_hid:'',
+    userId:'236942',
+    comments_name:'',
   },
   actions: {
     setNewTitle ({commit}, msg) {
@@ -112,6 +114,12 @@ export default new Vuex.Store({
     // 设置作业评论id
     setComments_Hid({commit},id){
       commit('SET_COMMENTS_HID',id);
+    },
+    setComments_uid({commit},uid){
+      commit('SET_COMMENTS_UID',uid);
+    },
+    setComments_name({commit},name){
+      commit('SET_COMMENTS_NAME',name);
     }
   },
   mutations: {
@@ -192,9 +200,16 @@ export default new Vuex.Store({
     SET_YEAR_ACTIVE(state,bl){
       state.yIsActive=bl;
     },
+    
     // 评论作业id
     SET_COMMENTS_HID(state,id){
       state.comments_hid = id;
+    },
+    SET_COMMENTS_UID(state,uid){
+      state.userId = uid;
+    },
+    SET_COMMENTS_NAME(state,name){
+      state.comments_name = name;
     }
   },
 

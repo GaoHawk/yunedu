@@ -187,6 +187,8 @@ export default {
    },
    methods:{
      commentPage:function(id){
+       console.log(this.dataJson.publisher.name);
+        this.$store.commit('SET_COMMENTS_NAME',this.dataJson.publisher.name)
         this.$store.commit('SET_COMMENTS_HID',id);
         this.$store.commit('ROUT_PATH', '/comments');
         this.$store.commit('NEW_TITLE','评论');
@@ -195,6 +197,8 @@ export default {
      },
      getComment:function(id){
        console.log(id);
+       console.log(this.dataJson.publisher.name);
+       this.$store.commit('SET_COMMENTS_NAME',this.dataJson.publisher.name)
         this.$store.commit('SET_COMMENTS_HID',id);
         this.$store.commit('ROUT_PATH', '/comments');
         this.$store.commit('NEW_TITLE','评论');
