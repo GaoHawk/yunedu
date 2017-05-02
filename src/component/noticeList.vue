@@ -1,60 +1,27 @@
 <template>
     <div class="page-infinite-wrapper" ref="wrapper2" :style="{ height: wrapper2Height + 'px' }">
     
-    
-    
         <ul class="page-infinite-list" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
-    
-    
     
             <li v-for="n in notice" class="page-infinite-listitem">
     
-    
-    
                 <mt-cell :title="n.title" :value="n.value" @click.native="testclick_n(n)" v-finger:doubletap="doubleTap" is-link>
     
-    
-    
                 </mt-cell>
-    
     
             </li>
     
         </ul>
     
-    
-    
         <p v-show="loading" class="page-infinite-loading">
-    
-    
-    
-    
-    
     
     
             <mt-spinner type="fading-circle"></mt-spinner>
     
     
-    
-    
-    
-    
-    
             加载中...
     
-    
-    
-    
-    
-    
-    
         </p>
-    
-    
-    
-    
-    
-    
     
     </div>
 </template>
@@ -136,7 +103,7 @@
     
                 var userId = '236942';
     
-                var session = '43BE0B559292DCF58555C0477DD1A1B31493371473976';
+                var session = '46D1629F642C4E3BA8C9D5C992B988EF1493713781579';
     
                 if(!this.noticeEnd){
                     this.loading = true;

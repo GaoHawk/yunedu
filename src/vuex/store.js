@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-04-28 14:45:38
+ * @Last Modified time: 2017-05-02 17:18:13
 */
 
 import Vue from 'vue'
@@ -41,6 +41,11 @@ export default new Vuex.Store({
     comments_hid:'',
     userId:'236942',
     comments_name:'',
+    // 评论作业翻页
+    comment_page:'',
+    commentEnd:false,
+    // 评论内容
+    comments:[],
   },
   actions: {
     setNewTitle ({commit}, msg) {
@@ -120,7 +125,23 @@ export default new Vuex.Store({
     },
     setComments_name({commit},name){
       commit('SET_COMMENTS_NAME',name);
+    },
+    // 评论翻页
+    setCommentsEnd({commit},bl){
+      commit('SET_COMMENT_END',bl);
+    },
+    setCommentPage({commit},num){
+      commit('SET_COMMENT_PAGE',num);
+    },
+    // 评论内容
+    setCommentContent({commit},data){
+      commit('SET_COMMENT_CONTENT',data);
+    },
+    // 清除评论内容
+    clearoutComment({commit}){
+      commit('CLEAR_OUT_CONTENT');
     }
+    
   },
   mutations: {
     NEW_TITLE (state, msg) {
@@ -210,7 +231,25 @@ export default new Vuex.Store({
     },
     SET_COMMENTS_NAME(state,name){
       state.comments_name = name;
+    },
+
+    // 评论翻页
+    SET_COMMENT_END(state,bl){
+      state.commentEnd = bl;
+    },
+    SET_COMMENT_PAGE(state,num){
+      state.comment_page = num;
+    },
+
+    // 评论内容
+    SET_COMMENT_CONTENT(state,data){
+      state.comments.unshift(data);
+    },
+    // 清除评论内容
+    CLEAR_OUT_CONTENT(state){
+      state.comments = [];
     }
+    
   },
 
   strict: debug
