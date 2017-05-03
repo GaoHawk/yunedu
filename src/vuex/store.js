@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-05-02 17:18:13
+ * @Last Modified time: 2017-05-03 14:46:21
 */
 
 import Vue from 'vue'
@@ -46,6 +46,8 @@ export default new Vuex.Store({
     commentEnd:false,
     // 评论内容
     comments:[],
+    // 教师班级
+    hand_classes:[],
   },
   actions: {
     setNewTitle ({commit}, msg) {
@@ -140,6 +142,10 @@ export default new Vuex.Store({
     // 清除评论内容
     clearoutComment({commit}){
       commit('CLEAR_OUT_CONTENT');
+    },
+    // 获得当前教师所掌管班级
+    setHandClass({commit},obj){
+      commit('SET_HAND_CLASS',obj);
     }
     
   },
@@ -248,7 +254,13 @@ export default new Vuex.Store({
     // 清除评论内容
     CLEAR_OUT_CONTENT(state){
       state.comments = [];
+    },
+    // 获得当前教师所掌管的班级
+    SET_HAND_CLASS(state,obj){
+      state.hand_classes.push(obj);
+      console.log(state.hand_classes);
     }
+    
     
   },
 

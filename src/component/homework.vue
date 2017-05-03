@@ -225,16 +225,15 @@ export default {
    },
    filters:{
      getLocalDate:function(value){
-        console.log(value);
         var weekArr = ['日','一','二','三','四','五','六'];
         var date1 = value.publish_at;
-        console.log(date1);
         var ddd = new Date(date1);
         var week = ddd.getDay();
         var arr  = date1.split('-');
         var year = arr[0];
         var month = arr[1];
         var dd = '';
+
         if(arr[2].length > 4){
            dd = arr[2].split('T')[0];
         }else{

@@ -4,7 +4,7 @@
  <mt-checklist
     title="班级选择"
     v-model='value'
-    :options="['选项A','选项B','选项C']"
+    :options="ops"
     class="form-checklist"
     >
  </mt-checklist>
@@ -71,12 +71,13 @@ export default {
           path:state => state.path,
           prePath:state => state.prevPath,
           // 上传文件使用的间隔函数
-          st:state => state.stoName
+          st:state => state.stoName,
+          hand_class: state => state.hand_classes,
        }),
        uploadFiles:function(){
          var str = '';
          for(let i = 0;i<this.file.length;i++){
-           console.log(this.file[i]);
+
            str += this.file[i].file +","
          }
         //  if(this.file.length>1){
@@ -85,8 +86,16 @@ export default {
          return str;
        },
        imgSrc:function(){
-         console.log(this.file[0])
+
          return this.file[0]?this.file[0].url:null;
+       },
+       ops:function(){
+         var arr = [];
+         var cls = this.hand_class;
+         for(let i=0;i<cls.length;i++){
+            arr.push(cls[i].className)
+         }
+         return arr;
        }
    },
    data(){
@@ -111,6 +120,7 @@ export default {
         // sessionStorage.showHome = false;
      },
      clearout:function(){
+       console.log(this.hand_class);
        this.content = '';
        this.date = '';
        this.selected = '语文';
@@ -125,6 +135,18 @@ export default {
          index = this.homewk.length + 1;
        }
 
+       let classroom_ids = [];
+       // 获得班级id
+       for(let i=0;i<this.hand_class.length;i++){
+          for(let j=0;j<this.value.length;j++){
+            console.log(this.hand_class[i].className);
+            console.log(this.value[j]);
+            if(this.hand_class[i].className === this.value[j]){
+              classroom_ids.push(this.hand_class[i].classID);
+            }
+          }
+       }
+       console.log(classroom_ids);
        //  查看内容输入情况
        console.log(this.content);
        // 输入合法验证
@@ -150,19 +172,66 @@ export default {
       var week = now.getDay();
       
        var child1 = this.$refs.profile;
+           child1.back();
 
-       child1.back();
+       var classIds = classroom_ids.join();
+       console.log(classIds);
+       // 提交的作业数据
+       var sub_homework = {
+           classroom_ids:classIds,
+           course:this.selected,
+           content:this.content,
+           deadline_at:this.date,
+           images:this.file,
+       }
+
+      var userId='236942';
+      var session='959D14924A428093F1A971139E7A53561493796803116';
+      this.$http({
+          method: 'post',
+          url:'http://localhost:8081/homeworks',
+          data:{
+              classroom_ids:classIds,
+              course:this.selected,
+              content:this.content,
+              deadline_at:this.date +'T00:00:00Z',
+              images:this.file,
+          },
+          headers: {
+              'Content-Type': 'application/json;charset=UTF-8',
+              'X-session':session
+          }
+      }).then(response => {
+          console.log(response.data.data);
+          // var classData = response.data.data;
+          // for(let i=0;i<classData.length;i++){
+          //   let classObj = {
+          //       classID:classData[i].id,
+          //       className:classData[i].grade + classData[i].name
+          //   }
+          //   this.$store.commit('SET_HAND_CLASS',classObj);
+          // }
+    
+      }, response => {
+
+          console.log(response)
+      })
+       // 展示的作业数据
        var homework = {
            index:index,
-           course:this.selected ,
+           course:this.selected,
            content:this.content,
            deadline:this.date,
            images:this.file,
            class:this.value,
            publish_at:publish_at,
-           week:week
+           week:week,
+           comment:''
        }
-       this.$store.commit('SUBMIT_HOMEWOKR',homework);
+      //  if(this.homewk.length>16){
+          this.$store.commit('SUBMIT_HOMEWOKR',homework);
+      //  }
+     
       //  this.$store.commit('CLEAR_FIELS');
      }
    },

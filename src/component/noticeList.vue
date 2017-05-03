@@ -103,7 +103,7 @@
     
                 var userId = '236942';
     
-                var session = '46D1629F642C4E3BA8C9D5C992B988EF1493713781579';
+                var session = '959D14924A428093F1A971139E7A53561493796803116';
     
                 if(!this.noticeEnd){
                     this.loading = true;

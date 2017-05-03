@@ -104,17 +104,17 @@
                 if(!this.commentEnd){
                     this.loading = true;
                     var commentsNum = this.commentsPage?this.commentsPage:1;
-                    
+                    var hid = this.homeworkId;
                     this.$http.get('http://localhost:8081/commentList',{
                         // headers:{"X-Session":session},
                         params: {
-                        homework_id: this.homeworkId,
+                        homework_id: hid,
                         pageSize: 4,
                         page: commentsNum
                         }
                     }).then(response => {
                         console.log(response.data.data);
-                        for (let i = 0; i < response.data.data.length; i++) {
+                        for (let i = response.data.data.length-1; i>=0; i--) {
                             this.$store.commit('SET_COMMENT_CONTENT', response.data.data[i]);
                         }
                         let noticeLen = response.data.data.length;
@@ -140,13 +140,36 @@
                 var dateStr = now.toLocaleString();
                 let comment = {
                     user_name: this.userName,
-                    create_time:'',
+                    create_time:dateStr,
                     id:this.userId,
                     homework_id:this.homeworkId,
                     content:value
                 }
-                this.comments.unshift(comment);
+                var hid = this.homeworkId;
+                var uid = this.userId;
+                this.$store.commit('SET_COMMENT_CONTENT', comment);
+                console.log(comment);
                 this.sendMsg = '';
+                this.$http({
+                    method: 'post',
+                    url:'http://localhost:8081/sendComment',
+                    data:{
+                        homework_id:hid,
+                        user_id:uid,
+                        content:value
+                    },
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    }
+                }).then(response => {
+                    console.log(response);
+
+
+                }, response => {
+                    // this.$store.commit('OPEN_DIALOG1');
+                    // this.$store.commit('SET_RESPONSE', '提交失败')
+                    console.log(response)
+                })
             }
         },
         mounted() {
