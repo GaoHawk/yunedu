@@ -3,7 +3,7 @@
     <child ref="profile"></child>
     <mt-checklist title="班级选择"
                   v-model='value'
-                  :options="['选项A','选项B','选项C']"
+                  :options="ops"
                   class="form-checklist">
     </mt-checklist>
     <div class="custom-select">
@@ -76,7 +76,10 @@ export default {
       prePath: state => state.prevPath,
       // 上传文件使用的间隔函数
       st: state => state.stoName,
-      notices:state => state.notices
+      notices:state => state.notices,
+       hand_class: state => state.hand_classes,
+       userId: state => state.userId,
+       session: state => state.u_session
     }),
     uploadFiles: function () {
       var str = '';
@@ -92,6 +95,14 @@ export default {
     imgSrc: function () {
       console.log(this.file[0])
       return this.file[0] ? this.file[0].url : null;
+    },
+    ops:function(){
+      var arr = [];
+      var cls = this.hand_class;
+      for(let i=0;i<cls.length;i++){
+        arr.push(cls[i].className)
+      }
+      return arr;
     }
   },
   data() {
@@ -145,15 +156,51 @@ export default {
       console.log(child1);
       child1.back();
 
-      var notices = {
-        index: index,
-        title: this.notice_title,
-        content:this.content,
-        publish_at:date,
-        week:week
+      let classroom_ids = [];
+      // 获得班级id
+      for(let i=0;i<this.hand_class.length;i++){
+        for(let j=0;j<this.value.length;j++){
+          console.log(this.hand_class[i].className);
+          console.log(this.value[j]);
+          if(this.hand_class[i].className === this.value[j]){
+            classroom_ids.push(this.hand_class[i].classID);
+          }
+        }
       }
-      this.$store.commit('SUBMIT_NOTICES', notices);
+      var classIds = classroom_ids.join();
+
+      this.$http({
+          method: 'post',
+          url:'http://localhost:8081/notices',
+          data:{
+              classroom_ids:classIds,
+              title: this.notice_title,
+              content:this.content,
+              record_url:"",
+              record_length:0
+          },
+          headers: {
+              'Content-Type': 'application/json;charset=UTF-8',
+              'X-session':this.session
+          }
+      }).then(response => {
+          console.log(response.data.data);
+
+          this.$store.commit('CLEAR_OUT_NOTICE');
+          this.$store.commit('SET_NOTICE_END',false);
+          this.$store.commit('SET_NOTICE_COUNT',1);
+      }, response => {
+
+          console.log(response)
+      })
+
     }
+  },
+  activated(){
+       console.log(this.prePath);
+       if(this.prePath == "/"){
+           this.clearout();
+       }
   }
 }
 </script>

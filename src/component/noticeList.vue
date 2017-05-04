@@ -46,7 +46,9 @@
                 selected: state => state.index_state,
                 notice: state => state.notices,
                 noticeCount: state => state.noticeCount,
-                noticeEnd: state => state.noticeEnd
+                noticeEnd: state => state.noticeEnd,
+                userId: state => state.userId,
+               session: state => state.u_session
     
             })
     
@@ -101,18 +103,15 @@
     
                 }
     
-                var userId = '236942';
-    
-                var session = '959D14924A428093F1A971139E7A53561493796803116';
     
                 if(!this.noticeEnd){
                     this.loading = true;
                     var noticeNum = this.noticeCount?this.noticeCount:1;
                     
                     this.$http.get('http://localhost:8081/notices',{
-                        headers:{"X-Session":session},
+                        headers:{"X-Session":this.session},
                         params: {
-                        user_id: userId,
+                        user_id: this.userId,
                         order: "DESC",
                         limit: 4,
                         starting_after: noticeNum

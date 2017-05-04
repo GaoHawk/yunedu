@@ -73,6 +73,8 @@ export default {
           // 上传文件使用的间隔函数
           st:state => state.stoName,
           hand_class: state => state.hand_classes,
+          userId: state => state.userId,
+          session: state => state.u_session
        }),
        uploadFiles:function(){
          var str = '';
@@ -149,6 +151,7 @@ export default {
        console.log(classroom_ids);
        //  查看内容输入情况
        console.log(this.content);
+       console.log(this.file);
        // 输入合法验证
        if(this.content.length == 0){
          MessageBox('提示','请输入作业内容');
@@ -184,9 +187,10 @@ export default {
            deadline_at:this.date,
            images:this.file,
        }
-
-      var userId='236942';
-      var session='959D14924A428093F1A971139E7A53561493796803116';
+       var imgsArr =[];
+      for(let i =0;i<this.file.length;i++){
+        imgsArr.push(this.file[i].file);
+      }
       this.$http({
           method: 'post',
           url:'http://localhost:8081/homeworks',
@@ -195,11 +199,11 @@ export default {
               course:this.selected,
               content:this.content,
               deadline_at:this.date +'T00:00:00Z',
-              images:this.file,
+              images:imgsArr,
           },
           headers: {
               'Content-Type': 'application/json;charset=UTF-8',
-              'X-session':session
+              'X-session':this.session
           }
       }).then(response => {
           console.log(response.data.data);
@@ -211,7 +215,9 @@ export default {
           //   }
           //   this.$store.commit('SET_HAND_CLASS',classObj);
           // }
-    
+          this.$store.commit('CLEAR_OUT_HOMEWORK');
+          this.$store.commit('SET_HOMEWORK_END',false);
+          this.$store.commit('SET_LOAD_COUNT',1);
       }, response => {
 
           console.log(response)
@@ -228,9 +234,7 @@ export default {
            week:week,
            comment:''
        }
-      //  if(this.homewk.length>16){
-          this.$store.commit('SUBMIT_HOMEWOKR',homework);
-      //  }
+
      
       //  this.$store.commit('CLEAR_FIELS');
      }

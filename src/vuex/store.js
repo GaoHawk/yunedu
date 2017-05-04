@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-05-03 14:46:21
+ * @Last Modified time: 2017-05-04 16:43:19
 */
 
 import Vue from 'vue'
@@ -48,6 +48,9 @@ export default new Vuex.Store({
     comments:[],
     // 教师班级
     hand_classes:[],
+    // 用户登陆session
+    u_session:'',
+
   },
   actions: {
     setNewTitle ({commit}, msg) {
@@ -104,8 +107,16 @@ export default new Vuex.Store({
     setHomeworkEnd({commit},val){
       commit('SET_HOMEWORK_END',val)
     },
+    // 发布作业以后清空当前作业数据重新刷新
+    clearoutHomework({commit}){
+      commit('CLEAR_OUT_HOMEWORK');
+    },
     setNoticeEnd({commit},val){
       commit('SET_NOTICE_END',val);
+    },
+    // 发布新的通知以后清楚通知数据，重新刷新
+    cleartoutNotice({commit}){
+      commit('CLEAR_OUT_NOTICE');
     },
     setPreviewPic({commit},arr){
       commit('SET_PREVIEW_PIC',arr);
@@ -132,6 +143,10 @@ export default new Vuex.Store({
     setCommentsEnd({commit},bl){
       commit('SET_COMMENT_END',bl);
     },
+    // 添加新评论滚动
+    pushCommentList({commit},obj){
+      commit('PUSH_COMMENT_LIST',obj);
+    },
     setCommentPage({commit},num){
       commit('SET_COMMENT_PAGE',num);
     },
@@ -146,6 +161,10 @@ export default new Vuex.Store({
     // 获得当前教师所掌管班级
     setHandClass({commit},obj){
       commit('SET_HAND_CLASS',obj);
+    },
+    // 获取用户登陆session
+    setUsession({commit},session){
+      commit('SET_U_SESSION',session);
     }
     
   },
@@ -259,6 +278,23 @@ export default new Vuex.Store({
     SET_HAND_CLASS(state,obj){
       state.hand_classes.push(obj);
       console.log(state.hand_classes);
+    },
+    // 清楚作业数据
+    CLEAR_OUT_HOMEWORK(state){
+      state.homeworks=[];
+    },
+    // 清楚通知数据
+    CLEAR_OUT_NOTICE(state){
+      state.notices = [];
+    },
+    // 添加评论列表
+    PUSH_COMMENT_LIST(state,obj){
+      state.comments.push(obj);
+    },
+    // 获得用户登陆session
+    SET_U_SESSION(state,session){
+      state.u_session = session;
+      console.log(state.u_session);
     }
     
     

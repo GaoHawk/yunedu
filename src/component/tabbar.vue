@@ -71,29 +71,9 @@ import AllList from './AllList.vue'
 
 export default {
   name: 'page-tabbar',
-  beforeCreate(){
-      var userId='236942';
-      var session='959D14924A428093F1A971139E7A53561493796803116';
-      this.$http.get('http://localhost:8081/users/' + userId +'/classrooms?embed_members=1',{
-          headers:{"X-Session":session},
-          params: {
-             user_id: userId,
-          }
-      }).then(response => {
-          console.log(response.data.data);
-          var classData = response.data.data;
-          for(let i=0;i<classData.length;i++){
-            let classObj = {
-                classID:classData[i].id,
-                className:classData[i].grade + classData[i].name
-            }
-            this.$store.commit('SET_HAND_CLASS',classObj);
-          }
-    
-      }, response => {
+  created(){
 
-          console.log(response)
-      })
+
   },
   computed: {
     list: function () {
@@ -110,7 +90,9 @@ export default {
       loadCount: state => state.loadingCount,
       noticeCount: state => state.noticeCount,
       homwworkEnd: state => state.homeworkEnd,
-      noticeEnd: state => state.noticeEnd
+      noticeEnd: state => state.noticeEnd,
+      userId: state => state.userId,
+      session: state => state.u_session
     })
   },
   components: { Btn, homelList, testScroll, noticeList, AllList },

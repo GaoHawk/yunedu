@@ -88,6 +88,8 @@
     
     
                 homwworkEnd: state => state.homeworkEnd,
+                 userId: state => state.userId,
+                 session: state => state.u_session
     
     
     
@@ -147,10 +149,7 @@
                     return;
     
                 }
-    
-                var userId = '236942';
-    
-                var session = '959D14924A428093F1A971139E7A53561493796803116';
+
     
                 if (this.homwworkEnd) {
     
@@ -176,7 +175,7 @@
                         headers: {
     
     
-                            "X-Session": session
+                            "X-Session": this.session
     
                         },
     
@@ -185,7 +184,7 @@
     
     
     
-                            user_id: userId,
+                            user_id: this.userId,
     
     
     
@@ -303,6 +302,7 @@
                 // sessionStorage.showHome = false;
 
                 // 将图片数据单独存储用于预览
+                this.$store.commit('SET_PREVIEW_PIC',[]);
                 if(data.images.length>0){
                     var imgArr = [];
                     if(data.images[0].hasOwnProperty('url')){
@@ -312,15 +312,20 @@
                         // return imgs[0].url;
                     }else{
                         for(let i=0;i<data.images.length;i++){
-                            imgArr.push(data.images[i]);
+                            var smallUrl = data.images[i].replace('app_res/','app_res/sl');
+                            imgArr.push(smallUrl);
                         }
                         // return imgs[0];
                     }
                     this.$store.commit('SET_PREVIEW_PIC',imgArr);
                 }
                 
-    
-                this.$store.commit('SET_HOMEWORK_DATA', data)
+                this.$store.commit('CLEAR_OUT_CONTENT');
+                this.$store.commit('SET_COMMENT_END',false);
+                for (let i = data.comment.length-1; i>=0; i--) {
+                    this.$store.commit('SET_COMMENT_CONTENT', data.comment[i]);
+                }
+                this.$store.commit('SET_HOMEWORK_DATA', data);
     
                 // this.$store.commit('NEW_TITLE', '作业');
     

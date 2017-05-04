@@ -84,7 +84,9 @@
                 comments:[
                     { name: 'hube',content:'123123' }
                     
-                ]
+                ],
+
+                pageSize:3,
     
     
     
@@ -109,17 +111,17 @@
                         // headers:{"X-Session":session},
                         params: {
                         homework_id: hid,
-                        pageSize: 4,
+                        pageSize: this.pageSize,
                         page: commentsNum
                         }
                     }).then(response => {
                         console.log(response.data.data);
-                        for (let i = response.data.data.length-1; i>=0; i--) {
-                            this.$store.commit('SET_COMMENT_CONTENT', response.data.data[i]);
+                        for (let i = 0;i< response.data.data.length; i++) {
+                            this.$store.commit('PUSH_COMMENT_LIST', response.data.data[i]);
                         }
                         let noticeLen = response.data.data.length;
                         console.log(noticeLen)
-                        if(noticeLen <4){
+                        if(noticeLen <3){
                             this.$store.commit('SET_COMMENT_END',true);
                         }
                         this.$store.commit('SET_COMMENT_PAGE',commentsNum+1);
@@ -163,7 +165,7 @@
                     }
                 }).then(response => {
                     console.log(response);
-
+                    this.pageSize ++;
 
                 }, response => {
                     // this.$store.commit('OPEN_DIALOG1');
@@ -183,6 +185,8 @@
             console.log(this.homeworkId);
             if(this.commentsData.length>0 && (this.commentsData[0].homework_id==this.homeworkId)){
                 console.log(123);
+                this.$store.commit('SET_COMMENT_PAGE',2);
+                this.loadMore();
             }else{
                 this.$store.commit('CLEAR_OUT_CONTENT');
                 this.$store.commit('SET_COMMENT_PAGE',1);

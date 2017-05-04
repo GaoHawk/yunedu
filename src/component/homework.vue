@@ -24,9 +24,9 @@
     </div>
     </div>
  </div>
- <div class="has-comments" v-if="dataJson.comment.length>0">
+ <div class="has-comments" v-if="commentsData.length>0">
  <p class="comment">最新评论</p>
-    <mt-cell v-for="item in dataJson.comment" :title="item.user_name+':'" :value="item.content">
+    <mt-cell v-for="(item,index) in commentsData" :title="item.user_name+':'" :value="item.content" :index='index' v-if="index < 3">
     
     </mt-cell>
     <div style="text-align:center;color:red;margin-top:10px;" ><span style="padding:4px 8px;border:1px solid;border-radius:5px;" v-on:click="commentPage(dataJson.id)">查看全部评论</span></div>
@@ -167,11 +167,28 @@ import Header from './header.vue'
 import { mapState } from 'vuex'
 import AudioPlayer from './audio-player.vue'
 export default {
+    beforeCreate(){
+
+    },
     computed:{
        ...mapState({
           dataJson: state => state.homework_data,
-          preViewPic: state => state.previewPic
-       })
+          preViewPic: state => state.previewPic,
+          commentsData: state => state.comments
+       }),
+       currentComment:function(){
+         var newComment = [];
+         console.log(this.commentsData);
+         if(this.commentsData && this.commentsData.length>0){
+            for(let i=0;i<3;i++){
+                newComment.push(this.commentsData[i]);
+            }
+            return newComment;
+         }else{
+           return '';
+         }
+         
+       }
    },
    data(){
       return {
@@ -221,7 +238,7 @@ export default {
         store.commit('ROUT_PATH', '/pic');
         store.commit('NEW_TITLE','图片');
         store.commit('SET_PREPATH', '/homework');
-     })
+     });
    },
    filters:{
      getLocalDate:function(value){
