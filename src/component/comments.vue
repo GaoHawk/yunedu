@@ -87,6 +87,8 @@
                 ],
 
                 pageSize:3,
+
+                starting_before:''
     
     
     
@@ -106,25 +108,31 @@
                 if(!this.commentEnd){
                     this.loading = true;
                     var commentsNum = this.commentsPage?this.commentsPage:1;
+                    var start_bf = this.starting_before;
+                    console.log(start_bf);
                     var hid = this.homeworkId;
-                    this.$http.get('http://localhost:8081/commentList',{
+                    this.$http.get('http://localhost:8081/commentList_appweb',{
                         // headers:{"X-Session":session},
                         params: {
                         homework_id: hid,
-                        pageSize: this.pageSize,
-                        page: commentsNum
+                        pageSize: 3,
+                        starting_after:start_bf
                         }
                     }).then(response => {
-                        console.log(response.data.data);
-                        for (let i = 0;i< response.data.data.length; i++) {
-                            this.$store.commit('PUSH_COMMENT_LIST', response.data.data[i]);
+                        console.log(response);
+                        this.starting_before = response.data.pagination.ending_before;
+                        if(start_bf){
+                            for (let i = 0;i< response.data.data.length; i++) {
+                                this.$store.commit('PUSH_COMMENT_LIST', response.data.data[i]);
+                            }
                         }
+
                         let noticeLen = response.data.data.length;
                         console.log(noticeLen)
                         if(noticeLen <3){
                             this.$store.commit('SET_COMMENT_END',true);
                         }
-                        this.$store.commit('SET_COMMENT_PAGE',commentsNum+1);
+                        // this.$store.commit('SET_COMMENT_PAGE',commentsNum+1);
                         this.loading = false;
 
                     }, response => {
@@ -165,7 +173,6 @@
                     }
                 }).then(response => {
                     console.log(response);
-                    this.pageSize ++;
 
                 }, response => {
                     // this.$store.commit('OPEN_DIALOG1');
@@ -185,11 +192,9 @@
             console.log(this.homeworkId);
             if(this.commentsData.length>0 && (this.commentsData[0].homework_id==this.homeworkId)){
                 console.log(123);
-                this.$store.commit('SET_COMMENT_PAGE',2);
                 this.loadMore();
             }else{
                 this.$store.commit('CLEAR_OUT_CONTENT');
-                this.$store.commit('SET_COMMENT_PAGE',1);
                  this.$store.commit('SET_COMMENT_END',false);
                 this.loadMore();
             }
