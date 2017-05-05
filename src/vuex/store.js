@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-05-04 16:43:19
+ * @Last Modified time: 2017-05-05 16:27:36
 */
 
 import Vue from 'vue'
@@ -50,6 +50,8 @@ export default new Vuex.Store({
     hand_classes:[],
     // 用户登陆session
     u_session:'',
+    // 设置评论开始条目id
+    
 
   },
   actions: {
