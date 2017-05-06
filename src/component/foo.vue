@@ -193,7 +193,7 @@ export default {
       }
       this.$http({
           method: 'post',
-          url:'/homeworks',
+          url:'http://localhost:8081/homeworks',
           data:{
               classroom_ids:classIds,
               course:this.selected,

@@ -108,7 +108,7 @@
                     this.loading = true;
                     var noticeNum = this.noticeCount?this.noticeCount:1;
                     
-                    this.$http.get('/notices',{
+                    this.$http.get('http://localhost:8081/notices',{
                         headers:{"X-Session":this.session},
                         params: {
                         user_id: this.userId,

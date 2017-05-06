@@ -171,7 +171,7 @@ export default {
 
       this.$http({
           method: 'post',
-          url:'/notices',
+          url:'http://localhost:8081/notices',
           data:{
               classroom_ids:classIds,
               title: this.notice_title,

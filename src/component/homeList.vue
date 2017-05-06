@@ -169,7 +169,7 @@
                     console.log(this.loading);
                     var numH = this.loadCount ? this.loadCount : 1;
     
-                    this.$http.get('/homeworks_web', {
+                    this.$http.get('http://localhost:8081/homeworks_web', {
     
     
                         headers: {
