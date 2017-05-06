@@ -265,16 +265,41 @@
                 // this.$store.commit('ROUT_PATH', '/homework');
                 // this.$store.commit('SET_PREPATH', '/');
             },
-            testclick_q(obj,objType) {
+            testclick_q(data,objType) {
                 console.log(objType);
                 switch(objType)
                 {
                     case '作业':
-                    this.$store.commit('SET_HOMEWORK_DATA',obj);
+                    // 将图片数据单独存储用于预览
+                    this.$store.commit('SET_PREVIEW_PIC',[]);
+                    if(data.images.length>0){
+                        var imgArr = [];
+                        if(data.images[0].hasOwnProperty('url')){
+                            for(let i=0;i<data.images.length;i++){
+                                imgArr.push(data.images[i].url);
+                            }
+                            // return imgs[0].url;
+                        }else{
+                            for(let i=0;i<data.images.length;i++){
+                                var smallUrl = data.images[i].replace('app_res/','app_res/sl');
+                                imgArr.push(smallUrl);
+                            }
+                            // return imgs[0];
+                        }
+                        this.$store.commit('SET_PREVIEW_PIC',imgArr);
+                    }
+                    
+                    this.$store.commit('CLEAR_OUT_CONTENT');
+                    this.$store.commit('SET_COMMENT_END',false);
+                    for (let i = data.comment.length-1; i>=0; i--) {
+                        this.$store.commit('SET_COMMENT_CONTENT', data.comment[i]);
+                    }
+                    this.$store.commit('SET_HOMEWORK_DATA', data);
+                    
                     this.dataType = '作业';
                     break;
                     case '通知':
-                    this.$store.commit('SET_DATA', obj);
+                    this.$store.commit('SET_DATA', data);
                     this.dataType = '通知'
                     break;
                     default:
