@@ -16,7 +16,7 @@
        <img :src="preViewPic[0]">
        
     </div>
-    <div style="position:absolute;top:80%;left:39%;" class="time-lable">
+    <div style="position:absolute;top:80%;left:39%;color:#888;git" class="time-lable">
     <label>截止日期</label><span style="position:relative;top:0;left:3px;">{{ dataJson.deadline | LocalDateStr }}</span>
     </div>
     <div style="position:absolute;top:90%;left:39%;" >
