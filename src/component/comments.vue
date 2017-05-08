@@ -189,8 +189,12 @@
         activated(){
             // this.$refs.myUnique.dropzone.removeAllFiles(true);
             console.log(this.commentsData);
+            console.log(this.commentsData.length <=3);
             console.log(this.homeworkId);
-            this.starting_before = '';
+            if(this.commentsData.length <=3){
+                  this.starting_before = '';
+            }
+          
             if(this.commentsData.length>0 && (this.commentsData[0].homework_id==this.homeworkId)){
                 console.log(123);
                 this.loadMore();
