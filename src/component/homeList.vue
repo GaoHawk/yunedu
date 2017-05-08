@@ -11,7 +11,7 @@
     
     
     
-                <mt-cell :title="m.course+`作业`" :value="m.content" @click.native="testclick_h(m)" v-finger:doubletap="doubleTap" is-link>
+                <mt-cell :title="m.course+`作业`" :value="m.content" @click.native="testclick_h(m)"  is-link>
     
     
     
@@ -326,6 +326,12 @@
                     this.$store.commit('SET_COMMENT_CONTENT', data.comment[i]);
                 }
                 this.$store.commit('SET_HOMEWORK_DATA', data);
+
+                this.$store.commit('NEW_TITLE', '作业');
+    
+                this.$store.commit('ROUT_PATH', '/homework');
+    
+                this.$store.commit('SET_PREPATH', '/');
     
                 // this.$store.commit('NEW_TITLE', '作业');
     
