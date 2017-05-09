@@ -15,7 +15,52 @@
      position: absolute;
      right:5px;
      top:114px;
+     color:#888;
   }
+
+  @media screen and (max-width: 400px) {
+      .custom-notice-content .custom-badge{
+        position: absolute;
+        right:5px;
+        top:114px;
+        color:#888;
+        font-size:15px;
+      }
+      .custom-notice-content .custom-content{
+        height: 100px;
+        text-indent:2em;
+        font-size:15px;
+      }
+      .custom-notice-content .custom-label{
+          min-width: 70px;
+          word-break:break-all; 
+    　　  word-wrap:break-word;
+          max-width:87px;
+          font-size:17px;
+      }
+  }
+  @media screen and (max-width:320px){
+      .custom-notice-content .custom-badge{
+        position: absolute;
+        right:5px;
+        top:114px;
+        color:#888;
+        font-size:13px;
+      }
+      .custom-notice-content .custom-content{
+        height: 100px;
+        text-indent:2em;
+        font-size:13px;
+      }
+      .custom-notice-content .custom-label{
+          min-width: 70px;
+          word-break:break-all; 
+    　　  word-wrap:break-word;
+          max-width:87px;
+          font-size:15px;
+      }
+  }
+
   .custom-notice-content .custom-content{
      height: 100px;
      text-indent:2em;
