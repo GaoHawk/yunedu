@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-05-05 16:27:36
+ * @Last Modified time: 2017-05-09 17:12:50
 */
 
 import Vue from 'vue'
@@ -52,6 +52,8 @@ export default new Vuex.Store({
     u_session:'',
     // 设置评论开始条目id
     
+    // 当页面超出手机屏幕时，让页面滚动
+    dragable:false,
 
   },
   actions: {
@@ -167,8 +169,11 @@ export default new Vuex.Store({
     // 获取用户登陆session
     setUsession({commit},session){
       commit('SET_U_SESSION',session);
+    },
+    //  设置页面可以滚动
+    setDragAble({commit},bl){
+      commit('SET_DRAG_ABLE',bl);
     }
-    
   },
   mutations: {
     NEW_TITLE (state, msg) {
@@ -297,6 +302,10 @@ export default new Vuex.Store({
     SET_U_SESSION(state,session){
       state.u_session = session;
       console.log(state.u_session);
+    },
+    // 设置拖拽可能
+    SET_DRAG_ABLE(state,bl){
+      state.dragable = bl;
     }
     
     

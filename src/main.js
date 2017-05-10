@@ -20,9 +20,11 @@ import pictureView from './component/picture.vue'
 import pageNav from './component/pageNav.vue'
 import yearIndex from './component/yearIndex.vue'
 import comments from './component/comments.vue'
+import myDrag from './component/dragEvent.vue'
 
 Vue.prototype.$http = axios;
 
+Vue.directive(myDrag.name,myDrag);
 
 Vue.use(vuePicturePreview)
 Vue.use(VueAxios,axios)
