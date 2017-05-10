@@ -6,7 +6,7 @@
           v-on:vdropzone-success="showSuccess"
           :thumbnailHeight="100"
           :thumbnailWidth="50"
-          :maxNumberOfFiles="10"
+          :maxNumberOfFiles="8"
           :autoProcessQueue="auto"
           @click.native="clickZone">
      </dropzon>
@@ -82,9 +82,9 @@ export default {
           if(bl.length>0){
               var bb = bl.length;
               console.log(dropzone);
-              if(dropzone.childNodes.length>11){
+              if(dropzone.childNodes.length>9){
                   console.log(dropzone.childNodes);
-                  dropFile.removeFile(dropFile.files[10]);
+                  dropFile.removeFile(dropFile.files[8]);
               }
           }
           

@@ -1,7 +1,8 @@
 <template>
-<div class="template">
+<div class="template" style="height:700px;" v-my-drag="dg">
   <child ref="profile"></child>
- <mt-checklist
+  <div class="panel">
+   <mt-checklist
     title="班级选择"
     v-model='value'
     :options="ops"
@@ -23,9 +24,11 @@
  <!--<img :src="imgSrc" height="45px" width="100px">-->
  </mt-field>
  <mt-field label="截止日期" placeholder="请输截止日期" v-model="date" type="date"></mt-field>
+  <div v-if="dragAble">可以拖拽</div>
   <div class="center">
     <mt-button type="default" size="small" @click.native="clearout">清空</mt-button>
     <mt-button type="default" size="small" @click.native="submitForm">提交</mt-button>
+  </div>
   </div>
  </div>
 </template>
@@ -74,7 +77,8 @@ export default {
           st:state => state.stoName,
           hand_class: state => state.hand_classes,
           userId: state => state.userId,
-          session: state => state.u_session
+          session: state => state.u_session,
+          dg: state => state.dragable
        }),
        uploadFiles:function(){
          var str = '';
@@ -106,13 +110,20 @@ export default {
          value:[],
          selected:'语文',
          content:'',
-         date:''
+         date:'',
+         dragAble:false,
+         cHeight:'',
+         oHeight:'',
+
       }
    },
    components:{
        'child':Header
    },
    methods:{
+     dragT:function(){
+         console.log('drag');
+     },
      goToUpload:function(){
         this.$store.commit('NEW_TITLE','上传文件');
         this.$store.commit('ROUT_PATH','/bar');
@@ -244,6 +255,26 @@ export default {
        if(this.prePath == "/"){
            this.clearout();
        }
+     var offset1Height = document.documentElement.offsetHeight;
+     this.oHeight = offset1Height;
+     console.log(this.oHeight);
+     var clientHeight = document.documentElement.clientHeight;
+     this.cHeight = clientHeight;
+     console.log(this.cHeight);
+     this.dragAble = (offset1Height > clientHeight);
+     console.log(this.dragAble);
+     this.$store.commit('SET_DRAG_ABLE',this.dragAble);
+   },
+   befroeCreated(){
+     var offset1Height = document.documentElement.offsetHeight;
+     this.oHeight = offset1Height;
+     console.log(this.oHeight);
+     var clientHeight = document.documentElement.clientHeight;
+     this.cHeight = clientHeight;
+     console.log(this.cHeight);
+     this.dragAble = (offset1Height > clientHeight);
+     console.log(this.dragAble);
+     this.$store.commit('SET_DRAG_ABLE',this.dragAble);
    }
 }
 </script>
