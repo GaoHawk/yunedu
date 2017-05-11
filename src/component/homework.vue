@@ -11,15 +11,15 @@
     <div style="transform:scale(0.75,0.75);position:absolute;bottom:20%;left:21%;" v-if="dataJson.record_url">
      <audio-player :sources="audioSources" :loop="false"></audio-player>
     </div>
-    <img :src="preViewPic[0]" v-show="preViewPic.length==1" style="transform:scale(0.6,0.6);position:fixed;right:-10%;top:0;" class="picView" >
-    <div v-show="preViewPic.length>1" class="stack picView rotated-left" style="transform:scale(0.5,0.5); position:fixed;right:-10%;top:0%;" >
+    <img :src="preViewPic[0]" v-show="preViewPic.length==1"  class="picView" >
+    <div v-show="preViewPic.length>1" class="stack picView rotated-left"  >
        <img :src="preViewPic[0]">
        
     </div>
-    <div style="position:absolute;top:80%;left:39%;" class="time-lable">
+    <div  class="time-lable timeEnd">
     <label>截止日期</label><span style="position:relative;top:0;left:3px;">{{ dataJson.deadline | LocalDateStr }}</span>
     </div>
-    <div style="position:absolute;top:90%;left:39%;" >
+    <div  class="timePublish">
     <label>发布日期</label><span style="margin-left:2px;" >{{dataJson | getLocalDate}}</span>
     </div>
     </div>
@@ -41,6 +41,106 @@
  </div>
 </template>
 <style>
+  /* 设置手机屏幕自适应 */
+  .custom-homework-content .custom-content{
+
+  }
+  .custom-homework-content .custom-label{
+
+  }
+  .custom-homework-content .picView{
+    transform:scale(0.6,0.6);
+    position:fixed;
+    right:-10%;
+    top:0;
+  }
+  .custom-homework-content .stack.picView{
+    transform:scale(0.5,0.5);
+     position:fixed;
+     right:-10%;
+     top:0%;
+  }
+  .timeEnd{
+    position:absolute;
+    top:80%;
+    left:38%;
+    color:#888;
+  }
+  .timePublish{
+    position:absolute;
+    top:90%;
+    left:38%;
+    color:#888;
+  }
+
+  @media screen and (max-width: 400px) {
+      .custom-homework-content .picView{
+        right:-12%;
+        top:-1.5%;
+      }
+      .custom-homework-content .stack.picView{
+
+        right:-12%;
+        top:-1.5%;
+      }
+      .timeEnd{
+        font-size:14px;
+        left:37%;
+      }
+      .timePublish{
+        font-size:14px;
+        left:37%;
+      }
+      .custom-homework-content .custom-content{
+
+        font-size:15px;
+      }
+      .custom-homework-content .custom-label{
+
+          font-size:17px;
+      }
+  }
+  @media screen and (max-width:320px){
+      .custom-homework-content .custom-wrap{
+          height:265px!important;
+      }
+      p.comment{
+         margin: 10px 10px;
+         margin-left:1%;
+      }
+      .custom-homework-content .picView{
+        transform:scale(0.4,0.4);
+        position:fixed;
+        right:-16%;
+        top:-4%;
+      }
+      .custom-homework-content .stack.picView{
+        transform:scale(0.4,0.4);
+        position:fixed;
+        right:-18%;
+        top:-4%;
+      }
+      .timeEnd{
+        position:absolute;
+        top:85%;
+        left:37%;
+        color:#888;
+        font-size:12px;
+      }
+      .timePublish{
+        position:absolute;
+        top:92%;
+        left:37%;
+        color:#888;
+        font-size:12px;
+      }
+      .custom-homework-content .custom-content{
+        font-size:13px;
+      }
+      .custom-homework-content .custom-label{
+          font-size:15px;
+      }
+  }
   /* 评论样式 */
   .comment {
     line-height:50px;

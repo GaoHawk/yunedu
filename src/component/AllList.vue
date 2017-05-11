@@ -13,14 +13,12 @@
                          :title="item.course+`作业`"
                          :value="item.content"
                          @click.native="testclick_q(item,'作业')"
-                         v-finger:doubletap="doubleTap"
                          is-link>
                 </mt-cell>
                 <mt-cell v-if="item.title"
                          :title="item.title"
                          :value="item.content"
                          @click.native="testclick_q(item,'通知')"
-                         v-finger:doubletap="doubleTap"
                          is-link>
                 </mt-cell>
               </li>
@@ -156,7 +154,7 @@
             this.loading =true;
             var noticeNum = this.noticeCount?this.noticeCount:1;
             
-            this.$http.get('/notices',{
+            this.$http.get('http://localhost:8081/notices',{
                 headers:{"X-Session":this.session},
                 params: {
                 user_id: this.userId,
@@ -189,7 +187,7 @@
       }else{
           this.loading = true;
           var numH  =  this.loadCount?this.loadCount:1;
-          this.$http.get('/homeworks_web',{
+          this.$http.get('http://localhost:8081/homeworks_web',{
             headers:{"X-Session":this.session},
             params: {
               user_id: this.userId,
@@ -246,35 +244,53 @@
     
             },
     
-            
-            testclick_n(data) {
-                console.log(data)
-                // this.$store.commit('SET_HOME', false);
-                // sessionStorage.showHome = false;
-                this.$store.commit('SET_DATA', data)
-                this.$store.commit('NEW_TITLE', '通知');
-                this.$store.commit('ROUT_PATH', '/notice');
-                this.$store.commit('SET_PREPATH', '/');
-            },
-            testclick_h(data) {
-                console.log(data);
-                // this.$store.commit('SET_HOME', false);
-                // sessionStorage.showHome = false;
-                this.$store.commit('SET_HOMEWORK_DATA', data)
-                // this.$store.commit('NEW_TITLE', '作业');
-                // this.$store.commit('ROUT_PATH', '/homework');
-                // this.$store.commit('SET_PREPATH', '/');
-            },
-            testclick_q(obj,objType) {
+
+            testclick_q(data,objType) {
                 console.log(objType);
                 switch(objType)
                 {
                     case '作业':
-                    this.$store.commit('SET_HOMEWORK_DATA',obj);
+                    // 将图片数据单独存储用于预览
+                    this.$store.commit('SET_PREVIEW_PIC',[]);
+                    if(data.images.length>0){
+                        var imgArr = [];
+                        if(data.images[0].hasOwnProperty('url')){
+                            for(let i=0;i<data.images.length;i++){
+                                imgArr.push(data.images[i].url);
+                            }
+                            // return imgs[0].url;
+                        }else{
+                            for(let i=0;i<data.images.length;i++){
+                                var smallUrl = data.images[i].replace('app_res/','app_res/sl');
+                                imgArr.push(smallUrl);
+                            }
+                            // return imgs[0];
+                        }
+                        this.$store.commit('SET_PREVIEW_PIC',imgArr);
+                    }
+                    
+                    this.$store.commit('CLEAR_OUT_CONTENT');
+                    this.$store.commit('SET_COMMENT_END',false);
+                    for (let i = data.comment.length-1; i>=0; i--) {
+                        this.$store.commit('SET_COMMENT_CONTENT', data.comment[i]);
+                    }
+                    this.$store.commit('SET_HOMEWORK_DATA', data);
+
+                    this.$store.commit('NEW_TITLE', '作业');
+    
+                    this.$store.commit('ROUT_PATH', '/homework');
+    
+                    this.$store.commit('SET_PREPATH', '/');
+                    
                     this.dataType = '作业';
                     break;
                     case '通知':
-                    this.$store.commit('SET_DATA', obj);
+                    this.$store.commit('SET_DATA', data);
+                    this.$store.commit('NEW_TITLE', '通知');
+    
+                    this.$store.commit('ROUT_PATH', '/notice');
+    
+                    this.$store.commit('SET_PREPATH', '/');
                     this.dataType = '通知'
                     break;
                     default:

@@ -5,7 +5,7 @@
     
             <li v-for="n in notice" class="page-infinite-listitem">
     
-                <mt-cell :title="n.title" :value="n.value" @click.native="testclick_n(n)" v-finger:doubletap="doubleTap" is-link>
+                <mt-cell :title="n.title" :value="n.value" @click.native="testclick_n(n)" is-link>
     
                 </mt-cell>
     
@@ -108,7 +108,7 @@
                     this.loading = true;
                     var noticeNum = this.noticeCount?this.noticeCount:1;
                     
-                    this.$http.get('/notices',{
+                    this.$http.get('http://localhost:8081/notices',{
                         headers:{"X-Session":this.session},
                         params: {
                         user_id: this.userId,
@@ -149,11 +149,7 @@
     
                 // this.$store.commit('SET_HOMEWORK_DATA', data)
     
-                this.$store.commit('NEW_TITLE', '通知');
-    
-                this.$store.commit('ROUT_PATH', '/notice');
-    
-                this.$store.commit('SET_PREPATH', '/');
+
     
                 console.log(1);
     
@@ -168,6 +164,12 @@
                 // this.$store.commit('NEW_TITLE', '通知');
                 // this.$store.commit('ROUT_PATH', '/notice');
                 // this.$store.commit('SET_PREPATH', '/');
+
+                this.$store.commit('NEW_TITLE', '通知');
+    
+                this.$store.commit('ROUT_PATH', '/notice');
+    
+                this.$store.commit('SET_PREPATH', '/');
             },
 
     

@@ -111,7 +111,7 @@
                     var start_bf = this.starting_before;
                     console.log(start_bf);
                     var hid = this.homeworkId;
-                    this.$http.get('/commentList_appweb',{
+                    this.$http.get('http://localhost:8081/commentList_appweb',{
                         // headers:{"X-Session":session},
                         params: {
                         homework_id: hid,
@@ -162,7 +162,7 @@
                 this.sendMsg = '';
                 this.$http({
                     method: 'post',
-                    url:'/sendComment',
+                    url:'http://localhost:8081/sendComment',
                     data:{
                         homework_id:hid,
                         user_id:uid,
@@ -189,7 +189,12 @@
         activated(){
             // this.$refs.myUnique.dropzone.removeAllFiles(true);
             console.log(this.commentsData);
+            console.log(this.commentsData.length <=3);
             console.log(this.homeworkId);
+            if(this.commentsData.length <=3){
+                  this.starting_before = '';
+            }
+          
             if(this.commentsData.length>0 && (this.commentsData[0].homework_id==this.homeworkId)){
                 console.log(123);
                 this.loadMore();
