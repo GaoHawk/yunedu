@@ -12,7 +12,7 @@
               v-show=" !isActive"
               @click="jumpToIndex">{{value?value:'2017'}}</li>
           <li class="normal active"
-              v-show="selected">{{ selected }}</li>
+              v-show="selected">{{ selected.length>2?'':selected }}</li>
         </ol>
       </div>
       <keep-alive>
@@ -115,10 +115,10 @@ export default {
       // this.$store.commit('SET_HOME', false);
       // sessionStorage.showHome = false;
       // this.$store.commit('SET_HOMEWORK_DATA', data)
-      this.$store.commit('NEW_TITLE', '作业');
-      this.$store.commit('ROUT_PATH', '/homework');
-      this.$store.commit('SET_PREPATH', '/');
-      console.log(1);
+      // this.$store.commit('NEW_TITLE', '作业');
+      // this.$store.commit('ROUT_PATH', '/homework');
+      // this.$store.commit('SET_PREPATH', '/');
+      // console.log(1);
     },
     showTab() {
       if (this.isActive) { return; }

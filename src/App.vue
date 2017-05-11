@@ -31,7 +31,10 @@ export default {
     ...mapState({
        showHome:state => state.showHome,
        userId: state => state.userId,
-       session: state => state.u_session
+       session: state => state.u_session,
+       path:state => state.path,
+       prePath:state => state.prevPath,
+       selected: state => state.index_state,
     })
   },
   
@@ -44,7 +47,8 @@ export default {
         'Take out the trash',
         'Mow the lawn'
       ],
-      title:''
+      title:'',
+      historySel:'',
     }
   },
   components:{Tabbar},
@@ -57,9 +61,26 @@ export default {
       }
   },
   mounted(){
+      console.log(this);
+      let vm = this;
       window.addEventListener("popstate", function(e) { 
           // alert("我监听到了浏览器的返回按钮事件啦");//根据自己的需求实现自己的功能 
-          // console.log(window.location.href);
+          console.log(vm.path);
+          console.log(vm.prePath);
+          console.log(vm.selected);
+          
+          console.log(window.location.hash);
+          if(window.location.hash.substr(1) =='/home/pageNav' && vm.prePath =='/home'){
+            vm.historySel = JSON.stringify(vm.selected);
+            vm.$store.commit('SET_INDEX_STA',vm.selected+'_');
+            console.log(vm.historySel)
+          }else if(window.location.hash.substr(1) == '/home'){
+            var new_str = vm.selected.substr(0,2);
+            console.log(new_str);
+            vm.$store.commit('SET_INDEX_STA',new_str);
+            console.log(vm.selected);
+            
+          }
       }, false);
 
  

@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-05-09 17:12:50
+ * @Last Modified time: 2017-05-11 16:19:45
 */
 
 import Vue from 'vue'
@@ -180,7 +180,7 @@ export default new Vuex.Store({
       state.title = msg
     },
     ROUT_PATH(state,path){
-       router.push(path)
+       router.push({path:path  })
        state.path = path;
     },
     SET_PREPATH(state,path){

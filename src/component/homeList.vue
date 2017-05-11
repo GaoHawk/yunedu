@@ -286,7 +286,7 @@
     
                 this.$store.commit('ROUT_PATH', '/homework');
     
-                this.$store.commit('SET_PREPATH', '/');
+                this.$store.commit('SET_PREPATH', '/home');
     
                 console.log(1);
     
@@ -331,7 +331,7 @@
     
                 this.$store.commit('ROUT_PATH', '/homework');
     
-                this.$store.commit('SET_PREPATH', '/');
+                this.$store.commit('SET_PREPATH', '/home');
     
                 // this.$store.commit('NEW_TITLE', '作业');
     

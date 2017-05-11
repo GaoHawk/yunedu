@@ -55,7 +55,8 @@ var routes = [{ path: '/foo', component: Foo }, { path: '/bar', component: Bar }
 
 
 var router = new VueRouter({
-  routes: routes
+  routes: routes,
+ 
 });
 sync(store,router);
 // console.log(btn.$template);

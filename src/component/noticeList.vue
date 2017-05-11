@@ -169,7 +169,7 @@
     
                 this.$store.commit('ROUT_PATH', '/notice');
     
-                this.$store.commit('SET_PREPATH', '/');
+                this.$store.commit('SET_PREPATH', '/home');
             },
 
     

@@ -226,19 +226,19 @@
                 // sessionStorage.showHome = false;
     
     
-                this.$store.commit('NEW_TITLE', this.dataType);
+                // this.$store.commit('NEW_TITLE', this.dataType);
 
-                switch(this.dataType)
-                {
-                    case '作业':
-                    this.$store.commit('ROUT_PATH', '/homework');
-                    break;
-                    case '通知':
-                    this.$store.commit('ROUT_PATH', '/notice');
-                    break;
-                }
+                // switch(this.dataType)
+                // {
+                //     case '作业':
+                //     this.$store.commit('ROUT_PATH', '/homework');
+                //     break;
+                //     case '通知':
+                //     this.$store.commit('ROUT_PATH', '/notice');
+                //     break;
+                // }
     
-                this.$store.commit('SET_PREPATH', '/');
+                // this.$store.commit('SET_PREPATH', '/');
     
 
     
@@ -280,7 +280,7 @@
     
                     this.$store.commit('ROUT_PATH', '/homework');
     
-                    this.$store.commit('SET_PREPATH', '/');
+                    this.$store.commit('SET_PREPATH', '/home');
                     
                     this.dataType = '作业';
                     break;
@@ -290,7 +290,7 @@
     
                     this.$store.commit('ROUT_PATH', '/notice');
     
-                    this.$store.commit('SET_PREPATH', '/');
+                    this.$store.commit('SET_PREPATH', '/home');
                     this.dataType = '通知'
                     break;
                     default:

@@ -117,9 +117,9 @@ export default {
   },
   methods: {
     goToUpload: function () {
-      this.$store.commit('NEW_TITLE', '上传文件');
-      this.$store.commit('ROUT_PATH', '/bar');
-      this.$store.commit('SET_PREPATH', '/foo');
+      // this.$store.commit('NEW_TITLE', '上传文件');
+      // this.$store.commit('ROUT_PATH', '/bar');
+      // this.$store.commit('SET_PREPATH', '/foo');
       // this.$store.commit('SET_HOME', false);
       // sessionStorage.showHome = false;
     },
