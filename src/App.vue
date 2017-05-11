@@ -63,7 +63,7 @@ export default {
       }, false);
 
  
-      this.$http.get('http://localhost:8081/login',{
+      this.$http.get('/login',{
           params: {
              user_id: this.userId,
              role:1,
@@ -73,7 +73,7 @@ export default {
           console.log(response.data.data);
           this.$store.commit('SET_U_SESSION',response.data.data.session);
     
-          this.$http.get('http://localhost:8081/users/' + this.userId +'/classrooms?embed_members=1',{
+          this.$http.get('/users/' + this.userId +'/classrooms?embed_members=1',{
               headers:{"X-Session":this.session},
               params: {
                 user_id: this.userId,

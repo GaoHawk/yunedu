@@ -4,7 +4,6 @@ import MintUi from 'mint-ui'
 import VueRouter from 'vue-router'
 import Foo from './component/foo.vue'
 import Bar from './component/bar.vue'
-import Toast from './component/toast.vue'
 import btn from './component/button.vue'
 import store from './vuex/store'
 import { sync } from 'vuex-router-sync'
@@ -13,8 +12,6 @@ import VueAxios from 'vue-axios'
 import Notice from './component/notice.vue'
 import homework from './component/homework.vue'
 import c_notice from './component/createNotice.vue'
-import vFinger from 'vue-finger'
-import vuePicturePreview from 'vue-picture-preview'
 import firstTab from './component/tabbar.vue'
 import pictureView from './component/picture.vue'
 import pageNav from './component/pageNav.vue'
@@ -26,10 +23,8 @@ Vue.prototype.$http = axios;
 
 Vue.directive(myDrag.name,myDrag);
 
-Vue.use(vuePicturePreview)
 Vue.use(VueAxios,axios)
 Vue.use(MintUi)
-Vue.use(vFinger)
 Vue.use(VueRouter)
 var routes = [{ path: '/foo', component: Foo }, { path: '/bar', component: Bar },{ path: '/toast',component:Toast },
       { path: '/notice', component:Notice },
