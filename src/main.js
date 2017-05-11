@@ -26,7 +26,7 @@ Vue.directive(myDrag.name,myDrag);
 Vue.use(VueAxios,axios)
 Vue.use(MintUi)
 Vue.use(VueRouter)
-var routes = [{ path: '/foo', component: Foo }, { path: '/bar', component: Bar },{ path: '/toast',component:Toast },
+var routes = [{ path: '/foo', component: Foo }, { path: '/bar', component: Bar },
       { path: '/notice', component:Notice },
       { path: '/homework',component:homework },
       { path: '/c_notice',component:c_notice },
