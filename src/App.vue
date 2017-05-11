@@ -20,11 +20,39 @@ import { mapState } from 'vuex'
 export default {
   beforeCreate(){
      console.log(typeof sessionStorage.showHome)
+     console.log(window.sessionStorage)
      var bl = eval(sessionStorage.showHome)
      console.log(bl);
      this.$store.commit('SET_HOME',bl===undefined?true:bl)
-     console.log(this.$store)
 
+    //  设置年份显示
+    if(sessionStorage.yearIsActive){
+      var bl2 = eval(sessionStorage.yearIsActive)
+      this.$store.commit('SET_YEAR_ACTIVE',bl2);
+    }
+   
+
+    // 设置年份
+    if(sessionStorage.year){
+      var year = sessionStorage.year;
+      this.$store.commit('SET_YEAR',year);
+    }
+
+
+    // 设置容器选择状态
+    if(sessionStorage.selected){
+       var selected = sessionStorage.selected.length>2?'':sessionStorage.selected;
+       this.$store.commit('SET_INDEX_STA',selected);
+    }
+
+    // 将用户的的session数据重新注入到store中
+    if(sessionStorage.serverSession){
+        var session = sessionStorage.serverSession;
+        this.$store.commit('SET_U_SESSION',session);
+    }
+
+    console.log(this.$store)
+     
   },
   name: 'app',
   computed:{
@@ -61,24 +89,20 @@ export default {
       }
   },
   mounted(){
-      console.log(this);
+
       let vm = this;
       window.addEventListener("popstate", function(e) { 
           // alert("我监听到了浏览器的返回按钮事件啦");//根据自己的需求实现自己的功能 
-          console.log(vm.path);
-          console.log(vm.prePath);
-          console.log(vm.selected);
-          
-          console.log(window.location.hash);
+
           if(window.location.hash.substr(1) =='/home/pageNav' && vm.prePath =='/home'){
             vm.historySel = JSON.stringify(vm.selected);
             vm.$store.commit('SET_INDEX_STA',vm.selected+'_');
-            console.log(vm.historySel)
+            // console.log(vm.historySel)
           }else if(window.location.hash.substr(1) == '/home'){
             var new_str = vm.selected.substr(0,2);
             console.log(new_str);
             vm.$store.commit('SET_INDEX_STA',new_str);
-            console.log(vm.selected);
+            // console.log(vm.selected);
             
           }
       }, false);

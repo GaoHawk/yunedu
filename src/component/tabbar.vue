@@ -159,7 +159,7 @@ export default {
       var mintTab = document.querySelector('.mint-tabbar.is-fixed');
       mintTab.style.setProperty('top', 'auto');
       this.year = true;
-      this.isActive = false;
+      store.commit('SET_YEAR_ACTIVE',false);
       this.selected = '';
       // this.isActiveB = true;
     },

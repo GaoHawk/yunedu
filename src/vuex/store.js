@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-05-11 16:19:45
+ * @Last Modified time: 2017-05-11 17:41:24
 */
 
 import Vue from 'vue'
@@ -212,6 +212,7 @@ export default new Vuex.Store({
     },
     SET_INDEX_STA(state,val){
        state.index_state = val;
+       window.sessionStorage.selected = val;
     },
     SET_HOMEWORK_DATA(state,obj){
        state.homework_data = obj;
@@ -247,11 +248,12 @@ export default new Vuex.Store({
     // 查询年份
     SET_YEAR(state,num){
       state.year = num;
-      console.log(state);
+      window.sessionStorage.year = num;
     },
     // 查看年份是否激活
     SET_YEAR_ACTIVE(state,bl){
       state.yIsActive=bl;
+      window.sessionStorage.yearIsActive = bl; 
     },
     
     // 评论作业id
@@ -301,7 +303,7 @@ export default new Vuex.Store({
     // 获得用户登陆session
     SET_U_SESSION(state,session){
       state.u_session = session;
-      console.log(state.u_session);
+      window.sessionStorage.serverSession = session;
     },
     // 设置拖拽可能
     SET_DRAG_ABLE(state,bl){
