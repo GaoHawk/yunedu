@@ -17,9 +17,11 @@ export default {
       let moveX,moveY,drag;
       let prevX,prevY = 0;
       let currY=0;
+      let maxHeight;
       el.addEventListener('touchstart',function(e){
-          console.log(vnode.parent.child);
+          var vm = vnode.parent.child;
           drag = vnode.parent.child.dg;
+          maxHeight = vm.oHeight - vm.cHeight;
           console.log(drag);
           x = e.changedTouches[0].pageX;
           y = e.changedTouches[0].pageY;
@@ -32,11 +34,14 @@ export default {
       el.addEventListener('touchmove',function(e){
           
           moveY = Math.round(e.changedTouches[0].pageY - y);
-          console.log(currY);
-          console.log(currY + moveY);
+
           if(drag){
               console.log('this event is drag');
-              el.children[1].style.transform = "translate(0px,"+ (moveY+currY)  +"px)";
+              let panelH = (moveY+currY)>0?(moveY+currY):0;
+              if(panelH> maxHeight){
+                  panelH = maxHeight;
+              }
+              el.children[1].style.transform = "translate(0px,"+ panelH  +"px)";
           }
       })
       el.addEventListener('touchend',function(e){
@@ -47,7 +52,6 @@ export default {
             console.log('this event is click');
           }else{
               console.log('this event is drag');
-              console.log(moveY);
               
           }
       })

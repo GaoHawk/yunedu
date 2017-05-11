@@ -1,5 +1,5 @@
 <template>
-<div class="template" style="height:700px;" v-my-drag="dg">
+<div class="template" v-my-drag="dg">
   <child ref="profile"></child>
   <div class="panel">
    <mt-checklist
@@ -24,7 +24,6 @@
  <!--<img :src="imgSrc" height="45px" width="100px">-->
  </mt-field>
  <mt-field label="截止日期" placeholder="请输截止日期" v-model="date" type="date"></mt-field>
-  <div v-if="dragAble">可以拖拽</div>
   <div class="center">
     <mt-button type="default" size="small" @click.native="clearout">清空</mt-button>
     <mt-button type="default" size="small" @click.native="submitForm">提交</mt-button>
