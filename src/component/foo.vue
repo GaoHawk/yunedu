@@ -25,8 +25,8 @@
  </mt-field>
  <mt-field label="截止日期" placeholder="请输截止日期" v-model="date" type="date"></mt-field>
   <div class="center">
-    <mt-button type="default" size="small" @click.native="clearout">清空</mt-button>
-    <mt-button type="default" size="small" @click.native="submitForm">提交</mt-button>
+    <mt-button type="default" size="normal" @click.native="clearout">清空</mt-button>
+    <mt-button type="default" size="normal" @click.native="submitForm">提交</mt-button>
   </div>
   </div>
  </div>
