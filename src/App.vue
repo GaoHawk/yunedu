@@ -115,7 +115,7 @@ export default {
              password:`123456`,
           }
       }).then(response => {
-          console.log(response.data.data);
+          console.log(response.data);
           this.$store.commit('SET_U_SESSION',response.data.data.session);
     
           this.$http.get('http://localhost:8081/users/' + this.userId +'/classrooms?embed_members=1',{

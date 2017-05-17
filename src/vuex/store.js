@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-05-17 13:28:08
+ * @Last Modified time: 2017-05-17 15:22:56
 */
 
 import Vue from 'vue'
@@ -15,7 +15,6 @@ Vue.use(Vuex)
 Vue.config.debug = debug
 
 export default new Vuex.Store({
-
   state: {
     title: '',
     prevPath:'',
