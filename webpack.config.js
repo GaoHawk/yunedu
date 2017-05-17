@@ -1,13 +1,41 @@
 var path = require('path')
+var express = require('express')
+
 var webpack = require('webpack')
 const vuxLoader = require('vux-loader')
 var HtmlwebpackPlugin = require('html-webpack-plugin')
+var proxyMiddleware = require('http-proxy-middleware')
 
-var ROOT_PATH = path.resolve(__dirname);
-var APP_PATH = path.resolve(ROOT_PATH,'app');
-var BUILD_PATH = path.resolve(ROOT_PATH,'dist');
-var TEM_PATH = path.resolve(ROOT_PATH,'templates');
+var app = express()
+var appData = require('./data.json')
+var seller = appData.seller;
+var goods = appData.goods;
+var ratings = appData.ratings;
 
+var apiRoutes = express.Router();
+
+apiRoutes.get('/seller',function (req,res) {
+  res.json({
+    errno:0,
+    data:seller
+  });
+});
+ 
+apiRoutes.get('/goods',function (req,res) {
+  res.json({
+    errno:0,
+    data:goods
+  });
+});
+ 
+apiRoutes.get('/ratings',function (req,res) {
+  res.json({
+    errno:0,
+    datta:ratings
+  });
+});
+ 
+app.use('/api',apiRoutes);
 
 module.exports = {
   entry: './src/main.js',

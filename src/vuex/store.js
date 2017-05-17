@@ -2,12 +2,12 @@
 * @Author: Administrator
 * @Date:   2017-02-24 10:05:31
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2017-05-11 17:41:24
+ * @Last Modified time: 2017-05-17 13:28:08
 */
 
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { router } from '../main'
+import { router } from '../main.js'
 
 const debug = process.env.NODE_ENV !== 'production'
 

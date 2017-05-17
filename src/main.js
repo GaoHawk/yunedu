@@ -49,7 +49,8 @@ var routes = [{ path: '/foo', component: Foo }, { path: '/bar', component: Bar }
         ] 
       },
       { path: '/pic', component:pictureView } ,
-      { path: '/', redirect:'/home/yearIndex'}
+      { path:'/',redirect:'/home/yearIndex'}
+
 ];
 
 
